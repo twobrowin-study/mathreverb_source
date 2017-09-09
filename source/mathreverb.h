@@ -8,7 +8,8 @@ namespace Vst {
 //------------------------------------------------------------------------
 // MathReverb: directly derived from the helper class AudioEffect
 //------------------------------------------------------------------------
-class MathReverb : public AudioEffect {
+class MathReverb : public AudioEffect
+{
 public:
 	MathReverb ();
 	virtual ~MathReverb (); // do not forget virtual here

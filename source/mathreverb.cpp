@@ -17,22 +17,26 @@ namespace Vst {
 //------------------------------------------------------------------------
 // MathReverb Implementation
 //------------------------------------------------------------------------
-MathReverb::MathReverb () :fVuPPMOld (0.f), fGain (1.f) {
+MathReverb::MathReverb () :fVuPPMOld (0.f), fGain (1.f)
+{
 	// register its editor class (the same than used in mathreverbentry.cpp)
 	setControllerClass (MathReverbControllerUID);
 }
 
 //------------------------------------------------------------------------
-MathReverb::~MathReverb () {
+MathReverb::~MathReverb ()
+{
 	// nothing to do here yet..
 }
 
 //------------------------------------------------------------------------
-tresult PLUGIN_API MathReverb::initialize (FUnknown* context) {
+tresult PLUGIN_API MathReverb::initialize (FUnknown* context)
+{
 	//---always initialize the parent-------
 	tresult result = AudioEffect::initialize (context);
 	// if everything Ok, continue
-	if (result != kResultOk) {
+	if (result != kResultOk)
+	{
 		return result;
 	}
 
@@ -45,7 +49,8 @@ tresult PLUGIN_API MathReverb::initialize (FUnknown* context) {
 }
 
 //------------------------------------------------------------------------
-tresult PLUGIN_API MathReverb::process (ProcessData& data) {
+tresult PLUGIN_API MathReverb::process (ProcessData& data)
+{
 	// finally the process function
 	// In this example there are 4 steps:
 	// 1) Read inputs parameters coming from host (in order to adapt our model values)
@@ -55,10 +60,13 @@ tresult PLUGIN_API MathReverb::process (ProcessData& data) {
 
 	//---1) Read inputs param changes------
 	IParameterChanges* paramChanges = data.inputParameterChanges;
-	if (paramChanges) {
-		for (int32 i = 0; i < paramChanges->getParameterCount (); i++) {
+	if (paramChanges)
+	{
+		for (int32 i = 0; i < paramChanges->getParameterCount (); i++)
+		{
 			IParamValueQueue* paramQueue = paramChanges->getParameterData (i);
-			if (paramQueue) {
+			if (paramQueue)
+			{
 				ParamValue value;
 				int32 sampleOffset;
 				int32 numPoints = paramQueue->getPointCount ();
@@ -71,7 +79,8 @@ tresult PLUGIN_API MathReverb::process (ProcessData& data) {
 	//-------------------------------------
 	//---3) Process Audio------------------
 	//-------------------------------------
-	if (data.numInputs == 0 || data.numOutputs == 0) {
+	if (data.numInputs == 0 || data.numOutputs == 0)
+	{
 		// nothing to do
 		return kResultOk;
 	}
@@ -86,12 +95,14 @@ tresult PLUGIN_API MathReverb::process (ProcessData& data) {
 
 	//---check if silence---------------
 	// normally we have to check each channel (simplification)
-	if (data.inputs[0].silenceFlags != 0) {
+	if (data.inputs[0].silenceFlags != 0)
+	{
 		// mark output silence too
 		data.outputs[0].silenceFlags = data.inputs[0].silenceFlags;
 
 		// the Plug-in has to be sure that if it sets the flags silence that the output buffer are clear
-		for (int32 i = 0; i < numChannels; i++) {
+		for (int32 i = 0; i < numChannels; i++)
+		{
 			// dont need to be cleared if the buffers are the same (in this case input buffer are already cleared by the host)
 			if (in[i] != out[i])
 				memset (out[i], 0, sampleFramesSize);
@@ -115,10 +126,12 @@ tresult PLUGIN_API MathReverb::process (ProcessData& data) {
 	IParameterChanges* outParamChanges = data.outputParameterChanges;
 	// a new value of VuMeter will be send to the host
 	// (the host will send it back in sync to our controller for updating our editor)
-	if (outParamChanges && fVuPPMOld != fVuPPM) {
+	if (outParamChanges && fVuPPMOld != fVuPPM)
+	{
 		int32 index = 0;
 		IParamValueQueue* paramQueue = outParamChanges->addParameterData (kVuPPMId, index);
-		if (paramQueue) {
+		if (paramQueue)
+		{
 			int32 index2 = 0;
 			paramQueue->addPoint (0, fVuPPM, index2);
 		}

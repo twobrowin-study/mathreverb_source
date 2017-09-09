@@ -16,7 +16,8 @@ namespace Vst {
 // GainParameter Declaration
 // example of custom parameter (overwriting to and fromString)
 //------------------------------------------------------------------------
-class GainParameter : public Parameter {
+class GainParameter : public Parameter
+{
 public:
   GainParameter (int32 flags, int32 id);
 
@@ -27,7 +28,8 @@ public:
 //------------------------------------------------------------------------
 // GainParameter Implementation
 //------------------------------------------------------------------------
-GainParameter::GainParameter (int32 flags, int32 id) {
+GainParameter::GainParameter (int32 flags, int32 id)
+{
   UString (info.title, USTRINGSIZE (info.title)).assign (USTRING ("Gain"));
   UString (info.units, USTRINGSIZE (info.units)).assign (USTRING ("%%")); // NOTE: dB (find formula)
 
@@ -41,7 +43,8 @@ GainParameter::GainParameter (int32 flags, int32 id) {
 }
 
 //------------------------------------------------------------------------
-void GainParameter::toString (ParamValue normValue, String128 string) const {
+void GainParameter::toString (ParamValue normValue, String128 string) const
+{
   char text [32];
   if (normValue > 0.001f)
     sprintf (text, "%.4f", normValue);
@@ -51,7 +54,8 @@ void GainParameter::toString (ParamValue normValue, String128 string) const {
 }
 
 //------------------------------------------------------------------------
-bool GainParameter::fromString (const TChar* string, ParamValue& normValue) const {
+bool GainParameter::fromString (const TChar* string, ParamValue& normValue) const
+{
   String wrapper ((TChar*) string);
   double tmp = 0;
   if (wrapper.scanFloat (tmp)) {

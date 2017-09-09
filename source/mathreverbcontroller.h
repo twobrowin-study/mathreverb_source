@@ -11,13 +11,15 @@ namespace Vst {
 //------------------------------------------------------------------------
 // MathReverbController
 //------------------------------------------------------------------------
-class MathReverbController : public EditControllerEx1 {
+class MathReverbController : public EditControllerEx1
+{
 public:
 	//--- ---------------------------------------------------------------------
 	// create function required for Plug-in factory,
 	// it will be called to create new instances of this controller
 	//--- ---------------------------------------------------------------------
-	static FUnknown* createInstance (void* /*context*/) {
+	static FUnknown* createInstance (void* /*context*/)
+	{
 		return (IEditController*)new MathReverbController;
 	}
 
