@@ -39,6 +39,8 @@ protected:
 	// our model values
 	float fVuPPMOld;
 	float fGain;
+	float **mBuffer;
+	int32 mBufferPos;
 };
 
 //------------------------------------------------------------------------
