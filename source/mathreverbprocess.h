@@ -1,5 +1,7 @@
 #pragma once
 
+#include <algorithm>
+
 namespace Steinberg {
 namespace Vst {
 
@@ -9,20 +11,30 @@ SampleType MathReverb::processAudio (SampleType** in, SampleType** out, int32 nu
 {
 	SampleType vuPPM = 0, tmp;
 
+	int32 delayInSamples = std::max<int32> (1, 1.f * processSetup.sampleRate);
+
 	// in real Plug-in it would be better to do dezippering to avoid jump (click) in gain value
-	for (int32 i = 0; i < numChannels; i++)
+	for (int32 channel = 0; channel < numChannels; channel++)
 	{
-		int32 samples = sampleFrames;
-		SampleType* ptrIn = (SampleType*)in[i];
-		SampleType* ptrOut = (SampleType*)out[i];
-		while (--samples >= 0)
+		SampleType* ptrIn = (SampleType*)in[channel];
+		SampleType* ptrOut = (SampleType*)out[channel];
+		int32 tempBufferPos = mBufferPos;
+		for (int32 sample = 0; sample < sampleFrames; sample++)
 		{
-			tmp = (*ptrIn++) * fGain;
-			(*ptrOut++) = tmp;
-			if (tmp > vuPPM)
-				vuPPM = tmp;
+			tmp = ptrIn[sample] * fGain;
+			ptrOut[sample] = mBuffer[channel][tempBufferPos];
+			mBuffer[channel][tempBufferPos] = tmp;
+			tempBufferPos++;
+			if (tempBufferPos >= delayInSamples)
+				tempBufferPos = 0;
+			if (ptrOut[sample] > vuPPM)
+				vuPPM = ptrOut[sample];
 		}
 	}
+	mBufferPos += sampleFrames;
+	while (delayInSamples && mBufferPos >= delayInSamples)
+		mBufferPos -= delayInSamples;
+
 	return vuPPM;
 }
 
