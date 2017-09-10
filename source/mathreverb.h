@@ -25,7 +25,8 @@ public:
 	//--- ---------------------------------------------------------------------
 	/** Called at first after constructor */
 	tresult PLUGIN_API initialize (FUnknown* context) SMTG_OVERRIDE;
-
+	/** Switch the Plug-in on/off */
+	tresult PLUGIN_API setActive (TBool state) SMTG_OVERRIDE;
 	/** Here we go...the process call */
 	tresult PLUGIN_API process (ProcessData& data) SMTG_OVERRIDE;
 
