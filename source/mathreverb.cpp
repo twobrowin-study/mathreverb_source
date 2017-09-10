@@ -17,10 +17,49 @@ namespace Vst {
 //------------------------------------------------------------------------
 // MathReverb Implementation
 //------------------------------------------------------------------------
-MathReverb::MathReverb () :fVuPPMOld (0.f), fGain (1.f)
+MathReverb::MathReverb ()
+: fVuPPMOld (0.f)
+, fGain (1.f)
+, mBuffer (0)
+, mBufferPos (0)
 {
 	// register its editor class (the same than used in mathreverbentry.cpp)
 	setControllerClass (MathReverbControllerUID);
+}
+
+//------------------------------------------------------------------------
+tresult PLUGIN_API MathReverb::setActive (TBool state)
+{
+	SpeakerArrangement arr;
+	if (getBusArrangement (kOutput, 0, arr) != kResultTrue)
+		return kResultFalse;
+	int32 numChannels = SpeakerArr::getChannelCount (arr);
+	if (numChannels == 0)
+		return kResultFalse;
+	if (state)
+	{
+		mBuffer = (float**)std::malloc (numChannels * sizeof (float*));
+
+		size_t size = (size_t)(processSetup.sampleRate * sizeof (float) + 0.5);
+		for (int32 channel = 0; channel < numChannels; channel ++)
+		{
+			mBuffer[channel] = (float*)std::malloc (size); // 1 second delay max
+			memset (mBuffer[channel], 0, size);
+		}
+		mBufferPos = 0;
+	}
+	else
+	{
+		if (mBuffer)
+		{
+			for (int32 channel = 0; channel < numChannels; channel++)
+				std::free (mBuffer[channel]);
+			std::free (mBuffer);
+			mBuffer = 0;
+		}
+	}
+
+	return AudioEffect::setActive (state);
 }
 
 //------------------------------------------------------------------------
@@ -79,49 +118,53 @@ tresult PLUGIN_API MathReverb::process (ProcessData& data)
 	//-------------------------------------
 	//---3) Process Audio------------------
 	//-------------------------------------
-	if (data.numInputs == 0 || data.numOutputs == 0)
+	float fVuPPM = 0.f;
+	if (data.numSamples > 0)
 	{
-		// nothing to do
-		return kResultOk;
-	}
+		if (data.numInputs == 0 || data.numOutputs == 0)
+			// nothing to do
+			return kResultOk;
 
-	// (simplification) we suppose in this example that we have the same input channel count than the output
-	int32 numChannels = data.inputs[0].numChannels;
+		SpeakerArrangement arr;
+		getBusArrangement (kOutput, 0, arr);
+		int32 numChannels = SpeakerArr::getChannelCount (arr);
 
-	//---get audio buffers----------------
-	uint32 sampleFramesSize = getSampleFramesSizeInBytes (data.numSamples);
-	void** in = getChannelBuffersPointer (data.inputs[0]);
-	void** out = getChannelBuffersPointer (data.outputs[0]);
+		//// (simplification) we suppose in this example that we have the same input channel count than the output
+		//int32 numChannels = data.inputs[0].numChannels;
 
-	//---check if silence---------------
-	// normally we have to check each channel (simplification)
-	if (data.inputs[0].silenceFlags != 0)
-	{
-		// mark output silence too
-		data.outputs[0].silenceFlags = data.inputs[0].silenceFlags;
+		//---get audio buffers----------------
+		uint32 sampleFramesSize = getSampleFramesSizeInBytes (data.numSamples);
+		void** in = getChannelBuffersPointer (data.inputs[0]);
+		void** out = getChannelBuffersPointer (data.outputs[0]);
 
-		// the Plug-in has to be sure that if it sets the flags silence that the output buffer are clear
-		for (int32 i = 0; i < numChannels; i++)
+		//---check if silence---------------
+		// normally we have to check each channel (simplification)
+		if (data.inputs[0].silenceFlags != 0)
 		{
-			// dont need to be cleared if the buffers are the same (in this case input buffer are already cleared by the host)
-			if (in[i] != out[i])
-				memset (out[i], 0, sampleFramesSize);
+			// mark output silence too
+			data.outputs[0].silenceFlags = data.inputs[0].silenceFlags;
+
+			// the Plug-in has to be sure that if it sets the flags silence that the output buffer are clear
+			for (int32 i = 0; i < numChannels; i++)
+			{
+				// dont need to be cleared if the buffers are the same (in this case input buffer are already cleared by the host)
+				if (in[i] != out[i])
+					memset (out[i], 0, sampleFramesSize);
+			}
+
+			// nothing to do at this point
+			return kResultOk;
 		}
 
-		// nothing to do at this point
-		return kResultOk;
+		// mark our outputs has not silent
+		data.outputs[0].silenceFlags = 0;
+
+		if (data.symbolicSampleSize == kSample32)
+			fVuPPM = processAudio<Sample32> ((Sample32**)in, (Sample32**)out, numChannels, data.numSamples);
+		else
+			fVuPPM = processAudio<Sample64> ((Sample64**)in, (Sample64**)out, numChannels, data.numSamples);
 	}
-
-	// mark our outputs has not silent
-	data.outputs[0].silenceFlags = 0;
-
-	float fVuPPM = 0.f;
-
-	if (data.symbolicSampleSize == kSample32)
-		fVuPPM = processAudio<Sample32> ((Sample32**)in, (Sample32**)out, numChannels, data.numSamples);
-	else
-		fVuPPM = processAudio<Sample64> ((Sample64**)in, (Sample64**)out, numChannels, data.numSamples);
-
+	
 	//---4) Write outputs parameter changes-----------
 	IParameterChanges* outParamChanges = data.outputParameterChanges;
 	// a new value of VuMeter will be send to the host
