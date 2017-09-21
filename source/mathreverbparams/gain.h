@@ -14,7 +14,6 @@ namespace Vst {
 
 //------------------------------------------------------------------------
 // GainParameter Declaration
-// example of custom parameter (overwriting to and fromString)
 //------------------------------------------------------------------------
 class GainParameter : public Parameter
 {

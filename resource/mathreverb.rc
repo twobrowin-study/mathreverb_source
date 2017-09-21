@@ -37,9 +37,6 @@ BEGIN
             VALUE "CompanyName",      stringCompanyName"\0"
             VALUE "LegalCopyright",   stringLegalCopyright"\0"
             VALUE "LegalTrademarks",  stringLegalTrademarks"\0"
-            //VALUE "PrivateBuild",     " \0"
-            //VALUE "SpecialBuild",     " \0"
-            //VALUE "Comments",         " \0"
         END
     END
     BLOCK "VarFileInfo"
