@@ -27,5 +27,5 @@
 #define stringFileDescription	"MathReverb VST3-SDK"
 #endif
 #define stringCompanyName		"BMSTU\0"
-#define stringLegalCopyright	"2017 Dubrovin Egor"
+#define stringLegalCopyright	"2017 Dubrovin Egor dubrovin.en@gmail.com"
 #define stringLegalTrademarks	"VST is a trademark of Steinberg Media Technologies GmbH"
