@@ -10,12 +10,15 @@
 		<view class="CViewContanier" size="593, 200" origin="10, 42">
 		</view>
 
-		<!-- Блок ввода параметров пиртуального помещения, характеризующих его геометрическую конфигурацию -->
+		<!-- Блок ввода параметров виртуального помещения, характеризующих его геометрическую конфигурацию -->
 		<view class="CViewContanier" size="260, 138" origin="10, 252">
+			<!-- Блок переменной длинны -->
+			<view class="CViewContanier" size="260, 138" origin="0, 0">
+			</view>
 		</view>
 
 		<!-- Блок ввода параметров, характеризующих положения в виртуальном помещении источника и приёмника сигнала -->
-		<view class="CViewContanier" size="210, 138" origin="270, 252">
+		<view class="CViewContanier" size="200, 138" origin="280, 252">
 		</view>
 
 		<!-- Блок ввода параметра степени отражения сигнала от стен виртуального помещения -->
@@ -25,7 +28,9 @@
 		<!-- Блок ввода дополнительного параметра громкости выходного сигнала, измеряемой в дБ -->
 		<view class="CViewContanier" transparent="true" size="150, 88" origin="490, 302">
 			<view class="CAnimKnob" control-tag="Gain" bitmap="knob" height-of-one-image="56" sub-pixmaps="80" size="56, 56" origin="47, 0"/>
-			<view class="CTextEdit" control-tag="Gain" transparent="true" size="130, 28" origin="10, 60"/>
+			<view class="CTextLabel" title="Gain:" text-alignment="right" transparent="true" size="40, 28" origin="15, 60"/>
+			<view class="CTextEdit" control-tag="Gain" transparent="true" size="40, 28" origin="55, 60"/>
+			<view class="CTextLabel" title="dB" text-alignment="left" transparent="true" size="40, 28" origin="95, 60"/>
 		</view>
 	</template>
 
