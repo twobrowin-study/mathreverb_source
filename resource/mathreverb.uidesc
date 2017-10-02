@@ -2,8 +2,8 @@
 <vstgui-ui-description version="1">
 
 	<!-- Секция представлений -->
-	<template name="view" class="CViewContainer" size="650, 400" bitmap="background">
-		<!-- Название --> <view class="CTextLabel" title="Mathematic Reverberator" bitmap="background" size="650, 28" origin="0, 10" font="~ NormalFontVeryBig"/>
+	<template name="view" class="CViewContainer" bitmap="background" size="650, 400">
+		<!-- Название --> <view class="CTextLabel" title="Mathematic Reverberator" transparent="true" size="650, 28" origin="0, 10" font="~ NormalFontVeryBig"/>
 		<!-- Измеритель выходной громкости --> <view class="CVuMeter" control-tag="VuPPM" bitmap="vu_on" off-bitmap="vu_off" size="27, 234" origin="613, 42"/>
 
 		<!-- Блок графического вывода геометрии помещения, положений источника и приёмника -->
@@ -23,9 +23,9 @@
 		</view>
 
 		<!-- Блок ввода дополнительного параметра громкости выходного сигнала, измеряемой в дБ -->
-		<view class="CViewContanier" size="150, 88" origin="490, 302">
-			<view class="CAnimKnob" control-tag="Gain" bitmap="knob" corona-drawing="false" height-of-one-image="56" sub-pixmaps="80" size="56, 56" origin="47, 0"/>
-			<view class="CTextEdit" control-tag="Gain" size="150, 28" origin="0, 60"/>
+		<view class="CViewContanier" transparent="true" size="150, 88" origin="490, 302">
+			<view class="CAnimKnob" control-tag="Gain" bitmap="knob" default-value="1" height-of-one-image="56" sub-pixmaps="80" size="56, 56" origin="47, 0"/>
+			<view class="CTextEdit" control-tag="Gain" transparent="true" default-value="1" size="130, 28" origin="10, 60"/>
 		</view>
 	</template>
 
