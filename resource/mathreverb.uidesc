@@ -11,9 +11,13 @@
 		</view>
 
 		<!-- Блок ввода параметров виртуального помещения, характеризующих его геометрическую конфигурацию -->
-		<view class="CViewContanier" size="260, 138" origin="10, 252">
-			<!-- Блок переменной длинны -->
-			<view class="CViewContanier" size="260, 138" origin="0, 0">
+		<view class="CViewContanier" transparent="true" size="260, 138" origin="10, 252">
+			<!-- Блок переменной длины -->
+			<view class="CViewContanier" size="150, 46" origin="0, 0">
+				<view class="CAnimKnob" control-tag="Length" bitmap="knob_gi" height-of-one-image="30" sub-pixmaps="80" size="30, 30" origin="60, 0"/>
+				<view class="CTextLabel" title="Length:" text-alignment="right" transparent="true" size="40, 14" origin="15, 32"/>
+				<view class="CTextEdit" control-tag="Length" transparent="true" size="40, 14" origin="55, 32"/>
+				<view class="CTextLabel" title="m" text-alignment="left" transparent="true" size="40, 14" origin="95, 32"/>
 			</view>
 		</view>
 
@@ -27,7 +31,7 @@
 
 		<!-- Блок ввода дополнительного параметра громкости выходного сигнала, измеряемой в дБ -->
 		<view class="CViewContanier" transparent="true" size="150, 88" origin="490, 302">
-			<view class="CAnimKnob" control-tag="Gain" bitmap="knob" height-of-one-image="56" sub-pixmaps="80" size="56, 56" origin="47, 0"/>
+			<view class="CAnimKnob" control-tag="Gain" bitmap="knob_gain" height-of-one-image="56" sub-pixmaps="80" size="56, 56" origin="47, 0"/>
 			<view class="CTextLabel" title="Gain:" text-alignment="right" transparent="true" size="40, 28" origin="15, 60"/>
 			<view class="CTextEdit" control-tag="Gain" transparent="true" size="40, 28" origin="55, 60"/>
 			<view class="CTextLabel" title="dB" text-alignment="left" transparent="true" size="40, 28" origin="95, 60"/>
@@ -39,7 +43,8 @@
 		<bitmap name="background" path="background.png"/>
 		<bitmap name="vu_off" path="vu_off.png"/>
 		<bitmap name="vu_on" path="vu_on.png"/>
-		<bitmap name="knob" path="knob.png"/>
+		<bitmap name="knob_gi" path="knob_gi.png"/>
+		<bitmap name="knob_gain" path="knob_gain.png"/>
 	</bitmaps>
 
 	<!-- Секция тегов (управления) -->
