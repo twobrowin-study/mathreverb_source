@@ -2,10 +2,20 @@
 <vstgui-ui-description version="1">
 
 	<!-- View section -->
-	<template name="view" class="CViewContainer" size="450, 300" bitmap="background">
-		<view class="CTextLabel" title="MathReverb" bitmap="background" size="410, 28" origin="10, 10" font="~ NormalFontVeryBig"/>
-		<view class="CVuMeter" control-tag="VuPPM" bitmap="vu_on" off-bitmap="vu_off" size="12, 105" origin="430, 7"/>
-		<view class="CTextEdit" control-tag="Gain" size="100, 28" origin="10, 200"/>
+	<template name="view" class="CViewContainer" size="650, 400" bitmap="background">
+		<view class="CTextLabel" title="Mathematic Reverberator" bitmap="background" size="650, 28" origin="0, 10" font="~ NormalFontVeryBig"/>
+		<view class="CVuMeter" control-tag="VuPPM" bitmap="vu_on" off-bitmap="vu_off" size="27, 234" origin="613, 42"/>
+		<view class="CViewContanier" size="593, 200" origin="10, 42">
+		</view>
+		<view class="CViewContanier" size="260, 138" origin="10, 252">
+		</view>
+		<view class="CViewContanier" size="210, 138" origin="270, 252">
+		</view>
+		<view class="CViewContanier" size="113, 40" origin="490, 252">
+		</view>
+		<view class="CViewContanier" size="150, 88" origin="490, 302">
+		</view>
+		<!-- <view class="CTextEdit" control-tag="Gain" size="100, 28" origin="0, 0"/>  -->
 	</template>
 
 	<!-- Bitmaps section -->
