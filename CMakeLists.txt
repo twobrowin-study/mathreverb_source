@@ -20,6 +20,7 @@ smtg_add_vst3_resource(${target} "resource/mathreverb.uidesc")
 smtg_add_vst3_resource(${target} "resource/background.png")
 smtg_add_vst3_resource(${target} "resource/vu_on.png")
 smtg_add_vst3_resource(${target} "resource/vu_off.png")
+smtg_add_vst3_resource(${target} "resource/knob.png")
 
 if(WIN)
 	target_sources(${target} PRIVATE resource/mathreverb.rc)

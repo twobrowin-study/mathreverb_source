@@ -1,41 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <vstgui-ui-description version="1">
 
-	<!-- View section -->
+	<!-- Секция представлений -->
 	<template name="view" class="CViewContainer" size="650, 400" bitmap="background">
-		<view class="CTextLabel" title="Mathematic Reverberator" bitmap="background" size="650, 28" origin="0, 10" font="~ NormalFontVeryBig"/>
-		<view class="CVuMeter" control-tag="VuPPM" bitmap="vu_on" off-bitmap="vu_off" size="27, 234" origin="613, 42"/>
+		<!-- Название --> <view class="CTextLabel" title="Mathematic Reverberator" bitmap="background" size="650, 28" origin="0, 10" font="~ NormalFontVeryBig"/>
+		<!-- Измеритель выходной громкости --> <view class="CVuMeter" control-tag="VuPPM" bitmap="vu_on" off-bitmap="vu_off" size="27, 234" origin="613, 42"/>
+
+		<!-- Блок графического вывода геометрии помещения, положений источника и приёмника -->
 		<view class="CViewContanier" size="593, 200" origin="10, 42">
 		</view>
+
+		<!-- Блок ввода параметров пиртуального помещения, характеризующих его геометрическую конфигурацию -->
 		<view class="CViewContanier" size="260, 138" origin="10, 252">
 		</view>
+
+		<!-- Блок ввода параметров, характеризующих положения в виртуальном помещении источника и приёмника сигнала -->
 		<view class="CViewContanier" size="210, 138" origin="270, 252">
 		</view>
+
+		<!-- Блок ввода параметра степени отражения сигнала от стен виртуального помещения -->
 		<view class="CViewContanier" size="113, 40" origin="490, 252">
 		</view>
+
+		<!-- Блок ввода дополнительного параметра громкости выходного сигнала, измеряемой в дБ -->
 		<view class="CViewContanier" size="150, 88" origin="490, 302">
+			<view class="CKnob" control-tag="Gain" handle-bitmap="knob" size="56, 56" origin="0, 0"/>
+			<view class="CTextEdit" control-tag="Gain" size="150, 28" origin="60, 0"/>
 		</view>
-		<!-- <view class="CTextEdit" control-tag="Gain" size="100, 28" origin="0, 0"/>  -->
 	</template>
 
-	<!-- Bitmaps section -->
+	<!-- Секция изображений (изображения определяются в mathreverb.rc) -->
 	<bitmaps>
 		<bitmap name="background" path="background.png"/>
 		<bitmap name="vu_off" path="vu_off.png"/>
 		<bitmap name="vu_on" path="vu_on.png"/>
+		<bitmap name="knob" path="knob.png"/>
 	</bitmaps>
 
-	<!-- Tags section -->
+	<!-- Секция тегов (управления) -->
 	<control-tags>
 		<control-tag name="VuPPM" tag="0"/>
 		<control-tag name="Gain" tag="1"/>
 	</control-tags>
 
-	<!-- Fonts section -->
+	<!-- Секция шрифтов -->
 	<fonts>
 	</fonts>
 
-	<!-- Colors section -->
+	<!-- Секция цветов -->
 	<colors>
 	</colors>
 

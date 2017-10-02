@@ -6,6 +6,7 @@
 mathreverb.uidesc     DATA  "mathreverb.uidesc"
 vu_on.png				      PNG   "vu_on.png"
 vu_off.png				    PNG   "vu_off.png"
+knob.png				      PNG   "knob.png"
 background.png			  PNG   "background.png"
 
 /////////////////////////////////////////////////////////////////////////////
