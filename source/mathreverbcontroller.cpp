@@ -57,7 +57,7 @@ tresult PLUGIN_API MathReverbController::initialize (FUnknown* context) {
 tresult PLUGIN_API MathReverbController::setComponentState (IBStream* state)
 {
 	if (state) {
-		float receivedGain = 0.f;
+		float receivedGain = 1.f;
 		if (state->read (&receivedGain, sizeof (float)) != kResultTrue)
 			return kResultFalse;
 		setParamNormalized (kGainId, receivedGain);
