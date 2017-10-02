@@ -35,7 +35,7 @@ GainParameter::GainParameter (int32 flags, int32 id)
   info.flags = flags;
   info.id = id;
   info.stepCount = 0;
-  info.defaultNormalizedValue = 0.5f;
+  info.defaultNormalizedValue = 1.f;
   info.unitId = kRootUnitId;
 
   setNormalized (1.0);
