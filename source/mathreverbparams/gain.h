@@ -30,7 +30,7 @@ public:
 GainParameter::GainParameter (int32 flags, int32 id)
 {
   UString (info.title, USTRINGSIZE (info.title)).assign (USTRING ("Gain"));
-  UString (info.units, USTRINGSIZE (info.units)).assign (USTRING ("%%")); // NOTE: dB (find formula)
+  UString (info.units, USTRINGSIZE (info.units)).assign (USTRING ("dB"));
 
   info.flags = flags;
   info.id = id;
@@ -46,7 +46,7 @@ void GainParameter::toString (ParamValue normValue, String128 string) const
 {
   char text [32];
   if (normValue > 0.001f)
-    sprintf (text, "%.4f", normValue);
+    sprintf (text, "%.2f", 20 * log10f ( (float) normValue));
   else
     strcpy (text, "-oo");
   UString (string, 128).fromAscii (text);
@@ -58,7 +58,10 @@ bool GainParameter::fromString (const TChar* string, ParamValue& normValue) cons
   String wrapper ((TChar*) string);
   double tmp = 0;
   if (wrapper.scanFloat (tmp)) {
-    normValue = tmp;
+    if (tmp > 0.0)
+      tmp = -tmp;
+
+    normValue = expf (logf (10.f) * (float) tmp / 20.f);
     return true;
   }
   return false;
