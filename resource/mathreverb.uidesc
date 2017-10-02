@@ -24,7 +24,7 @@
 
 		<!-- Блок ввода дополнительного параметра громкости выходного сигнала, измеряемой в дБ -->
 		<view class="CViewContanier" size="150, 88" origin="490, 302">
-			<view class="CKnob" control-tag="Gain" handle-bitmap="knob" size="56, 56" origin="47, 2"/>
+			<view class="CAnimKnob" control-tag="Gain" bitmap="knob" corona-drawing="false" height-of-one-image="20" sub-pixmaps="80" zoom-factor="1.5" size="60, 60" origin="45, 0"/>
 			<view class="CTextEdit" control-tag="Gain" size="150, 28" origin="0, 60"/>
 		</view>
 	</template>
