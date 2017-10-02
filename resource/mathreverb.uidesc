@@ -7,40 +7,40 @@
 		<!-- Измеритель выходной громкости --> <view class="CVuMeter" control-tag="VuPPM" bitmap="vu_on" off-bitmap="vu_off" size="27, 234" origin="613, 42"/>
 
 		<!-- Блок графического вывода геометрии помещения, положений источника и приёмника -->
-		<view class="CViewContanier" size="593, 200" origin="10, 42">
+		<view class="CViewContanier" size="593, 170" origin="10, 42">
 		</view>
 
 		<!-- Блок ввода параметров виртуального помещения, характеризующих его геометрическую конфигурацию -->
-		<view class="CViewContanier" transparent="true" size="260, 138" origin="10, 252">
+		<view class="CViewContanier" transparent="true" size="260, 168" origin="10, 222">
 			<!-- Блок переменной длины -->
-			<view class="CViewContanier" transparent="true" size="150, 45" origin="0, 0">
+			<view class="CViewContanier" transparent="true" size="150, 56" origin="0, 0">
 				<view class="CAnimKnob" control-tag="Length" bitmap="knob_gi" height-of-one-image="30" sub-pixmaps="80" size="30, 30" origin="60, 0"/>
-				<view class="CTextLabel" title="Length:" text-alignment="right" transparent="true" size="40, 14" origin="15, 31"/>
-				<view class="CTextEdit" control-tag="Length" transparent="true" size="40, 14" origin="55, 32"/>
-				<view class="CTextLabel" title="m" text-alignment="left" transparent="true" size="40, 14" origin="95, 32"/>
+				<view class="CTextLabel" title="Length:" text-alignment="right" transparent="true" size="40, 16" origin="15, 33"/>
+				<view class="CTextEdit" control-tag="Length" transparent="true" size="40, 16" origin="55, 33"/>
+				<view class="CTextLabel" title="m" text-alignment="left" transparent="true" size="40, 16" origin="95, 33"/>
 			</view>
 			<!-- Блок переменной ширины -->
-			<view class="CViewContanier" transparent="true" size="150, 45" origin="0, 46">
+			<view class="CViewContanier" transparent="true" size="150, 56" origin="0, 56">
 				<view class="CAnimKnob" control-tag="Width" bitmap="knob_gi" height-of-one-image="30" sub-pixmaps="80" size="30, 30" origin="60, 0"/>
-				<view class="CTextLabel" title="Width:" text-alignment="right" transparent="true" size="40, 14" origin="15, 31"/>
-				<view class="CTextEdit" control-tag="Width" transparent="true" size="40, 14" origin="55, 32"/>
-				<view class="CTextLabel" title="m" text-alignment="left" transparent="true" size="40, 14" origin="95, 32"/>
+				<view class="CTextLabel" title="Width:" text-alignment="right" transparent="true" size="40, 16" origin="15, 33"/>
+				<view class="CTextEdit" control-tag="Width" transparent="true" size="40, 16" origin="55, 33"/>
+				<view class="CTextLabel" title="m" text-alignment="left" transparent="true" size="40, 16" origin="95, 33"/>
 			</view>
 			<!-- Блок переменной ширины -->
-			<view class="CViewContanier" transparent="true" size="150, 45" origin="0, 92">
+			<view class="CViewContanier" transparent="true" size="150, 56" origin="0, 112">
 				<view class="CAnimKnob" control-tag="Height" bitmap="knob_gi" height-of-one-image="30" sub-pixmaps="80" size="30, 30" origin="60, 0"/>
-				<view class="CTextLabel" title="Height:" text-alignment="right" transparent="true" size="40, 14" origin="15, 31"/>
-				<view class="CTextEdit" control-tag="Height" transparent="true" size="40, 14" origin="55, 32"/>
-				<view class="CTextLabel" title="m" text-alignment="left" transparent="true" size="40, 14" origin="95, 32"/>
+				<view class="CTextLabel" title="Height:" text-alignment="right" transparent="true" size="40, 16" origin="15, 33"/>
+				<view class="CTextEdit" control-tag="Height" transparent="true" size="40, 16" origin="55, 33"/>
+				<view class="CTextLabel" title="m" text-alignment="left" transparent="true" size="40, 16" origin="95, 33"/>
 			</view>
 		</view>
 
 		<!-- Блок ввода параметров, характеризующих положения в виртуальном помещении источника и приёмника сигнала -->
-		<view class="CViewContanier" size="200, 138" origin="280, 252">
+		<view class="CViewContanier" size="200, 168" origin="280, 222">
 		</view>
 
 		<!-- Блок ввода параметра степени отражения сигнала от стен виртуального помещения -->
-		<view class="CViewContanier" size="113, 40" origin="490, 252">
+		<view class="CViewContanier" size="113, 70" origin="490, 222">
 		</view>
 
 		<!-- Блок ввода дополнительного параметра громкости выходного сигнала, измеряемой в дБ -->
