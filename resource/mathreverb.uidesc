@@ -13,10 +13,24 @@
 		<!-- Блок ввода параметров виртуального помещения, характеризующих его геометрическую конфигурацию -->
 		<view class="CViewContanier" transparent="true" size="260, 138" origin="10, 252">
 			<!-- Блок переменной длины -->
-			<view class="CViewContanier" size="150, 46" origin="0, 0">
+			<view class="CViewContanier" transparent="true" size="150, 46" origin="0, 0">
 				<view class="CAnimKnob" control-tag="Length" bitmap="knob_gi" height-of-one-image="30" sub-pixmaps="80" size="30, 30" origin="60, 0"/>
 				<view class="CTextLabel" title="Length:" text-alignment="right" transparent="true" size="40, 14" origin="15, 32"/>
 				<view class="CTextEdit" control-tag="Length" transparent="true" size="40, 14" origin="55, 32"/>
+				<view class="CTextLabel" title="m" text-alignment="left" transparent="true" size="40, 14" origin="95, 32"/>
+			</view>
+			<!-- Блок переменной ширины -->
+			<view class="CViewContanier" transparent="true" size="150, 46" origin="0, 46">
+				<view class="CAnimKnob" control-tag="Width" bitmap="knob_gi" height-of-one-image="30" sub-pixmaps="80" size="30, 30" origin="60, 0"/>
+				<view class="CTextLabel" title="Width:" text-alignment="right" transparent="true" size="40, 14" origin="15, 32"/>
+				<view class="CTextEdit" control-tag="Width" transparent="true" size="40, 14" origin="55, 32"/>
+				<view class="CTextLabel" title="m" text-alignment="left" transparent="true" size="40, 14" origin="95, 32"/>
+			</view>
+			<!-- Блок переменной ширины -->
+			<view class="CViewContanier" transparent="true" size="150, 46" origin="0, 92">
+				<view class="CAnimKnob" control-tag="Height" bitmap="knob_gi" height-of-one-image="30" sub-pixmaps="80" size="30, 30" origin="60, 0"/>
+				<view class="CTextLabel" title="Height:" text-alignment="right" transparent="true" size="40, 14" origin="15, 32"/>
+				<view class="CTextEdit" control-tag="Height" transparent="true" size="40, 14" origin="55, 32"/>
 				<view class="CTextLabel" title="m" text-alignment="left" transparent="true" size="40, 14" origin="95, 32"/>
 			</view>
 		</view>
@@ -52,6 +66,8 @@
 		<control-tag name="VuPPM" tag="0"/>
 		<control-tag name="Gain" tag="1"/>
 		<control-tag name="Length" tag="2"/>
+		<control-tag name="Width" tag="3"/>
+		<control-tag name="Height" tag="4"/>
 	</control-tags>
 
 	<!-- Секция шрифтов -->
