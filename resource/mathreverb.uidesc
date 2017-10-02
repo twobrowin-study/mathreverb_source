@@ -51,6 +51,7 @@
 	<control-tags>
 		<control-tag name="VuPPM" tag="0"/>
 		<control-tag name="Gain" tag="1"/>
+		<control-tag name="Gain" tag="2"/>
 	</control-tags>
 
 	<!-- Секция шрифтов -->

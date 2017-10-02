@@ -2,7 +2,8 @@
 
 enum
 {
-	/** parameter ID */
-	kVuPPMId, ///< for the Vu value return to host (ReadOnly parameter for our UI)
-  kGainId /// for width param
+	/** Идентификаторы параметров */
+	kVuPPMId /// Параметр измерителя громкости выходного сигнала VuMeter
+  ,kGainId /// Параметр громкости выходного сигнала
+	,kLengthId /// Парамтр длины виртуального помещения
 };
