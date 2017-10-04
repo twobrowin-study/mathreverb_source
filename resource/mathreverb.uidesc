@@ -43,6 +43,10 @@
 
 		<!-- Блок ввода параметра степени отражения сигнала от стен виртуального помещения -->
 		<view class="CViewContanier" size="113, 70" origin="490, 222">
+			<view class="CTextLabel" title="Reflection" transparent="true" size="113, 16" origin="0, 0" font="~ NormalFontBig"/>
+			<view class="CAnimKnob" control-tag="Reflection" bitmap="knob_reflection" height-of-one-image="26" sub-pixmaps="80" size="26, 26" origin="43, 18"/>
+			<view class="CTextEdit" control-tag="Reflection" transparent="true" size="30, 18" origin="24, 70"/>
+			<view class="CTextLabel" title="%" text-alignment="left" transparent="true" size="30, 18" origin="57, 70"/>
 		</view>
 
 		<!-- Блок ввода дополнительного параметра громкости выходного сигнала, измеряемой в дБ -->
@@ -72,6 +76,7 @@
 		<control-tag name="Length" tag="2"/>
 		<control-tag name="Width" tag="3"/>
 		<control-tag name="Height" tag="4"/>
+		<control-tag name="Reflection" tag="5"/>
 	</control-tags>
 
 	<!-- Секция шрифтов -->
