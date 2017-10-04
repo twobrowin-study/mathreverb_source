@@ -48,9 +48,9 @@
 		<!-- Блок ввода дополнительного параметра громкости выходного сигнала, измеряемой в дБ -->
 		<view class="CViewContanier" transparent="true" size="150, 88" origin="490, 302">
 			<view class="CTextLabel" title="Gain" transparent="true" size="150, 18" origin="0, 0" font="~ NormalFontBig"/>
-			<view class="CAnimKnob" control-tag="Gain" bitmap="knob_gain" height-of-one-image="48" sub-pixmaps="80" size="48, 48" origin="47, 18"/>
-			<view class="CTextEdit" control-tag="Gain" transparent="true" size="30, 18" origin="42, 78"/>
-			<view class="CTextLabel" title="dB" text-alignment="left" transparent="true" size="30, 18" origin="78, 60"/>
+			<view class="CAnimKnob" control-tag="Gain" bitmap="knob_gain" height-of-one-image="48" sub-pixmaps="80" size="48, 48" origin="51, 20"/>
+			<view class="CTextEdit" control-tag="Gain" transparent="true" size="30, 18" origin="42, 70"/>
+			<view class="CTextLabel" title="dB" text-alignment="left" transparent="true" size="30, 18" origin="78, 70"/>
 		</view>
 	</template>
 
