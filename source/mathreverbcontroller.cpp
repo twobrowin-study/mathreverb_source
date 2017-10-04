@@ -72,9 +72,8 @@ IPlugView* PLUGIN_API MathReverbController::createView (const char* name)
 	// someone wants my editor
 	if (name && strcmp (name, "editor") == 0)
 	{
-		// VST3Editor* view = new VST3Editor (this, "view", "mathreverb.uidesc");
-		// return view;
-		return new CMathReverbView(CRect(210, 210));
+		VST3Editor* view = new VST3Editor (this, "view", "mathreverb.uidesc");
+		return view;
 	}
 	return 0;
 }
