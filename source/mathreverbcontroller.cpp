@@ -10,7 +10,6 @@
 #include "vstgui/uidescription/delegationcontroller.h"
 
 #include "mathreverbparams/gain.h"
-#include "cmathreverbview.h"
 
 #include <stdio.h>
 #include <math.h>

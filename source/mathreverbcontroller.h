@@ -2,6 +2,7 @@
 
 #include "vstgui/plugin-bindings/vst3editor.h"
 #include "public.sdk/source/vst/vsteditcontroller.h"
+#include "cmathreverbview.h"
 
 #include <vector>
 
@@ -11,7 +12,7 @@ namespace Vst {
 //------------------------------------------------------------------------
 // MathReverbController
 //------------------------------------------------------------------------
-class MathReverbController : public EditControllerEx1
+class MathReverbController : public EditControllerEx1, public VST3EditorDelegate
 {
 public:
 	//--- ---------------------------------------------------------------------
