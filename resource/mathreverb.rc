@@ -3,12 +3,14 @@
 
 #define APSTUDIO_READONLY_SYMBOLS
 
-mathreverb.uidesc     DATA  "mathreverb.uidesc"
-vu_on.png				      PNG   "vu_on.png"
-vu_off.png				    PNG   "vu_off.png"
-knob_gi.png				      PNG   "knob_gi.png"
-knob_gain.png				      PNG   "knob_gain.png"
-background.png			  PNG   "background.png"
+mathreverb.uidesc      DATA  "mathreverb.uidesc"
+vu_on.png				       PNG   "vu_on.png"
+vu_off.png				     PNG   "vu_off.png"
+knob_reflection.png	   PNG   "knob_reflection.png"
+knob_gain.png				   PNG   "knob_gain.png"
+slider_background.png	 PNG   "slider_background.png"
+slider_handle.png		   PNG   "slider_handle.png"
+background.png			   PNG   "background.png"
 
 /////////////////////////////////////////////////////////////////////////////
 // Version
