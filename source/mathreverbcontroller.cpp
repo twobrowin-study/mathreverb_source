@@ -10,6 +10,7 @@
 #include "vstgui/uidescription/delegationcontroller.h"
 
 #include "mathreverbparams/gain.h"
+#include "cmathreverbview.h"
 
 #include <stdio.h>
 #include <math.h>
@@ -71,8 +72,9 @@ IPlugView* PLUGIN_API MathReverbController::createView (const char* name)
 	// someone wants my editor
 	if (name && strcmp (name, "editor") == 0)
 	{
-		VST3Editor* view = new VST3Editor (this, "view", "mathreverb.uidesc");
-		return view;
+		// VST3Editor* view = new VST3Editor (this, "view", "mathreverb.uidesc");
+		// return view;
+		return new CMathReverbView(CRect(210, 210));
 	}
 	return 0;
 }
