@@ -80,7 +80,8 @@ IPlugView* PLUGIN_API MathReverbController::createView (const char* name)
 
 CView* MathReverbController::createCustomView (UTF8StringPtr name, const UIAttributes &attributes, const IUIDescription *description, VST3Editor *editor)
 {
-	return new CMathReverbView(CRect (CPoint (0,0), CPoint(100, 100)));
+	CRect r = CRect (CPoint (0,0), CPoint(100, 100));
+	return new CMathReverbView(r);
 }
 
 //------------------------------------------------------------------------
