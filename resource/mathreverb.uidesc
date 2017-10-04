@@ -44,7 +44,7 @@
 		<!-- Блок ввода параметра степени отражения сигнала от стен виртуального помещения -->
 		<view class="CViewContanier" transparent="true" size="113, 70" origin="490, 222">
 			<view class="CTextLabel" title="Reflection" transparent="true" size="113, 16" origin="0, 0" font="~ NormalFontBig"/>
-			<view class="CAnimKnob" control-tag="Reflection" bitmap="knob_reflection" height-of-one-image="33" sub-pixmaps="80" size="33, 33" origin="44, 19"/>
+			<view class="CAnimKnob" control-tag="Reflection" bitmap="knob_reflection" height-of-one-image="33" sub-pixmaps="80" size="33, 33" origin="40, 19"/>
 			<view class="CTextEdit" control-tag="Reflection" transparent="true" size="20, 16" origin="34, 54"/>
 			<view class="CTextLabel" title="%" text-alignment="left" transparent="true" size="20, 16" origin="57, 54"/>
 		</view>
