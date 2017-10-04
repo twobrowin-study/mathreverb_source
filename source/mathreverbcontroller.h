@@ -23,6 +23,9 @@ public:
 		return (IEditController*)new MathReverbController;
 	}
 
+	//---из VST3EditorDelegate---
+	virtual CView* createCustomView (UTF8StringPtr name, const UIAttributes &attributes, const IUIDescription *description, VST3Editor *editor)  SMTG_OVERRIDE;
+
 	//---from IPluginBase--------
 	tresult PLUGIN_API initialize (FUnknown* context) SMTG_OVERRIDE;
 

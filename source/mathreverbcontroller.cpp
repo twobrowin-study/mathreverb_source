@@ -10,6 +10,7 @@
 #include "vstgui/uidescription/delegationcontroller.h"
 
 #include "mathreverbparams/gain.h"
+#include "cmathreverbview.h"
 
 #include <stdio.h>
 #include <math.h>
@@ -18,7 +19,7 @@ namespace Steinberg {
 namespace Vst {
 
 //------------------------------------------------------------------------
-// MathReverbController Implementation
+// MathReverbController Реализация
 //------------------------------------------------------------------------
 tresult PLUGIN_API MathReverbController::initialize (FUnknown* context) {
 	tresult result = EditControllerEx1::initialize (context);
@@ -75,6 +76,11 @@ IPlugView* PLUGIN_API MathReverbController::createView (const char* name)
 		return view;
 	}
 	return 0;
+}
+
+CView* MathReverbController::createCustomView (UTF8StringPtr name, const UIAttributes &attributes, const IUIDescription *description, VST3Editor *editor)
+{
+	return CMathReverbView();
 }
 
 //------------------------------------------------------------------------
