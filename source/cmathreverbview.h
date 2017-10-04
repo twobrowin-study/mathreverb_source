@@ -12,7 +12,7 @@ class CMathReverbView : public CView
 {
 public:
   // Конструктор
-	CMathReverbView(const CRect& size): CView(size) {}
+	CMathReverbView(const CRect& rect): CView(rect) {}
   // Метод рисования - вывода в заданое поле графической информации
   virtual void draw(CDrawContext *pContext);
 };
