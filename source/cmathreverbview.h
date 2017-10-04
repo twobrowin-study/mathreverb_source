@@ -20,7 +20,10 @@ public:
 
 void CMathReverbView::draw(CDrawContext *pContext)
 {
-  CView::draw(pContext);
+  pContext->setLineWidth(1);
+  pContext->setFillColor(CColor(255, 255, 255, 255)); // белый цвет
+  pContext->drawRect(size, kDrawFilledAndStroked);
+  setDirty (false);
 }
 
 //------------------------------------------------------------------------
