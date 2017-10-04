@@ -20,6 +20,7 @@ public:
 
 void CMathReverbView::draw(CDrawContext *pContext)
 {
+  
   // --- bitmap, if one
   if(getDrawBackground())
   {
