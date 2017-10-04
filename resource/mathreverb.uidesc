@@ -12,7 +12,7 @@
 
 		<!-- Блок ввода параметров виртуального помещения, характеризующих его геометрическую конфигурацию -->
 		<view class="CViewContanier" transparent="true" size="260, 168" origin="10, 222">
-			<!-- Название --> <view class="CTextLabel" title="Room Geometry" transparent="true" size="260, 18" origin="0, 0" font="~ NormalFontBig"/>
+			<!-- Заглавие --> <view class="CTextLabel" title="Room Geometry" transparent="true" size="260, 18" origin="0, 0" font="~ NormalFontBig"/>
 
 			<!-- Блок переменной длины -->
 			<view class="CViewContanier" transparent="true" size="260, 50" origin="0, 18">
@@ -38,7 +38,30 @@
 		</view>
 
 		<!-- Блок ввода параметров, характеризующих положения в виртуальном помещении источника и приёмника сигнала -->
-		<view class="CViewContanier" size="200, 168" origin="280, 222">
+		<view class="CViewContanier" transparent="true" size="200, 168" origin="280, 222">
+			<!-- Заглавие --> <view class="CTextLabel" title="Sourece/Receiver position" transparent="true" size="200, 18" origin="0, 0" font="~ NormalFontBig"/>
+
+			<!-- Блок переменной положения по x -->
+			<view class="CViewContanier" transparent="true" size="200, 50" origin="0, 18">
+				<view class="CTextLabel" title="X:" text-alignment="right" transparent="true" size="15, 16" origin="0, 16"/>
+				<view class="CSlider" control-tag="XPos" bitmap="slider_background" handle-bitmap="slider_handle" handle-offset="0, 2" size="130, 18" origin="21, 16"/>
+				<view class="CTextEdit" control-tag="XPos" transparent="true" size="20, 16" origin="158, 16"/>
+				<view class="CTextLabel" title="m" text-alignment="left" transparent="true" size="15, 16" origin="195, 16"/>
+			</view>
+			<!-- Блок переменной положения по y -->
+			<view class="CViewContanier" transparent="true" size="200, 50" origin="0, 68">
+				<view class="CTextLabel" title="Y:" text-alignment="right" transparent="true" size="15, 16" origin="0, 16"/>
+				<view class="CSlider" control-tag="YPos" bitmap="slider_background" handle-bitmap="slider_handle" handle-offset="0, 2" size="130, 18" origin="21, 16"/>
+				<view class="CTextEdit" control-tag="YPos" transparent="true" size="30, 16" origin="158, 16"/>
+				<view class="CTextLabel" title="m" text-alignment="left" transparent="true" origin="195, 16"/>
+			</view>
+			<!-- Блок переменной положения по z -->
+			<view class="CViewContanier" transparent="true" size="200, 50" origin="0, 118">
+				<view class="CTextLabel" title="Z:" text-alignment="right" transparent="true" size="15, 16" origin="0, 16"/>
+				<view class="CSlider" control-tag="ZPos" bitmap="slider_background" handle-bitmap="slider_handle" handle-offset="0, 2" size="130, 18" origin="21, 16"/>
+				<view class="CTextEdit" control-tag="ZPos" transparent="true" origin="158, 16"/>
+				<view class="CTextLabel" title="m" text-alignment="left" transparent="true" origin="195, 16"/>
+			</view>
 		</view>
 
 		<!-- Блок ввода параметра степени отражения сигнала от стен виртуального помещения -->
@@ -77,6 +100,9 @@
 		<control-tag name="Width" tag="3"/>
 		<control-tag name="Height" tag="4"/>
 		<control-tag name="Reflection" tag="5"/>
+		<control-tag name="XPos" tag="6"/>
+		<control-tag name="YPos" tag="7"/>
+		<control-tag name="ZPos" tag="8"/>
 	</control-tags>
 
 	<!-- Секция шрифтов -->
