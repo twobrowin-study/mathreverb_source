@@ -1,4 +1,5 @@
 set(mathreverb_sources
+	source/cmathreverbview.h
 	source/mathreverb.cpp
 	source/mathreverb.h
 	source/mathreverbcids.h
