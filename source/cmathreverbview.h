@@ -12,8 +12,16 @@ namespace Vst {
 class CMathReverbView : public CView
 {
 public:
+  // Конструктор
 	CMathReverbView(const CRect& size): CView(size) {}
+  // Метод рисования - вывода в заданое поле графической информации
+  virtual void draw(CDrawContext *pContext);
 };
+
+void CMathReverbView::draw(CDrawContext *pContext)
+{
+  CView::draw(pContext);
+}
 
 //------------------------------------------------------------------------
 } // namespace Vst
