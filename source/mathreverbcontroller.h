@@ -2,7 +2,6 @@
 
 #include "vstgui/plugin-bindings/vst3editor.h"
 #include "public.sdk/source/vst/vsteditcontroller.h"
-#include "cmathreverbview.h"
 
 #include <vector>
 
