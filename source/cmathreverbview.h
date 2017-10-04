@@ -2,8 +2,7 @@
 
 #include "vstgui4/vstgui/vstgui.h"
 
-namespace Steinberg {
-namespace Vst {
+namespace VSTGUI {
 
 //------------------------------------------------------------------------
 // CMathReverbView: Наследник класса CView
@@ -20,7 +19,7 @@ public:
 
 void CMathReverbView::draw(CDrawContext *pContext)
 {
-  
+
   // --- bitmap, if one
   if(getDrawBackground())
   {
@@ -41,4 +40,3 @@ void CMathReverbView::draw(CDrawContext *pContext)
 
 //------------------------------------------------------------------------
 } // namespace Vst
-} // namespace Steinberg
