@@ -7,8 +7,8 @@
 		<!-- Измеритель выходной громкости --> <view class="CVuMeter" control-tag="VuPPM" bitmap="vu_on" off-bitmap="vu_off" size="27, 234" origin="613, 42"/>
 
 		<!-- Блок графического вывода геометрии помещения, положений источника и приёмника -->
-		<view class="CViewContanier" size="593, 170" origin="10, 42">
-			<view class="CMathReverbView" bitmap="slider_background" size="130, 18"/>
+		<view class="CViewContanier" transparent="true" size="593, 170" origin="10, 42">
+			<view class="CMathReverbView" transparent="true" size="593, 170"/>
 		</view>
 
 		<!-- Блок ввода параметров виртуального помещения, характеризующих его геометрическую конфигурацию -->
