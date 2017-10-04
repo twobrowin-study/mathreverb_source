@@ -8,6 +8,7 @@
 #include "base/source/fstring.h"
 
 #include "vstgui/uidescription/delegationcontroller.h"
+#include "vstgui/uidescription/uiattributes.h"
 
 #include "mathreverbparams/gain.h"
 #include "cmathreverbview.h"
