@@ -3,6 +3,7 @@
 
 #define APSTUDIO_READONLY_SYMBOLS
 
+// Описание нахождение внешних файлов ресурсов
 mathreverb.uidesc      DATA  "mathreverb.uidesc"
 vu_on.png				       PNG   "vu_on.png"
 vu_off.png				     PNG   "vu_off.png"
@@ -13,11 +14,11 @@ slider_handle.png		   PNG   "slider_handle.png"
 background.png			   PNG   "background.png"
 
 /////////////////////////////////////////////////////////////////////////////
-// Version
+// Версия
 /////////////////////////////////////////////////////////////////////////////
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION MAJOR_VERSION_INT,SUB_VERSION_INT,RELEASE_NUMBER_INT,BUILD_NUMBER_INT
- PRODUCTVERSION MAJOR_VERSION_INT,SUB_VERSION_INT,RELEASE_NUMBER_INT,BUILD_NUMBER_INT
+ FILEVERSION MAJOR_VERSION_INT,SUB_VERSION_INT,RELEASE_NUMBER_INT,BUILD_NUMBER_INT // Версия файла
+ PRODUCTVERSION MAJOR_VERSION_INT,SUB_VERSION_INT,RELEASE_NUMBER_INT,BUILD_NUMBER_INT // Версия продукта
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -34,7 +35,7 @@ BEGIN
         BEGIN
             VALUE "FileVersion",      FULL_VERSION_STR"\0"
             VALUE "ProductVersion",   FULL_VERSION_STR"\0"
-            VALUE "OriginalFilename", "mathreverb.vst3\0"
+            VALUE "OriginalFilename", "mathreverb.vst3\0" // Название выходного файла
             VALUE "FileDescription",  stringFileDescription"\0"
             VALUE "InternalName",     stringFileDescription"\0"
             VALUE "ProductName",      stringFileDescription"\0"
@@ -45,6 +46,6 @@ BEGIN
     END
     BLOCK "VarFileInfo"
     BEGIN
-        VALUE "Translation", 0x400, 1252
+        VALUE "Translation", 0x400, 1252 // Кодировка продукта
     END
 END

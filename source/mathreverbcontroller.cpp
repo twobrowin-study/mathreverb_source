@@ -32,7 +32,7 @@ tresult PLUGIN_API MathReverbController::initialize (FUnknown* context) {
 		return result;
 	}
 
-	//---Создадим блок для параметров---
+	// Создадим блок для параметров
 	UnitInfo unitInfo;
 	Unit* unit;
 
@@ -43,47 +43,47 @@ tresult PLUGIN_API MathReverbController::initialize (FUnknown* context) {
 	unit = new Unit (unitInfo);
 	addUnit (unit);
 
-	//---Параметр Gain---
+	// Параметр Gain
 	GainParameter* gainParam = new GainParameter (ParameterInfo::kCanAutomate, kGainId);
 	parameters.addParameter (gainParam);
 	gainParam->setUnitID (unitInfo.id);
 
-	//---Параметр Length---
+	// Параметр Length
 	CoordinateParameter* lengthParam = new CoordinateParameter (ParameterInfo::kCanAutomate, kLengthId, "Length");
 	parameters.addParameter (lengthParam);
 	lengthParam->setUnitID (unitInfo.id);
 
-	//---Параметр Width---
+	// Параметр Width
 	CoordinateParameter* widthParam = new CoordinateParameter (ParameterInfo::kCanAutomate, kWidthId, "Width");
 	parameters.addParameter (widthParam);
 	widthParam->setUnitID (unitInfo.id);
 
-	//---Параметр Height---
+	// Параметр Height
 	CoordinateParameter* heightParam = new CoordinateParameter (ParameterInfo::kCanAutomate, kHeightId, "Height");
 	parameters.addParameter (heightParam);
 	heightParam->setUnitID (unitInfo.id);
 
-	//---Параметр Reflection---
+	// Параметр Reflection
 	ReflectionParameter* reflectionParam = new ReflectionParameter (ParameterInfo::kCanAutomate, kReflectionId);
 	parameters.addParameter (reflectionParam);
 	reflectionParam->setUnitID (unitInfo.id);
 
-	//---Параметр X Pos---
+	// Параметр X Pos
 	CoordinateParameter* xPosParam = new CoordinateParameter (ParameterInfo::kCanAutomate, kXPosId, "X Pos");
 	parameters.addParameter (xPosParam);
 	xPosParam->setUnitID (unitInfo.id);
 
-	//---Параметр Y Pos---
+	// Параметр Y Pos
 	CoordinateParameter* yPosParam = new CoordinateParameter (ParameterInfo::kCanAutomate, kYPosId, "Y Pos");
 	parameters.addParameter (yPosParam);
 	yPosParam->setUnitID (unitInfo.id);
 
-	//---Параметр Z Pos---
+	// Параметр Z Pos
 	CoordinateParameter* zPosParam = new CoordinateParameter (ParameterInfo::kCanAutomate, kZPosId, "Z Pos");
 	parameters.addParameter (zPosParam);
 	zPosParam->setUnitID (unitInfo.id);
 
-	//---Параметр VuMeter---
+	// Параметр VuMeter
 	int32 stepCount = 0;
 	ParamValue defaultVal = 0;
 	int32 flags = ParameterInfo::kIsReadOnly;
@@ -141,7 +141,7 @@ tresult PLUGIN_API MathReverbController::setComponentState (IBStream* state)
 //------------------------------------------------------------------------
 IPlugView* PLUGIN_API MathReverbController::createView (const char* name)
 {
-	// someone wants my editor
+	// Получен запрос интерфейса пользователя
 	if (name && strcmp (name, "editor") == 0)
 	{
 		VST3Editor* view = new VST3Editor (this, "view", "mathreverb.uidesc");
@@ -153,7 +153,7 @@ IPlugView* PLUGIN_API MathReverbController::createView (const char* name)
 //-----------------------------------------------------------------------
 CView* MathReverbController::createCustomView (UTF8StringPtr name, const UIAttributes &attributes, const IUIDescription *description, VST3Editor *editor)
 {
-	// Получаем атрибуты начала
+	// Получаем атрибуты периметра
 	CPoint origin, size;
 	attributes.getPointAttribute ("origin", origin);
 	attributes.getPointAttribute ("size", size);

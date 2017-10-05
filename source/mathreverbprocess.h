@@ -5,15 +5,17 @@
 namespace Steinberg {
 namespace Vst {
 
+// Обработка входного аудио потока - преобразование его в выходной
+
 //------------------------------------------------------------------------
 template <typename SampleType>
 SampleType MathReverb::processAudio (SampleType** in, SampleType** out, int32 numChannels, int32 sampleFrames)
 {
+	// Комментарии здесь будут после разработки модели и реализации её
 	SampleType vuPPM = 0, tmp;
 
 	int32 delayInSamples = std::max<int32> (1, 1.f * processSetup.sampleRate);
 
-	// in real Plug-in it would be better to do dezippering to avoid jump (click) in gain value
 	for (int32 channel = 0; channel < numChannels; channel++)
 	{
 		SampleType* ptrIn = (SampleType*)in[channel];
@@ -38,5 +40,5 @@ SampleType MathReverb::processAudio (SampleType** in, SampleType** out, int32 nu
 	return vuPPM;
 }
 
-} // Vst
-} // Steinberg
+} // Пространство имён Vst
+} // Пространство имён Steinberg

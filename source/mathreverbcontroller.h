@@ -9,28 +9,32 @@ namespace Steinberg {
 namespace Vst {
 
 //------------------------------------------------------------------------
-// MathReverbController
+// MathReverbController: Деклорация
+// Описывает взаимодействие плагина с пользователем и хостом
 //------------------------------------------------------------------------
 class MathReverbController : public EditControllerEx1, public VST3EditorDelegate
 {
 public:
-	//--- ---------------------------------------------------------------------
-	// create function required for Plug-in factory,
-	// it will be called to create new instances of this controller
-	//--- ---------------------------------------------------------------------
+	// Статический метод создания экземпляра класса, будет вызван при включении плагина
 	static FUnknown* createInstance (void* /*context*/) { return (IEditController*)new MathReverbController; }
 
-	//---из VST3EditorDelegate---
-	virtual CView* createCustomView (UTF8StringPtr name, const UIAttributes &attributes, const IUIDescription *description, VST3Editor *editor)  SMTG_OVERRIDE;
-
-	//---from IPluginBase--------
+	//---Из IPluginBase----------
+	// Инициализация контроллера
 	tresult PLUGIN_API initialize (FUnknown* context) SMTG_OVERRIDE;
 
-	//---from EditController-----
+	//---Из EditControllerEx1----
+	// Создать представление (Интерфейс пользователя)
 	IPlugView* PLUGIN_API createView (const char* name) SMTG_OVERRIDE;
+
+	// Установить состояние параметров
 	tresult PLUGIN_API setComponentState (IBStream* state) SMTG_OVERRIDE;
+
+	//---Из VST3EditorDelegate---
+	// Создать описанное внешне представление
+	virtual CView* createCustomView (UTF8StringPtr name, const UIAttributes &attributes, const IUIDescription *description, VST3Editor *editor)  SMTG_OVERRIDE;
+
 };
 
 //------------------------------------------------------------------------
-} // namespace Vst
-} // namespace Steinberg
+} // Пространство имён Vst
+} // Пространство имён Steinberg

@@ -68,5 +68,5 @@ bool CoordinateParameter::fromString (const TChar* string, ParamValue& normValue
 }
 
 //------------------------------------------------------------------------
-} // пространство имён Vst
-} // пространство имён Steinberg
+} // Пространство имён Vst
+} // Пространство имён Steinberg

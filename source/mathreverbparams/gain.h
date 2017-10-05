@@ -72,5 +72,5 @@ bool GainParameter::fromString (const TChar* string, ParamValue& normValue) cons
 }
 
 //------------------------------------------------------------------------
-} // пространство имён Vst
-} // пространство имён Steinberg
+} // Пространство имён Vst
+} // Пространство имён Steinberg

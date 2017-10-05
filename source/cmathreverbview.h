@@ -5,7 +5,7 @@
 namespace VSTGUI {
 
 //------------------------------------------------------------------------
-// CMathReverbView: Наследник класса CView
+// CMathReverbView: Декларация
 // Предназначен для графического вывода геометрии помещения, положений источника и приёмника
 //------------------------------------------------------------------------
 class CMathReverbView : public CView
@@ -20,23 +20,23 @@ public:
 void CMathReverbView::draw(CDrawContext *pContext)
 {
 
-  // --- bitmap, if one
+  // --- Выведем установленное извне изображение, если оно есть
   if(getDrawBackground())
   {
     getDrawBackground()->draw(pContext, size);
   }
   else
   {
-    // --- setup the background rectangle
+    // --- Нарисуем прямоугольнык заднего фона
     pContext->setLineWidth(1);
-    pContext->setFillColor(CColor(200, 200, 200, 255)); // light grey
-    pContext->setFrameColor(CColor(0, 0, 0, 255)); // black
+    pContext->setFillColor(CColor(200, 200, 200, 255)); // светло серый
+    pContext->setFrameColor(CColor(0, 0, 0, 255)); // черный
 
-    // --- draw the rect filled (with grey) and stroked (line around rectangle)
+    // --- Нарисовать прямоугольник по всей площади
     pContext->drawRect(size, kDrawFilledAndStroked);
   }
   setDirty (false);
 }
 
 //------------------------------------------------------------------------
-} // namespace Vst
+} // Пространство имён VSTGUI

@@ -6,37 +6,30 @@ namespace Steinberg {
 namespace Vst {
 
 //------------------------------------------------------------------------
-// MathReverb: directly derived from the helper class AudioEffect
+// MathReverb: Декларация
+// Описывает обработчик плагина - преобразование аудио потока
 //------------------------------------------------------------------------
 class MathReverb : public AudioEffect
 {
 public:
 	MathReverb ();
-	virtual ~MathReverb (); // do not forget virtual here
 
-	//--- ---------------------------------------------------------------------
-	// create function required for Plug-in factory,
-	// it will be called to create new instances of this Plug-in
-	//--- ---------------------------------------------------------------------
+	// Статический метод создания экземпляра класса, будет вызван при включении плагина
 	static FUnknown* createInstance (void* /*context*/) { return (IAudioProcessor*)new MathReverb; }
 
-	//--- ---------------------------------------------------------------------
-	// AudioEffect overrides:
-	//--- ---------------------------------------------------------------------
-	/** Called at first after constructor */
+	// Вызывается сразу после конструктора
 	tresult PLUGIN_API initialize (FUnknown* context) SMTG_OVERRIDE;
-	/** Switch the Plug-in on/off */
+	// Включение и выключение плагина
 	tresult PLUGIN_API setActive (TBool state) SMTG_OVERRIDE;
-	/** Here we go...the process call */
+	// Метод обработки и применения изменений плагина
 	tresult PLUGIN_API process (ProcessData& data) SMTG_OVERRIDE;
 
-//------------------------------------------------------------------------
 protected:
-	//==============================================================================
+	// Метод непосредственно обработки аудио потока
 	template <typename SampleType>
 	SampleType processAudio (SampleType** input, SampleType** output, int32 numChannels, int32 sampleFrames);
 
-	// our model values
+	// Параметры модели
 	float fVuPPMOld;
 	float fGain;
 	float **mBuffer;
@@ -44,5 +37,5 @@ protected:
 };
 
 //------------------------------------------------------------------------
-} // namespace Vst
-} // namespace Steinberg
+} // Пространство имён Vst
+} // Пространство имён Steinberg
