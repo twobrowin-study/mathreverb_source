@@ -29,7 +29,7 @@ public:
 //------------------------------------------------------------------------
 CoordinateParameter::CoordinateParameter (int32 flags, int32 id, const char* name)
 {
-  // Установка информации дял хоста
+  // Установка информации для хоста
   UString (info.title, USTRINGSIZE (info.title)).assign (USTRING (name));
   UString (info.units, USTRINGSIZE (info.units)).assign (USTRING ("m"));
 
@@ -37,18 +37,18 @@ CoordinateParameter::CoordinateParameter (int32 flags, int32 id, const char* nam
   info.flags = flags;
   info.id = id;
   info.stepCount = 0;
-  info.defaultNormalizedValue = 0;
+  info.defaultNormalizedValue = 0.f;
   info.unitId = kRootUnitId;
 
   // Установка начального значения
-  setNormalized (0);
+  setNormalized (0.f);
 }
 
 //------------------------------------------------------------------------
 void CoordinateParameter::toString (ParamValue normValue, String128 string) const
 {
   char text [32];
-  sprintf (text, "%d", (int) normValue);
+  sprintf (text, "%.1f", (float) normValue);
   UString (string, 128).fromAscii (text);
 }
 
@@ -61,7 +61,7 @@ bool CoordinateParameter::fromString (const TChar* string, ParamValue& normValue
     if (tmp < 0.0)
       tmp = -tmp;
 
-    normValue = (int) tmp;
+    normValue = tmp;
     return true;
   }
   return false;

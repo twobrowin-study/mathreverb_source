@@ -30,7 +30,7 @@ public:
 //------------------------------------------------------------------------
 GainParameter::GainParameter (int32 flags, int32 id)
 {
-  // Установка информации дял хоста
+  // Установка информации для хоста
   UString (info.title, USTRINGSIZE (info.title)).assign (USTRING ("Gain"));
   UString (info.units, USTRINGSIZE (info.units)).assign (USTRING ("dB"));
 

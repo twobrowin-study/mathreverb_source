@@ -1,5 +1,5 @@
 #include "mathreverbcontroller.h"
-#include "mathreverbparamids.h"
+#include "mathreverbparams/paramids.h"
 
 #include "pluginterfaces/base/ibstream.h"
 #include "pluginterfaces/base/ustring.h"
@@ -13,6 +13,7 @@
 #include "mathreverbparams/gain.h"
 #include "mathreverbparams/coordinate.h"
 #include "mathreverbparams/reflection.h"
+#include "mathreverbparams/globalparams.h"
 
 #include "cmathreverbview.h"
 

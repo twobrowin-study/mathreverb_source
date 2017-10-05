@@ -1,6 +1,6 @@
 #include "mathreverb.h"
 #include "mathreverbprocess.h"
-#include "mathreverbparamids.h"
+#include "mathreverbparams/paramids.h"
 #include "mathreverbcids.h"	// for class ids
 
 #include "pluginterfaces/base/ustring.h"	// for UString128
@@ -164,7 +164,7 @@ tresult PLUGIN_API MathReverb::process (ProcessData& data)
 		else
 			fVuPPM = processAudio<Sample64> ((Sample64**)in, (Sample64**)out, numChannels, data.numSamples);
 	}
-	
+
 	//---4) Write outputs parameter changes-----------
 	IParameterChanges* outParamChanges = data.outputParameterChanges;
 	// a new value of VuMeter will be send to the host
