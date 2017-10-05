@@ -48,7 +48,7 @@ ReflectionParameter::ReflectionParameter (int32 flags, int32 id)
 void ReflectionParameter::toString (ParamValue normValue, String128 string) const
 {
   char text [32];
-  sprintf (text, "%d", (int) normValue * 100);
+  sprintf (text, "%3d", (int) (normValue * 100));
   UString (string, 128).fromAscii (text);
 }
 
