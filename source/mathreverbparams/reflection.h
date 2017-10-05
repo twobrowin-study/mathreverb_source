@@ -48,7 +48,7 @@ ReflectionParameter::ReflectionParameter (int32 flags, int32 id)
 void ReflectionParameter::toString (ParamValue normValue, String128 string) const
 {
   char text [32];
-  sprintf (text, "%d", normValue * 100);
+  sprintf (text, "%d", (int) normValue * 100);
   UString (string, 128).fromAscii (text);
 }
 
@@ -56,7 +56,7 @@ void ReflectionParameter::toString (ParamValue normValue, String128 string) cons
 bool ReflectionParameter::fromString (const TChar* string, ParamValue& normValue) const
 {
   String wrapper ((TChar*) string);
-  float tmp = 0;
+  double tmp = 0;
   if (wrapper.scanFloat (tmp)) {
     if (tmp < 0.0)
       tmp = -tmp;
