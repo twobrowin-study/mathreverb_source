@@ -13,7 +13,6 @@
 #include "mathreverbparams/gain.h"
 #include "mathreverbparams/coordinate.h"
 #include "mathreverbparams/reflection.h"
-#include "mathreverbparams/globalparams.h"
 
 #include "cmathreverbview.h"
 
@@ -68,11 +67,13 @@ tresult PLUGIN_API MathReverbController::initialize (FUnknown* context) {
 tresult PLUGIN_API MathReverbController::setComponentState (IBStream* state)
 {
 	if (state) {
-		float receivedGain = 1.f;
+		float receivedGain = 1.f, receivedReflection = 1.f;
 		if (state->read (&receivedGain, sizeof (float)) != kResultTrue)
 			return kResultFalse;
+		if (state->read (&receivedReflection, sizeof (float)) != kResultTrue)
+			return kResultFalse;
 		setParamNormalized (kGainId, receivedGain);
-		setParamNormalized (kReflectionId, 1.f);
+		setParamNormalized (kReflectionId, receivedReflection);
 	}
 	return kResultTrue;
 }

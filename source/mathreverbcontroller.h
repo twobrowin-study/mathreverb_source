@@ -18,10 +18,7 @@ public:
 	// create function required for Plug-in factory,
 	// it will be called to create new instances of this controller
 	//--- ---------------------------------------------------------------------
-	static FUnknown* createInstance (void* /*context*/)
-	{
-		return (IEditController*)new MathReverbController;
-	}
+	static FUnknown* createInstance (void* /*context*/) { return (IEditController*)new MathReverbController; }
 
 	//---из VST3EditorDelegate---
 	virtual CView* createCustomView (UTF8StringPtr name, const UIAttributes &attributes, const IUIDescription *description, VST3Editor *editor)  SMTG_OVERRIDE;
