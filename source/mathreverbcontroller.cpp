@@ -11,6 +11,9 @@
 #include "vstgui/uidescription/uiattributes.h"
 
 #include "mathreverbparams/gain.h"
+#include "mathreverbparams/coordinate.h"
+#include "mathreverbparams/reflection.h"
+
 #include "cmathreverbview.h"
 
 #include <stdio.h>
@@ -29,7 +32,7 @@ tresult PLUGIN_API MathReverbController::initialize (FUnknown* context) {
 		return result;
 	}
 
-	//---Create Unit for Gain---
+	//---Создадим блок для параметров---
 	UnitInfo unitInfo;
 	Unit* unit;
 
@@ -40,12 +43,17 @@ tresult PLUGIN_API MathReverbController::initialize (FUnknown* context) {
 	unit = new Unit (unitInfo);
 	addUnit (unit);
 
-	//---Gaint parameter---
+	//---Параметр Gain---
 	GainParameter* gainParam = new GainParameter (ParameterInfo::kCanAutomate, kGainId);
 	parameters.addParameter (gainParam);
 	gainParam->setUnitID (unitInfo.id);
 
-	//---VuMeter parameter---
+	//---Параметр Reflection---
+	ReflectionParameter* reflectionParam = new ReflectionParameter (ParameterInfo::kCanAutomate, kReflectionId);
+	parameters.addParameter (reflectionParam);
+	reflectionParam->setUnitID (unitInfo.id);
+
+	//---Параметр VuMeter---
 	int32 stepCount = 0;
 	ParamValue defaultVal = 0;
 	int32 flags = ParameterInfo::kIsReadOnly;
@@ -63,6 +71,7 @@ tresult PLUGIN_API MathReverbController::setComponentState (IBStream* state)
 		if (state->read (&receivedGain, sizeof (float)) != kResultTrue)
 			return kResultFalse;
 		setParamNormalized (kGainId, receivedGain);
+		setParamNormalized (kReflectionId, 1.f);
 	}
 	return kResultTrue;
 }

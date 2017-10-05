@@ -4,20 +4,19 @@
 #include "base/source/fstring.h"
 
 #include <stdio.h>
-#include <math.h>
 
 namespace Steinberg {
 namespace Vst {
 
 //------------------------------------------------------------------------
-// GainParameter Деклорация
-// Описывает параметр громкости звука в дБ
+// ReflectionParameter Деклорация
+// Описание параметров координат, длины, ширины, высоты
 //------------------------------------------------------------------------
-class GainParameter : public Parameter
+class ReflectionParameter : public Parameter
 {
 public:
   // Конструктор
-  GainParameter (int32 flags, int32 id);
+  ReflectionParameter (int32 flags, int32 id);
 
   // Преобразование на вывод
   virtual void toString (ParamValue normValue, String128 string) const;
@@ -26,13 +25,13 @@ public:
 };
 
 //------------------------------------------------------------------------
-// GainParameter Реализация
+// ReflectionParameter Реализация
 //------------------------------------------------------------------------
-GainParameter::GainParameter (int32 flags, int32 id)
+ReflectionParameter::ReflectionParameter (int32 flags, int32 id)
 {
   // Установка информации дял хоста
-  UString (info.title, USTRINGSIZE (info.title)).assign (USTRING ("Gain"));
-  UString (info.units, USTRINGSIZE (info.units)).assign (USTRING ("dB"));
+  UString (info.title, USTRINGSIZE (info.title)).assign (USTRING ("Reflection"));
+  UString (info.units, USTRINGSIZE (info.units)).assign (USTRING ("%"));
 
   // Установка флагов (описывают принципы взаимодествия для ввода)
   info.flags = flags;
@@ -42,30 +41,27 @@ GainParameter::GainParameter (int32 flags, int32 id)
   info.unitId = kRootUnitId;
 
   // Установка начального значения
-  setNormalized (1.0);
+  setNormalized (1.f);
 }
 
 //------------------------------------------------------------------------
-void GainParameter::toString (ParamValue normValue, String128 string) const
+void ReflectionParameter::toString (ParamValue normValue, String128 string) const
 {
   char text [32];
-  if (normValue > 0.001f)
-    sprintf (text, "%.2f", 20 * log10f ( (float) normValue)); // Формула преобразования из долей в дБ
-  else
-    strcpy (text, "-oo");
+  sprintf (text, "%d", normValue * 100);
   UString (string, 128).fromAscii (text);
 }
 
 //------------------------------------------------------------------------
-bool GainParameter::fromString (const TChar* string, ParamValue& normValue) const
+bool ReflectionParameter::fromString (const TChar* string, ParamValue& normValue) const
 {
   String wrapper ((TChar*) string);
-  double tmp = 0;
+  float tmp = 0;
   if (wrapper.scanFloat (tmp)) {
-    if (tmp > 0.0)
+    if (tmp < 0.0)
       tmp = -tmp;
 
-    normValue = expf (logf (10.f) * (float) tmp / 20.f); // Формула преобразования из дБ в доли
+    normValue = tmp / 100.f;
     return true;
   }
   return false;
