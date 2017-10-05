@@ -56,12 +56,12 @@ void CoordinateParameter::toString (ParamValue normValue, String128 string) cons
 bool CoordinateParameter::fromString (const TChar* string, ParamValue& normValue) const
 {
   String wrapper ((TChar*) string);
-  int64 tmp = 0;
-  if (wrapper.scanInt (tmp)) {
+  double tmp = 0;
+  if (wrapper.scanFloat (tmp)) {
     if (tmp < 0.0)
       tmp = -tmp;
 
-    normValue = tmp;
+    normValue = (int) tmp;
     return true;
   }
   return false;
