@@ -59,9 +59,9 @@ tresult PLUGIN_API MathReverbController::initialize (FUnknown* context) {
 	widthParam->setUnitID (unitInfo.id);
 
 	//---Параметр Height---
-	CoordinateParameter* widthParam = new CoordinateParameter (ParameterInfo::kCanAutomate, kHeightId, "Height");
-	parameters.addParameter (widthParam);
-	widthParam->setUnitID (unitInfo.id);
+	CoordinateParameter* heightParam = new CoordinateParameter (ParameterInfo::kCanAutomate, kHeightId, "Height");
+	parameters.addParameter (heightParam);
+	heightParam->setUnitID (unitInfo.id);
 
 	//---Параметр Reflection---
 	ReflectionParameter* reflectionParam = new ReflectionParameter (ParameterInfo::kCanAutomate, kReflectionId);
@@ -105,7 +105,7 @@ tresult PLUGIN_API MathReverbController::setComponentState (IBStream* state)
 					,receivedReflection = 1.f
 					,receivedXPos = 0.f
 					,receivedYPos = 0.f
-					,receivedZpos = 0.f;
+					,receivedZPos = 0.f;
 
 		// Получение параметров в том же порядке, что и определены
 		if (state->read (&receivedGain, sizeof (float)) != kResultTrue)
@@ -127,7 +127,7 @@ tresult PLUGIN_API MathReverbController::setComponentState (IBStream* state)
 
 		// Установка значений параметров
 		setParamNormalized (kGainId, receivedGain);
-		setParamNormalized (kLenghtId, receivedLenght);
+		setParamNormalized (kLengthId, receivedLength);
 		setParamNormalized (kWidthId, receivedWidth);
 		setParamNormalized (kHeightId, receivedHeight);
 		setParamNormalized (kReflectionId, receivedReflection);
