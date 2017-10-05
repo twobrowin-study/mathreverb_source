@@ -99,13 +99,13 @@ tresult PLUGIN_API MathReverbController::setComponentState (IBStream* state)
 	if (state) {
 		// Начальные параметры
 		float receivedGain = 1.f
-					,receivedLength = 0.f
-					,receivedWidth = 0.f
-					,receivedHeight = 0.f
+					,receivedLength = 10.f
+					,receivedWidth = 10.f
+					,receivedHeight = 10.f
 					,receivedReflection = 1.f
-					,receivedXPos = 0.f
-					,receivedYPos = 0.f
-					,receivedZPos = 0.f;
+					,receivedXPos = 10.f
+					,receivedYPos = 10.f
+					,receivedZPos = 10.f;
 
 		// Получение параметров в том же порядке, что и определены
 		if (state->read (&receivedGain, sizeof (float)) != kResultTrue)

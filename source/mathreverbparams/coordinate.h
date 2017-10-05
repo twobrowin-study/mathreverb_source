@@ -37,7 +37,7 @@ CoordinateParameter::CoordinateParameter (int32 flags, int32 id, const char* nam
   info.flags = flags;
   info.id = id;
   info.stepCount = 0;
-  info.defaultNormalizedValue = 0.f;
+  info.defaultNormalizedValue = 10.f;
   info.unitId = kRootUnitId;
 
   // Установка начального значения
@@ -48,7 +48,7 @@ CoordinateParameter::CoordinateParameter (int32 flags, int32 id, const char* nam
 void CoordinateParameter::toString (ParamValue normValue, String128 string) const
 {
   char text [32];
-  sprintf (text, "%.1f", (float) normValue);
+  sprintf (text, "%.3f", (float) normValue);
   UString (string, 128).fromAscii (text);
 }
 
