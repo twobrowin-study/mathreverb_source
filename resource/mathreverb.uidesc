@@ -8,7 +8,7 @@
 
 		<!-- Блок графического вывода геометрии помещения, положений источника и приёмника -->
 		<view class="CViewContanier" transparent="true" size="593, 170" origin="10, 42">
-			<view custom-view-name="CMathReverbView" size="593, 170"/>
+			<view custom-view-name="CMathReverbView" transparent="true" size="593, 170"/>
 		</view>
 
 		<!-- Блок ввода параметров виртуального помещения, характеризующих его геометрическую конфигурацию -->
