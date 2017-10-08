@@ -6,10 +6,12 @@ set(mathreverb_sources
 	source/mathreverbcontroller.cpp
 	source/mathreverbcontroller.h
 	source/mathreverbentry.cpp
-	source/mathreverbparamids.h
 	source/mathreverbprocess.h
 	source/version.h
+	source/mathreverbparams/coordiantes.h
 	source/mathreverbparams/gain.h
+	source/mathreverbparams/paramids.h
+	source/mathreverbparams/reflection.h
 )
 
 set(target mathreverb)
