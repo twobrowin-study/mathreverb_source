@@ -8,7 +8,7 @@ set(mathreverb_sources
 	source/mathreverbentry.cpp
 	source/mathreverbprocess.h
 	source/version.h
-	source/mathreverbparams/coordiante.h
+	source/mathreverbparams/coordinate.h
 	source/mathreverbparams/gain.h
 	source/mathreverbparams/paramids.h
 	source/mathreverbparams/reflection.h
