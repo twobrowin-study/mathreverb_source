@@ -2,62 +2,62 @@
 <vstgui-ui-description version="1">
 
 	<!-- Секция представлений -->
-	<template name="view" class="CViewContainer" bitmap="background" size="650, 400">
-		<!-- Название --> <view class="CTextLabel" title="Mathematic Reverberator" transparent="true" size="650, 28" origin="0, 10" font="~ NormalFontVeryBig"/>
+	<template name="view" class="CViewContainer" bitmap="background" size="650, 600">
+		<!-- Название --> <view class="CTextLabel" title="Плагин динамической реверберационной обработки" transparent="true" size="650, 28" origin="0, 10" font="~ NormalFontVeryBig"/>
 		<!-- Измеритель выходной громкости --> <view class="CVuMeter" control-tag="VuPPM" bitmap="vu_on" off-bitmap="vu_off" size="27, 234" origin="613, 42"/>
 
 		<!-- Блок графического вывода геометрии помещения, положений источника и приёмника -->
-		<view class="CViewContanier" transparent="true" size="593, 170" origin="10, 42">
-			<view custom-view-name="CMathReverbView" transparent="true" size="593, 170"/>
+		<view class="CViewContanier" transparent="true" size="593, 370" origin="10, 42">
+			<view custom-view-name="CMathReverbView" transparent="true" size="593, 370"/>
 		</view>
 
 		<!-- Блок ввода параметров виртуального помещения, характеризующих его геометрическую конфигурацию -->
-		<view class="CViewContanier" transparent="true" size="240, 168" origin="10, 222">
-			<!-- Заглавие --> <view class="CTextLabel" title="Room Geometry" transparent="true" size="240, 18" origin="0, 0" font="~ NormalFontBig"/>
+		<view class="CViewContanier" transparent="true" size="248, 168" origin="10, 422">
+			<!-- Заглавие --> <view class="CTextLabel" title="Геометрия помещения" transparent="true" size="240, 18" origin="0, 0" font="~ NormalFontBig"/>
 
+			<!-- Блок переменной ширины -->
+			<view class="CViewContanier" transparent="true" size="248, 50" origin="0, 18">
+				<view class="CTextLabel" title="Ширина:" text-alignment="right" transparent="true" size="48, 16" origin="0, 16"/>
+				<view class="CSlider" control-tag="Width" bitmap="slider_background" handle-bitmap="slider_handle" handle-offset="0, 2" size="130, 18" origin="50, 16"/>
+				<view class="CTextEdit" control-tag="Width" transparent="true" size="38, 16" origin="187, 16"/>
+				<view class="CTextLabel" title="m" text-alignment="left" transparent="true" size="12, 16" origin="232, 16"/>
+			</view>
+			<!-- Блок переменной высоты -->
+			<view class="CViewContanier" transparent="true" size="248, 50" origin="0, 68">
+				<view class="CTextLabel" title="Высота:" text-alignment="right" transparent="true" size="48, 16" origin="0, 16"/>
+				<view class="CSlider" control-tag="Height" bitmap="slider_background" handle-bitmap="slider_handle" handle-offset="0, 2" size="130, 18" origin="50, 16"/>
+				<view class="CTextEdit" control-tag="Height" transparent="true" size="38, 16" origin="187, 16"/>
+				<view class="CTextLabel" title="m" text-alignment="left" transparent="true" size="12, 16" origin="232, 16"/>
+			</view>
 			<!-- Блок переменной длины -->
-			<view class="CViewContanier" transparent="true" size="240, 50" origin="0, 18">
-				<view class="CTextLabel" title="Length:" text-alignment="right" transparent="true" size="40, 16" origin="0, 16"/>
-				<view class="CSlider" control-tag="Length" bitmap="slider_background" handle-bitmap="slider_handle" handle-offset="0, 2" size="130, 18" origin="46, 16"/>
-				<view class="CTextEdit" control-tag="Length" transparent="true" size="38, 16" origin="183, 16"/>
-				<view class="CTextLabel" title="m" text-alignment="left" transparent="true" size="12, 16" origin="228, 16"/>
-			</view>
-			<!-- Блок переменной ширины -->
-			<view class="CViewContanier" transparent="true" size="240, 50" origin="0, 68">
-				<view class="CTextLabel" title="Width:" text-alignment="right" transparent="true" size="40, 16" origin="0, 16"/>
-				<view class="CSlider" control-tag="Width" bitmap="slider_background" handle-bitmap="slider_handle" handle-offset="0, 2" size="130, 18" origin="46, 16"/>
-				<view class="CTextEdit" control-tag="Width" transparent="true" size="38, 16" origin="183, 16"/>
-				<view class="CTextLabel" title="m" text-alignment="left" transparent="true" size="12, 16" origin="228, 16"/>
-			</view>
-			<!-- Блок переменной ширины -->
-			<view class="CViewContanier" transparent="true" size="240, 50" origin="0, 118">
-				<view class="CTextLabel" title="Height:" text-alignment="right" transparent="true" size="40, 16" origin="0, 16"/>
-				<view class="CSlider" control-tag="Height" bitmap="slider_background" handle-bitmap="slider_handle" handle-offset="0, 2" size="130, 18" origin="46, 16"/>
-				<view class="CTextEdit" control-tag="Height" transparent="true" size="38, 16" origin="183, 16"/>
-				<view class="CTextLabel" title="m" text-alignment="left" transparent="true" size="12, 16" origin="228, 16"/>
+			<view class="CViewContanier" transparent="true" size="248, 50" origin="0, 118">
+				<view class="CTextLabel" title="Длина:" text-alignment="right" transparent="true" size="48, 16" origin="0, 16"/>
+				<view class="CSlider" control-tag="Length" bitmap="slider_background" handle-bitmap="slider_handle" handle-offset="0, 2" size="130, 18" origin="50, 16"/>
+				<view class="CTextEdit" control-tag="Length" transparent="true" size="38, 16" origin="187, 16"/>
+				<view class="CTextLabel" title="m" text-alignment="left" transparent="true" size="12, 16" origin="232, 16"/>
 			</view>
 		</view>
 
 		<!-- Блок ввода параметров, характеризующих положения в виртуальном помещении источника и приёмника сигнала -->
-		<view class="CViewContanier" transparent="true" size="240, 168" origin="260, 222">
-			<!-- Заглавие --> <view class="CTextLabel" title="Source/Receiver position" transparent="true" size="240, 18" origin="0, 0" font="~ NormalFontBig"/>
+		<view class="CViewContanier" transparent="true" size="232, 168" origin="268, 422">
+			<!-- Заглавие --> <view class="CTextLabel" title="Координаты источника/приёмника" transparent="true" size="232, 18" origin="0, 0" font="~ NormalFontBig"/>
 
 			<!-- Блок переменной положения по x -->
-			<view class="CViewContanier" transparent="true" size="240, 50" origin="0, 18">
+			<view class="CViewContanier" transparent="true" size="232, 50" origin="0, 18">
 				<view class="CTextLabel" title="X:" text-alignment="right" transparent="true" size="15, 16" origin="0, 16"/>
 				<view class="CSlider" control-tag="XPos" bitmap="slider_background" handle-bitmap="slider_handle" handle-offset="0, 2" size="130, 18" origin="21, 16"/>
 				<view class="CTextEdit" control-tag="XPos" transparent="true" size="38, 16" origin="158, 16"/>
 				<view class="CTextLabel" title="m" text-alignment="left" transparent="true" size="12, 16" origin="209, 16"/>
 			</view>
 			<!-- Блок переменной положения по y -->
-			<view class="CViewContanier" transparent="true" size="240, 50" origin="0, 68">
+			<view class="CViewContanier" transparent="true" size="232, 50" origin="0, 68">
 				<view class="CTextLabel" title="Y:" text-alignment="right" transparent="true" size="15, 16" origin="0, 16"/>
 				<view class="CSlider" control-tag="YPos" bitmap="slider_background" handle-bitmap="slider_handle" handle-offset="0, 2" size="130, 18" origin="21, 16"/>
 				<view class="CTextEdit" control-tag="YPos" transparent="true" size="38, 16" origin="158, 16"/>
 				<view class="CTextLabel" title="m" text-alignment="left" transparent="true" size="12, 16" origin="209, 16"/>
 			</view>
 			<!-- Блок переменной положения по z -->
-			<view class="CViewContanier" transparent="true" size="240, 50" origin="0, 118">
+			<view class="CViewContanier" transparent="true" size="232, 50" origin="0, 118">
 				<view class="CTextLabel" title="Z:" text-alignment="right" transparent="true" size="15, 16" origin="0, 16"/>
 				<view class="CSlider" control-tag="ZPos" bitmap="slider_background" handle-bitmap="slider_handle" handle-offset="0, 2" size="130, 18" origin="21, 16"/>
 				<view class="CTextEdit" control-tag="ZPos" transparent="true" size="38, 16" origin="158, 16"/>
@@ -66,16 +66,16 @@
 		</view>
 
 		<!-- Блок ввода параметра степени отражения сигнала от стен виртуального помещения -->
-		<view class="CViewContanier" transparent="true" size="93, 70" origin="510, 222">
-			<view class="CTextLabel" title="Reflection" transparent="true" size="93, 16" origin="0, 0" font="~ NormalFontBig"/>
+		<view class="CViewContanier" transparent="true" size="93, 70" origin="510, 422">
+			<view class="CTextLabel" title="Отражение" transparent="true" size="93, 16" origin="0, 0" font="~ NormalFontBig"/>
 			<view class="CAnimKnob" control-tag="Reflection" bitmap="knob_reflection" height-of-one-image="33" sub-pixmaps="80" size="33, 33" origin="30, 19"/>
 			<view class="CTextEdit" control-tag="Reflection" transparent="true" size="20, 16" origin="24, 54"/>
 			<view class="CTextLabel" title="%" text-alignment="left" transparent="true" size="20, 16" origin="47, 54"/>
 		</view>
 
 		<!-- Блок ввода дополнительного параметра громкости выходного сигнала, измеряемой в дБ -->
-		<view class="CViewContanier" transparent="true" size="130, 88" origin="510, 302">
-			<view class="CTextLabel" title="Gain" transparent="true" size="130, 18" origin="0, 0" font="~ NormalFontBig"/>
+		<view class="CViewContanier" transparent="true" size="130, 88" origin="510, 502">
+			<view class="CTextLabel" title="Громкость" transparent="true" size="130, 18" origin="0, 0" font="~ NormalFontBig"/>
 			<view class="CAnimKnob" control-tag="Gain" bitmap="knob_gain" height-of-one-image="48" sub-pixmaps="80" size="48, 48" origin="41, 20"/>
 			<view class="CTextEdit" control-tag="Gain" transparent="true" size="30, 18" origin="32, 70"/>
 			<view class="CTextLabel" title="dB" text-alignment="left" transparent="true" size="30, 18" origin="68, 70"/>
