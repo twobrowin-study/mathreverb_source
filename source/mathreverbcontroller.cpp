@@ -28,9 +28,12 @@ namespace Vst {
 tresult PLUGIN_API MathReverbController::initialize (FUnknown* context) {
 	tresult result = EditControllerEx1::initialize (context);
 	if (result != kResultOk)
-	{
 		return result;
-	}
+
+	// Создаём периметр
+	const CRect rect(CPoint(0, 0), CPoint(593, 370));
+	// Создадим переопределённое представление
+	mathReverbView = new CMathReverbView(rect);
 
 	// Создадим блок для параметров
 	UnitInfo unitInfo;
@@ -96,16 +99,17 @@ tresult PLUGIN_API MathReverbController::initialize (FUnknown* context) {
 //------------------------------------------------------------------------
 tresult PLUGIN_API MathReverbController::setComponentState (IBStream* state)
 {
-	if (state) {
+	if (state)
+	{
 		// Начальные параметры
 		float receivedGain = 1.f
 					,receivedLength = 1.f
 					,receivedWidth = 1.f
 					,receivedHeight = 1.f
 					,receivedReflection = 1.f
-					,receivedXPos = 1.f
-					,receivedYPos = 1.f
-					,receivedZPos = 1.f;
+					,receivedXPos = 0.5
+					,receivedYPos = 0.5
+					,receivedZPos = 0.5;
 
 		// Получение параметров в том же порядке, что и определены
 		if (state->read (&receivedGain, sizeof (float)) != kResultTrue)
@@ -134,6 +138,15 @@ tresult PLUGIN_API MathReverbController::setComponentState (IBStream* state)
 		setParamNormalized (kXPosId, receivedXPos);
 		setParamNormalized (kYPosId, receivedYPos);
 		setParamNormalized (kZPosId, receivedZPos);
+
+		((CMathReverbView*) mathReverbView)->setParams ((int) receivedWidth*100
+																									 ,(int) receivedHeight*100
+																									 ,(int) receivedLength*100
+																									 ,50
+																									 ,-50
+																									 ,50
+																								   );
+		mathReverbView->invalid ();
 	}
 	return kResultTrue;
 }
@@ -153,15 +166,9 @@ IPlugView* PLUGIN_API MathReverbController::createView (const char* name)
 //-----------------------------------------------------------------------
 CView* MathReverbController::createCustomView (UTF8StringPtr name, const UIAttributes &attributes, const IUIDescription *description, VST3Editor *editor)
 {
-	// Получаем атрибуты периметра
-	CPoint origin, size;
-	attributes.getPointAttribute ("origin", origin);
-	attributes.getPointAttribute ("size", size);
-	// Создаём периметр
-	const CRect rect(origin, size);
 	// Возвращаем объект класса графического вывода геометрии помещения, положений источника и приёмника
 	// Проверки не проводятся в силу единственности переопределённых представлений
-	return new CMathReverbView(rect);
+	return mathReverbView;
 }
 
 //------------------------------------------------------------------------
