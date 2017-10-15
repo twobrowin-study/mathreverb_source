@@ -34,7 +34,7 @@ tresult PLUGIN_API MathReverbController::initialize (FUnknown* context)
 	// Создаём периметр
 	const CRect rect (CPoint(0, 0), CPoint(593, 370));
 	// Создадим переопределённое представление
-	mathReverbView = new CMathReverbView (rect);
+	mathReverbView = NULL;//new CMathReverbView (rect);
 
 	// Создадим блок для параметров
 	UnitInfo unitInfo;
