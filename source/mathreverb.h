@@ -19,10 +19,16 @@ public:
 
 	// Вызывается сразу после конструктора
 	tresult PLUGIN_API initialize (FUnknown* context) SMTG_OVERRIDE;
+
 	// Включение и выключение плагина
 	tresult PLUGIN_API setActive (TBool state) SMTG_OVERRIDE;
+
 	// Метод обработки и применения изменений плагина
 	tresult PLUGIN_API process (ProcessData& data) SMTG_OVERRIDE;
+
+	// Методы сохранения параметров
+	tresult PLUGIN_API getState (IBStream* state) SMTG_OVERRIDE;
+	tresult PLUGIN_API setState (IBStream* state) SMTG_OVERRIDE;
 
 protected:
 	// Метод непосредственно обработки аудио потока

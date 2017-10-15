@@ -25,7 +25,8 @@ namespace Vst {
 //------------------------------------------------------------------------
 // MathReverbController Реализация
 //------------------------------------------------------------------------
-tresult PLUGIN_API MathReverbController::initialize (FUnknown* context) {
+tresult PLUGIN_API MathReverbController::initialize (FUnknown* context)
+{
 	tresult result = EditControllerEx1::initialize (context);
 	if (result != kResultOk)
 		return result;
@@ -101,52 +102,42 @@ tresult PLUGIN_API MathReverbController::setComponentState (IBStream* state)
 {
 	if (state)
 	{
-		// Начальные параметры
-		float receivedGain = 1.f
-					,receivedLength = 1.f
-					,receivedWidth = 1.f
-					,receivedHeight = 1.f
-					,receivedReflection = 1.f
-					,receivedXPos = 0.5
-					,receivedYPos = 0.5
-					,receivedZPos = 0.5;
+		float savedGain
+					,savedLength
+					,savedWidth
+					,savedHeight
+					,savedReflection
+					,savedXPos
+					,savedYPos
+					,savedZPos;
 
 		// Получение параметров в том же порядке, что и определены
-		if (state->read (&receivedGain, sizeof (float)) != kResultTrue)
+		if (state->read (&savedGain, sizeof (float)) != kResultTrue)
 			return kResultFalse;
-		if (state->read (&receivedLength, sizeof (float)) != kResultTrue)
+		if (state->read (&savedLength, sizeof (float)) != kResultTrue)
 			return kResultFalse;
-		if (state->read (&receivedWidth, sizeof (float)) != kResultTrue)
+		if (state->read (&savedWidth, sizeof (float)) != kResultTrue)
 			return kResultFalse;
-		if (state->read (&receivedHeight, sizeof (float)) != kResultTrue)
+		if (state->read (&savedHeight, sizeof (float)) != kResultTrue)
 			return kResultFalse;
-		if (state->read (&receivedReflection, sizeof (float)) != kResultTrue)
+		if (state->read (&savedReflection, sizeof (float)) != kResultTrue)
 			return kResultFalse;
-		if (state->read (&receivedXPos, sizeof (float)) != kResultTrue)
+		if (state->read (&savedXPos, sizeof (float)) != kResultTrue)
 			return kResultFalse;
-		if (state->read (&receivedYPos, sizeof (float)) != kResultTrue)
+		if (state->read (&savedYPos, sizeof (float)) != kResultTrue)
 			return kResultFalse;
-		if (state->read (&receivedZPos, sizeof (float)) != kResultTrue)
+		if (state->read (&savedZPos, sizeof (float)) != kResultTrue)
 			return kResultFalse;
 
 		// Установка значений параметров
-		setParamNormalized (kGainId, receivedGain);
-		setParamNormalized (kLengthId, receivedLength);
-		setParamNormalized (kWidthId, receivedWidth);
-		setParamNormalized (kHeightId, receivedHeight);
-		setParamNormalized (kReflectionId, receivedReflection);
-		setParamNormalized (kXPosId, receivedXPos);
-		setParamNormalized (kYPosId, receivedYPos);
-		setParamNormalized (kZPosId, receivedZPos);
-
-		((CMathReverbView*) mathReverbView)->setParams ((int) receivedWidth*100
-																									 ,(int) receivedHeight*100
-																									 ,(int) receivedLength*100
-																									 ,50
-																									 ,-50
-																									 ,50
-																								   );
-		mathReverbView->invalid ();
+		setParamNormalized (kGainId, savedGain);
+		setParamNormalized (kLengthId, savedLength);
+		setParamNormalized (kWidthId, savedWidth);
+		setParamNormalized (kHeightId, savedHeight);
+		setParamNormalized (kReflectionId, savedReflection);
+		setParamNormalized (kXPosId, savedXPos);
+		setParamNormalized (kYPosId, savedYPos);
+		setParamNormalized (kZPosId, savedZPos);
 	}
 	return kResultTrue;
 }
