@@ -189,6 +189,41 @@ tresult PLUGIN_API MathReverb::process (ProcessData& data)
 	return kResultOk;
 }
 
+
+//------------------------------------------------------------------------
+tresult PLUGIN_API MathReverb::getState (IBStream* state)
+{
+	float toSaveGain = fGain;
+
+#if BYTEORDER == kBigEndian
+	SWAP_32 (toSaveGain)
+#endif
+
+	state->write (&toSaveGain, sizeof (float));
+
+	return kResultOk;
+}
+
+//------------------------------------------------------------------------
+tresult PLUGIN_API MathReverb::setState (IBStream* state)
+{
+
+	float savedGain = 0.f;
+	if (state->read (&savedGain, sizeof (float)) != kResultOk)
+	{
+		return kResultFalse;
+	}
+
+	#if BYTEORDER == kBigEndian
+		SWAP_32 (savedGain)
+	#endif
+
+	fGain = savedGain;
+
+	return kResultOk;
+}
+
+
 //------------------------------------------------------------------------
 } // Пространство имён Vst
 } // Пространство имён Steinberg
