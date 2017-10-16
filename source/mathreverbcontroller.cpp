@@ -15,6 +15,7 @@
 #include "mathreverbparams/reflection.h"
 
 #include "cmathreverbview.h"
+#include "mathreverbvst3editor.h"
 
 #include <stdio.h>
 #include <math.h>
@@ -108,6 +109,13 @@ tresult PLUGIN_API MathReverbController::initialize (FUnknown* context)
 	tag = kResetId;
 	parameters.addParameter (STR16 ("Reset"), 0, stepCount, defaultVal, flags, tag);
 
+	// Параметр Exit
+	stepCount = 1;
+	defaultVal = 0;
+	flags = ParameterInfo::kCanAutomate;
+	tag = kExitId;
+	parameters.addParameter (STR16 ("Exit Editor"), 0, stepCount, defaultVal, flags, tag);
+
 	return result;
 }
 
@@ -166,7 +174,7 @@ IPlugView* PLUGIN_API MathReverbController::createView (const char* name)
 	// Получен запрос интерфейса пользователя
 	if (name && strcmp (name, "editor") == 0)
 	{
-		VST3Editor* view = new VST3Editor (this, "view", "mathreverb.uidesc");
+		MathReverbVST3Editor* view = new MathReverbVST3Editor (this, "view", "mathreverb.uidesc");
 		return view;
 	}
 	return 0;
