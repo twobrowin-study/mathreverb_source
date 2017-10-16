@@ -22,7 +22,7 @@ public:
 	{
 		if (pControl->getTag () == kExitId)
 			if (pControl->getValueNormalized () > 0.5f)
-				close (); // Если нажата кнопка Закрыть - закрываем
+				((EditControllerEx1 *) originalController)->terminate() // Если нажата кнопка Закрыть - закрываем контроллер
 	}
 };
 
