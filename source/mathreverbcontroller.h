@@ -29,8 +29,8 @@ public:
 	// Установить состояние параметров
 	tresult PLUGIN_API setComponentState (IBStream* state) SMTG_OVERRIDE;
 
-	// Выполныется, когда редактор был уничтожен
-	virtual void editorDestroyed (EditorView *)  SMTG_OVERRIDE
+	// Выполняется, когда редактор был уничтожен
+	virtual void editorRemoved (EditorView *)  SMTG_OVERRIDE
 	{
 		terminate ();
 	}
