@@ -1,7 +1,6 @@
 #pragma once
 
 #include "vstgui4/vstgui/plugin-bindings/vst3editor.h"
-#include "public.sdk/source/vst/vsteditcontroller.h"
 #include "mathreverbparams/paramids.h"
 
 namespace VSTGUI {
@@ -23,7 +22,7 @@ public:
 	{
 		if (pControl->getTag () == kExitId)
 			if (pControl->getValueNormalized () > 0.5f)
-				((EditControllerEx1 *) originalController)->terminate () // Если нажата кнопка Закрыть - закрываем контроллер
+				originalController->terminate () // Если нажата кнопка Закрыть - закрываем контроллер
 	}
 };
 
