@@ -29,6 +29,12 @@ public:
 	// Установить состояние параметров
 	tresult PLUGIN_API setComponentState (IBStream* state) SMTG_OVERRIDE;
 
+	// Выполныется, когда редактор был уничтожен
+	virtual void editorDestroyed (EditorView *)  SMTG_OVERRIDE
+	{
+		terminate ();
+	}
+
 	//---Из VST3EditorDelegate---
 	// Создать описанное внешне представление
 	virtual CView* createCustomView (UTF8StringPtr name, const UIAttributes &attributes, const IUIDescription *description, VST3Editor *editor)  SMTG_OVERRIDE;
