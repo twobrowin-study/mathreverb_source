@@ -2,7 +2,7 @@
 <vstgui-ui-description version="1">
 
 	<!-- Секция представлений -->
-	<template name="view" class="CViewContainer" bitmap="background" size="650, 600">
+	<template name="view" class="CViewContainer" bitmap="background" size="650, 640">
 		<!-- Название --> <view class="CTextLabel" title="Плагин динамической реверберационной обработки" transparent="true" size="650, 28" origin="0, 10" font="~ NormalFontVeryBig"/>
 		<!-- Измеритель выходной громкости --> <view class="CVuMeter" control-tag="VuPPM" bitmap="vu_on" off-bitmap="vu_off" size="27, 234" origin="613, 42"/>
 
@@ -80,6 +80,13 @@
 			<view class="CTextEdit" control-tag="Gain" transparent="true" size="30, 18" origin="32, 70"/>
 			<view class="CTextLabel" title="dB" text-alignment="left" transparent="true" size="30, 18" origin="68, 70"/>
 		</view>
+
+		<!-- Блок Сброса, Проброса и Выхода -->
+		<view class="CViewContanier" transparent="true" size="630, 20" origin="10, 610">
+			<!-- Кнопка cброса --> <view class="CTextButton" control-tag="Reset" title="Сбосить" size="60, 20" origin="0, 0"/>
+			<!-- Переключатель проброса --> <view class="CCheckBox" control-tag="Bypass" title="Проброс звука" size="150, 20" origin="80, 0"/>
+			<!-- Кнопка cброса --> <view class="CTextButton" control-tag="Exit" title="Выйти из редактора" size="100, 20" origin="530, 0"/>
+		</view>
 	</template>
 
 	<!-- Секция изображений (изображения определяются в mathreverb.rc) -->
@@ -104,6 +111,9 @@
 		<control-tag name="XPos" tag="6"/>
 		<control-tag name="YPos" tag="7"/>
 		<control-tag name="ZPos" tag="8"/>
+		<control-tag name="Bypass" tag="9"/>
+		<control-tag name="Reset" tag="10"/>
+		<control-tag name="Exit" tag="11"/>
 	</control-tags>
 
 	<!-- Секция шрифтов -->
