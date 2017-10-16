@@ -32,7 +32,7 @@ public:
 	// Выполняется, когда редактор был уничтожен
 	virtual void editorRemoved (EditorView *)  SMTG_OVERRIDE
 	{
-		terminate ();
+		createView ("editor");
 	}
 
 	//---Из VST3EditorDelegate---
