@@ -94,6 +94,20 @@ tresult PLUGIN_API MathReverbController::initialize (FUnknown* context)
 	int32 tag = kVuPPMId;
 	parameters.addParameter (STR16 ("VuPPM"), 0, stepCount, defaultVal, flags, tag);
 
+	// Параметр Bypass
+	stepCount = 1;
+	defaultVal = 0;
+	flags = ParameterInfo::kCanAutomate | ParameterInfo::kIsBypass;
+	tag = kBypassId;
+	parameters.addParameter (STR16 ("Bypass"), 0, stepCount, defaultVal, flags, tag);
+
+	// Параметр Reset
+	stepCount = 1;
+	defaultVal = 0;
+	flags = ParameterInfo::kCanAutomate;
+	tag = kResetId;
+	parameters.addParameter (STR16 ("Reset"), 0, stepCount, defaultVal, flags, tag);
+
 	return result;
 }
 
@@ -102,7 +116,7 @@ tresult PLUGIN_API MathReverbController::setComponentState (IBStream* state)
 {
 	if (state)
 	{
-		float savedGain
+		float  savedGain
 					,savedLength
 					,savedWidth
 					,savedHeight
@@ -110,6 +124,7 @@ tresult PLUGIN_API MathReverbController::setComponentState (IBStream* state)
 					,savedXPos
 					,savedYPos
 					,savedZPos;
+		int32 bypassState;
 
 		// Получение параметров в том же порядке, что и определены
 		if (state->read (&savedGain, sizeof (float)) != kResultTrue)
@@ -128,6 +143,8 @@ tresult PLUGIN_API MathReverbController::setComponentState (IBStream* state)
 			return kResultFalse;
 		if (state->read (&savedZPos, sizeof (float)) != kResultTrue)
 			return kResultFalse;
+		if (state->read (&bypassState, sizeof (bypassState)) != kResultTrue)
+			return kResultFalse;
 
 		// Установка значений параметров
 		setParamNormalized (kGainId, savedGain);
@@ -138,6 +155,7 @@ tresult PLUGIN_API MathReverbController::setComponentState (IBStream* state)
 		setParamNormalized (kXPosId, savedXPos);
 		setParamNormalized (kYPosId, savedYPos);
 		setParamNormalized (kZPosId, savedZPos);
+		setParamNormalized (kBypassId, bypassState);
 	}
 	return kResultTrue;
 }
