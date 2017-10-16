@@ -13,7 +13,7 @@ class MathReverbVST3Editor : public VST3Editor
 {
 public:
   // Конструктор
-	CMathReverbView (Steinberg::Vst::EditController *controller, UTF8StringPtr templateName, UTF8StringPtr xmlFile)
+	MathReverbVST3Editor (Steinberg::Vst::EditController *controller, UTF8StringPtr templateName, UTF8StringPtr xmlFile)
 	: VST3Editor (controller, templateName, xmlFile)
 	{}
 
