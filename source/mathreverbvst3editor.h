@@ -52,7 +52,7 @@ public:
 				// Установка Bypass в исходное значение
         pControl->setTag (kBypassId);
         pControl->setValue (0.f);
-				recreateView ();
+				// recreateView ();
       }
     VST3Editor::valueChanged (pControl);
 	}
