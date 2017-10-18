@@ -21,6 +21,7 @@ public:
 	// Метод, вызываемый при изменении какого-либо параметра
 	virtual void 	valueChanged (CControl *pControl) VSTGUI_OVERRIDE_VMETHOD
 	{
+		VST3Editor::valueChanged (pControl);
 		if (pControl->getTag () == kResetId) // Нажата кнопка сброса параметров
 			if (pControl->getValueNormalized () > 0.5f) // Нажатие кнопки соответвует значению 1.f
         // Сброс параметров
@@ -57,7 +58,6 @@ public:
 				pControl->setTag (kResetId);
 				recreateView ();
       }
-    VST3Editor::valueChanged (pControl);
 	}
 };
 
