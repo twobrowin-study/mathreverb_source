@@ -28,7 +28,7 @@ public:
   virtual void draw (CDrawContext *pContext);
 	void setWidthNormalized (double w)
 	{
-		width =
+		width = w * 100;
 		invalid ();
 	}
 private:

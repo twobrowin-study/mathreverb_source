@@ -15,9 +15,9 @@ class MathReverbVST3Editor : public VST3Editor
 {
 public:
   // Конструктор
-	MathReverbVST3Editor (Steinberg::Vst::EditController *controller, UTF8StringPtr templateName, UTF8StringPtr xmlFile, CMathReverbView* internalView)
+	MathReverbVST3Editor (Steinberg::Vst::EditController *controller, UTF8StringPtr templateName, UTF8StringPtr xmlFile, CView* internalView)
 	: VST3Editor (controller, templateName, xmlFile)
-	,mathReverbView(internalView)
+	,mathReverbView((CMathReverbView*) internalView)
 	{}
 
 	// Метод, вызываемый при изменении какого-либо параметра
@@ -25,7 +25,7 @@ public:
 	{
 		VST3Editor::valueChanged (pControl);
 		if (pControl->getTag () == kWidthId) // Изменён параметр ширины
-			mathReverbView->setWidthNormalized (pControl->getParamNormalized ());
+			mathReverbView->setWidthNormalized (pControl->getValueNormalized ());
 	}
 
 private:
