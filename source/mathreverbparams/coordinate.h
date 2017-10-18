@@ -37,21 +37,18 @@ CoordinateParameter::CoordinateParameter (int32 flags, int32 id, const char* nam
   info.flags = flags;
   info.id = id;
   info.stepCount = 0;
-  info.defaultNormalizedValue = 0.f;
+  info.defaultNormalizedValue = 0.5f;
   info.unitId = kRootUnitId;
 
   // Установка начального значения
-  setNormalized (0.f);
+  setNormalized (0.5f);
 }
 
 //------------------------------------------------------------------------
 void CoordinateParameter::toString (ParamValue normValue, String128 string) const
 {
   char text [32];
-  if (normValue > 0.5f)
-    normValue = 0.5f;
-  if (normValue < -0.5f)
-    normValue = -0.5f;
+  normValue -= 1.0f;
   sprintf (text, "%.2f", (float) normValue * 100);
   UString (string, 128).fromAscii (text);
 }
@@ -62,7 +59,7 @@ bool CoordinateParameter::fromString (const TChar* string, ParamValue& normValue
   String wrapper ((TChar*) string);
   double tmp = 0;
   if (wrapper.scanFloat (tmp)) {
-    normValue = tmp / 100.f;
+    normValue = tmp / 100.f + 1.f;
     return true;
   }
   return false;

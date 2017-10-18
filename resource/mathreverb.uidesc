@@ -45,21 +45,21 @@
 			<!-- Блок переменной положения по x -->
 			<view class="CViewContanier" transparent="true" size="232, 50" origin="0, 18">
 				<view class="CTextLabel" title="X:" text-alignment="right" transparent="true" size="15, 16" origin="0, 16"/>
-				<view class="CSlider" control-tag="XPos" bitmap="slider_background" handle-bitmap="slider_handle" handle-offset="0, 2" min-value="-0.5" max-value="0.5" size="130, 18" origin="21, 16"/>
+				<view class="CSlider" control-tag="XPos" bitmap="slider_background" handle-bitmap="slider_handle" handle-offset="0, 2" size="130, 18" origin="21, 16"/>
 				<view class="CTextEdit" control-tag="XPos" transparent="true" size="38, 16" origin="158, 16"/>
 				<view class="CTextLabel" title="m" text-alignment="left" transparent="true" size="12, 16" origin="209, 16"/>
 			</view>
 			<!-- Блок переменной положения по y -->
 			<view class="CViewContanier" transparent="true" size="232, 50" origin="0, 68">
 				<view class="CTextLabel" title="Y:" text-alignment="right" transparent="true" size="15, 16" origin="0, 16"/>
-				<view class="CSlider" control-tag="YPos" bitmap="slider_background" handle-bitmap="slider_handle" handle-offset="0, 2" min-value="-0.5" max-value="0.5" size="130, 18" origin="21, 16"/>
+				<view class="CSlider" control-tag="YPos" bitmap="slider_background" handle-bitmap="slider_handle" handle-offset="0, 2" size="130, 18" origin="21, 16"/>
 				<view class="CTextEdit" control-tag="YPos" transparent="true" size="38, 16" origin="158, 16"/>
 				<view class="CTextLabel" title="m" text-alignment="left" transparent="true" size="12, 16" origin="209, 16"/>
 			</view>
 			<!-- Блок переменной положения по z -->
 			<view class="CViewContanier" transparent="true" size="232, 50" origin="0, 118">
 				<view class="CTextLabel" title="Z:" text-alignment="right" transparent="true" size="15, 16" origin="0, 16"/>
-				<view class="CSlider" control-tag="ZPos" bitmap="slider_background" handle-bitmap="slider_handle" handle-offset="0, 2" min-value="-0.5" max-value="0.5" size="130, 18" origin="21, 16"/>
+				<view class="CSlider" control-tag="ZPos" bitmap="slider_background" handle-bitmap="slider_handle" handle-offset="0, 2" size="130, 18" origin="21, 16"/>
 				<view class="CTextEdit" control-tag="ZPos" transparent="true" size="38, 16" origin="158, 16"/>
 				<view class="CTextLabel" title="m" text-alignment="left" transparent="true" size="12, 16" origin="209, 16"/>
 			</view>
