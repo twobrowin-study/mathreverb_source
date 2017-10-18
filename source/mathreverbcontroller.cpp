@@ -15,7 +15,6 @@
 #include "mathreverbparams/reflection.h"
 
 #include "cmathreverbview.h"
-#include "mathreverbvst3editor.h"
 
 #include <stdio.h>
 #include <math.h>
