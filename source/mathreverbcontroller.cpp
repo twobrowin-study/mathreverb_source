@@ -48,17 +48,17 @@ tresult PLUGIN_API MathReverbController::initialize (FUnknown* context)
 	gainParam->setUnitID (unitInfo.id);
 
 	// Параметр Length
-	CoordinateParameter* lengthParam = new CoordinateParameter (ParameterInfo::kCanAutomate, kLengthId, "Length");
+	SizeParameter* lengthParam = new SizeParameter (ParameterInfo::kCanAutomate, kLengthId, "Length");
 	parameters.addParameter (lengthParam);
 	lengthParam->setUnitID (unitInfo.id);
 
 	// Параметр Width
-	CoordinateParameter* widthParam = new CoordinateParameter (ParameterInfo::kCanAutomate, kWidthId, "Width");
+	SizeParameter* widthParam = new SizeParameter (ParameterInfo::kCanAutomate, kWidthId, "Width");
 	parameters.addParameter (widthParam);
 	widthParam->setUnitID (unitInfo.id);
 
 	// Параметр Height
-	CoordinateParameter* heightParam = new CoordinateParameter (ParameterInfo::kCanAutomate, kHeightId, "Height");
+	SizeParameter* heightParam = new SizeParameter (ParameterInfo::kCanAutomate, kHeightId, "Height");
 	parameters.addParameter (heightParam);
 	heightParam->setUnitID (unitInfo.id);
 
