@@ -14,7 +14,7 @@ SampleType MathReverb::processAudio (SampleType** in, SampleType** out, int32 nu
 	// Комментарии здесь будут после разработки модели и реализации её
 	SampleType vuPPM = 0, tmp;
 
-	int32 delayInSamples = std::max<int32> (1, 1.f * processSetup.sampleRate);
+	int32 delayInSamples = std::max<int32> (1,0.f * processSetup.sampleRate);
 
 	for (int32 channel = 0; channel < numChannels; channel++)
 	{
