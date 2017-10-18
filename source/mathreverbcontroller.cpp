@@ -15,6 +15,7 @@
 #include "mathreverbparams/reflection.h"
 
 #include "cmathreverbview.h"
+#include "mathreverbvst3editor.h"
 
 #include <stdio.h>
 #include <math.h>
@@ -166,7 +167,7 @@ IPlugView* PLUGIN_API MathReverbController::createView (const char* name)
 	// Получен запрос интерфейса пользователя
 	if (name && strcmp (name, "editor") == 0)
 	{
-		VST3Editor* view = new VST3Editor (this, "view", "mathreverb.uidesc");
+		MathReverbVST3Editor* view = new MathReverbVST3Editor (this, "view", "mathreverb.uidesc");
 		return view;
 	}
 	return 0;

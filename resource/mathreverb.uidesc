@@ -112,7 +112,6 @@
 		<control-tag name="ZPos" tag="8"/>
 		<control-tag name="Bypass" tag="9"/>
 		<control-tag name="Reset" tag="10"/>
-		<control-tag name="Exit" tag="11"/>
 	</control-tags>
 
 	<!-- Секция шрифтов -->
