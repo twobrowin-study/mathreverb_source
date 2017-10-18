@@ -28,32 +28,32 @@ public:
       {
         // Установка Gain в исходное значение
         pControl->setTag (kGainId);
-        pControl->setValue (1.f);
+        pControl->setValueNormalized (1.f);
 				recreateView ();
 				// Установка Length в исходное значение
         pControl->setTag (kLengthId);
-        pControl->setValue (1.f);
+        pControl->setValueNormalized (1.f);
 				// Установка Width в исходное значение
         pControl->setTag (kWidthId);
-        pControl->setValue (1.f);
+        pControl->setValueNormalized (1.f);
 				// Установка Height в исходное значение
         pControl->setTag (kHeightId);
-        pControl->setValue (1.f);
+        pControl->setValueNormalized (1.f);
 				// Установка Reflection в исходное значение
         pControl->setTag (kReflectionId);
-        pControl->setValue (1.f);
+        pControl->setValueNormalized (1.f);
 				// Установка XPos в исходное значение
         pControl->setTag (kXPosId);
-        pControl->setValue (1.f);
+        pControl->setValueNormalized (1.f);
 				// Установка YPos в исходное значение
         pControl->setTag (kYPosId);
-        pControl->setValue (1.f);
+        pControl->setValueNormalized (1.f);
 				// Установка ZPos в исходное значение
         pControl->setTag (kZPosId);
-        pControl->setValue (1.f);
+        pControl->setValueNormalized (1.f);
 				// Установка Bypass в исходное значение
         pControl->setTag (kBypassId);
-        pControl->setValue (0.f);
+        pControl->setValueNormalized (0.f);
 				recreateView ();
 				pControl->setTag (kResetId);
 				recreateView ();
