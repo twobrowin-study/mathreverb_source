@@ -25,6 +25,7 @@ public:
 			if (pControl->getValueNormalized () > 0.5f) // Нажатие кнопки соответвует значению 1.f
         // Сброс параметров
 				recreateView ();
+    VST3Editor::valueChanged (pControl);
 	}
 };
 
