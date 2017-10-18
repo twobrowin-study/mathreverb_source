@@ -85,7 +85,6 @@
 		<view class="CViewContanier" transparent="true" size="630, 20" origin="10, 610">
 			<!-- Кнопка cброса --> <view class="CTextButton" control-tag="Reset" title="Сбосить" size="60, 20" origin="0, 0"/>
 			<!-- Переключатель проброса --> <view class="CCheckBox" control-tag="Bypass" title="Проброс звука" size="150, 20" origin="80, 0"/>
-			<!-- Кнопка выхода --> <view class="CTextButton" control-tag="Exit" title="Выйти из редактора" size="120, 20" origin="510, 0"/>
 		</view>
 	</template>
 
