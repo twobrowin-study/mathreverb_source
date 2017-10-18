@@ -32,11 +32,6 @@ tresult PLUGIN_API MathReverbController::initialize (FUnknown* context)
 	if (result != kResultOk)
 		return result;
 
-	// Создаём периметр
-	const CRect rect (CPoint(0, 0), CPoint(593, 370));
-	// Создадим переопределённое представление
-	mathReverbView = new CMathReverbView (rect);
-
 	// Создадим блок для параметров
 	UnitInfo unitInfo;
 	Unit* unit;
@@ -178,7 +173,11 @@ CView* MathReverbController::createCustomView (UTF8StringPtr name, const UIAttri
 {
 	// Возвращаем объект класса графического вывода геометрии помещения, положений источника и приёмника
 	// Проверки не проводятся в силу единственности переопределённых представлений
-	return mathReverbView;
+	// return mathReverbView;
+	// Создаём периметр
+	const CRect rect (CPoint(0, 0), CPoint(593, 370));
+	// Создадим переопределённое представление
+	return new CMathReverbView (rect);
 }
 
 //------------------------------------------------------------------------
