@@ -26,11 +26,6 @@ public:
 
   // Метод рисования - вывода в заданое поле графической информации
   virtual void draw (CDrawContext *pContext);
-	void setWidthNormalized (double w)
-	{
-		width = w * 100;
-		invalid ();
-	}
 private:
 	int width, height, length;
 	int xPos, yPos, zPos;

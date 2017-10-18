@@ -33,8 +33,6 @@ public:
 	// Создать описанное внешне представление
 	virtual CView* createCustomView (UTF8StringPtr name, const UIAttributes &attributes, const IUIDescription *description, VST3Editor *editor)  SMTG_OVERRIDE;
 
-private:
-		CView* mathReverbView;
 };
 
 //------------------------------------------------------------------------
