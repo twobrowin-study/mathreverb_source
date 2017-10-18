@@ -115,9 +115,18 @@ tresult PLUGIN_API MathReverb::process (ProcessData& data)
 				ParamValue value;
 				int32 sampleOffset;
 				int32 numPoints = paramQueue->getPointCount ();
-				if ( (paramQueue->getParameterId () == kGainId) &&
-							(paramQueue->getPoint (numPoints - 1, sampleOffset, value) == kResultTrue) )
-					fGain = (float)value; // Если параметр Gain - записываем его
+				switch (paramQueue->getParameterId ())
+				{
+					case kGainId: // Если параметр Gain - записываем его
+						if (paramQueue->getPoint (numPoints - 1, sampleOffset, value) == kResultTrue)
+							fGain = (float)value;
+						break;
+
+					case kBypassId: // Если параметр Bypass - записываем его
+						if (paramQueue->getPoint (numPoints - 1, sampleOffset, value) == kResultTrue)
+							bBypass = value > 0.5f;
+						break;
+				}
 			}
 		}
 	}
@@ -162,11 +171,23 @@ tresult PLUGIN_API MathReverb::process (ProcessData& data)
 		// Если входные каналы не заглушены - отметим незаглушенными выходные
 		data.outputs[0].silenceFlags = 0;
 
-		// Обработка аудио при помощи метода-шаблона
-		if (data.symbolicSampleSize == kSample32)
-			fVuPPM = processAudio<Sample32> ((Sample32**)in, (Sample32**)out, numChannels, data.numSamples);
+		// Если включен проброс просто копируем входы
+		if (bBypass)
+		{
+			for (int32 channel = 0; channel < numChannels; channel++)
+				for (int32 sample = 0; sample < sampleFrames; sample++)
+				{
+					out[channel][sample] = in[channel][sample];
+					if (out[channel][sample] > vuPPM)
+						fVuPPM = out[channel][sample];
+				}
+		}
 		else
-			fVuPPM = processAudio<Sample64> ((Sample64**)in, (Sample64**)out, numChannels, data.numSamples);
+			// Обработка аудио при помощи метода-шаблона
+			if (data.symbolicSampleSize == kSample32)
+				fVuPPM = processAudio<Sample32> ((Sample32**)in, (Sample32**)out, numChannels, data.numSamples);
+			else
+				fVuPPM = processAudio<Sample64> ((Sample64**)in, (Sample64**)out, numChannels, data.numSamples);
 	}
 
 	// 4) Вывод параметра выходной громкости VuMeter обратно в плагин
@@ -194,12 +215,17 @@ tresult PLUGIN_API MathReverb::process (ProcessData& data)
 tresult PLUGIN_API MathReverb::getState (IBStream* state)
 {
 	float toSaveGain = fGain;
+	int32 toSaveBypass = bBypass ? 1 : 0;
 
 #if BYTEORDER == kBigEndian
 	SWAP_32 (toSaveGain)
 #endif
+#if BYTEORDER == kBigEndian
+	SWAP_32 (toSaveBypass)
+#endif
 
 	state->write (&toSaveGain, sizeof (float));
+	state->write (&toSaveBypass, sizeof (float));
 
 	return kResultOk;
 }
@@ -207,7 +233,7 @@ tresult PLUGIN_API MathReverb::getState (IBStream* state)
 //------------------------------------------------------------------------
 tresult PLUGIN_API MathReverb::setState (IBStream* state)
 {
-
+	// Считаем Gain
 	float savedGain = 0.f;
 	if (state->read (&savedGain, sizeof (float)) != kResultOk)
 	{
@@ -219,6 +245,19 @@ tresult PLUGIN_API MathReverb::setState (IBStream* state)
 	#endif
 
 	fGain = savedGain;
+
+	// Считаем Bypass
+	int32 savedBypass = 0.f;
+	if (state->read (&savedBypass, sizeof (savedBypass)) != kResultOk)
+	{
+		return kResultFalse;
+	}
+
+	#if BYTEORDER == kBigEndian
+		SWAP_32 (savedBypass)
+	#endif
+
+	bBypass = savedGain;
 
 	return kResultOk;
 }

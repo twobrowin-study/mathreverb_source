@@ -37,7 +37,11 @@ protected:
 
 	// Параметры модели
 	float fVuPPMOld;
+
 	float fGain;
+	bool bBypass;
+
+
 	float **mBuffer;
 	int32 mBufferPos;
 };
