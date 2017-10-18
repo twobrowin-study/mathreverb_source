@@ -24,7 +24,12 @@ public:
 		if (pControl->getTag () == kResetId) // Нажата кнопка сброса параметров
 			if (pControl->getValueNormalized () > 0.5f) // Нажатие кнопки соответвует значению 1.f
         // Сброс параметров
+      {
+        // Установка Gain нулю
+        pControl->setTag (kGainId);
+        pControl->setValue (0);
 				recreateView ();
+      }
     VST3Editor::valueChanged (pControl);
 	}
 };
