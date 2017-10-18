@@ -35,7 +35,7 @@ tresult PLUGIN_API MathReverbController::initialize (FUnknown* context)
 	// Создаём периметр
 	const CRect rect (CPoint(0, 0), CPoint(593, 370));
 	// Создадим переопределённое представление
-	mathReverbView = NULL;//new CMathReverbView (rect);
+	mathReverbView = new CMathReverbView (rect);
 
 	// Создадим блок для параметров
 	UnitInfo unitInfo;
@@ -167,7 +167,7 @@ IPlugView* PLUGIN_API MathReverbController::createView (const char* name)
 	// Получен запрос интерфейса пользователя
 	if (name && strcmp (name, "editor") == 0)
 	{
-		MathReverbVST3Editor* view = new MathReverbVST3Editor (this, "view", "mathreverb.uidesc");
+		MathReverbVST3Editor* view = new MathReverbVST3Editor (this, "view", "mathreverb.uidesc", mathReverbView);
 		return view;
 	}
 	return 0;
