@@ -23,12 +23,17 @@ SampleType MathReverb::processAudio (SampleType** in, SampleType** out, int32 nu
 		int32 tempBufferPos = mBufferPos;
 		for (int32 sample = 0; sample < sampleFrames; sample++)
 		{
-			tmp = ptrIn[sample] * fGain;
-			ptrOut[sample] = mBuffer[channel][tempBufferPos];
-			mBuffer[channel][tempBufferPos] = tmp;
-			tempBufferPos++;
-			if (tempBufferPos >= delayInSamples)
-				tempBufferPos = 0;
+			if (bBypass)
+				ptrOut[sample] = ptrIn[sample
+			else
+			{
+				tmp = ptrIn[sample] * fGain;
+				ptrOut[sample] = mBuffer[channel][tempBufferPos];
+				mBuffer[channel][tempBufferPos] = tmp;
+				tempBufferPos++;
+				if (tempBufferPos >= delayInSamples)
+					tempBufferPos = 0;
+			}
 			if (ptrOut[sample] > vuPPM)
 				vuPPM = ptrOut[sample];
 		}

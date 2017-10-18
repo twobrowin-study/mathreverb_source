@@ -124,7 +124,7 @@ tresult PLUGIN_API MathReverb::process (ProcessData& data)
 
 					case kBypassId: // Если параметр Bypass - записываем его
 						if (paramQueue->getPoint (numPoints - 1, sampleOffset, value) == kResultTrue)
-							bBypass = value > 0.5f;
+							bBypass = (value > 0.5f);
 						break;
 				}
 			}
@@ -151,7 +151,7 @@ tresult PLUGIN_API MathReverb::process (ProcessData& data)
 
 		// Проверка на заглушённые каналы
 		// NOTE: проверять каждый канал
-		if (data.inputs[0].silenceFlags != 0)
+		if ((data.inputs[0].silenceFlags != 0) || (!bBypass && (fGain < 0.0001f)))
 		{
 			// Если входные каналы заглушены - заглушим выходные
 			data.outputs[0].silenceFlags = data.inputs[0].silenceFlags;
@@ -171,23 +171,11 @@ tresult PLUGIN_API MathReverb::process (ProcessData& data)
 		// Если входные каналы не заглушены - отметим незаглушенными выходные
 		data.outputs[0].silenceFlags = 0;
 
-		// Если включен проброс просто копируем входы
-		if (bBypass)
-		{
-			for (int32 channel = 0; channel < numChannels; channel++)
-				for (int32 sample = 0; sample < sampleFrames; sample++)
-				{
-					out[channel][sample] = in[channel][sample];
-					if (out[channel][sample] > vuPPM)
-						fVuPPM = out[channel][sample];
-				}
-		}
+		// Обработка аудио при помощи метода-шаблона
+		if (data.symbolicSampleSize == kSample32)
+			fVuPPM = processAudio<Sample32> ((Sample32**)in, (Sample32**)out, numChannels, data.numSamples);
 		else
-			// Обработка аудио при помощи метода-шаблона
-			if (data.symbolicSampleSize == kSample32)
-				fVuPPM = processAudio<Sample32> ((Sample32**)in, (Sample32**)out, numChannels, data.numSamples);
-			else
-				fVuPPM = processAudio<Sample64> ((Sample64**)in, (Sample64**)out, numChannels, data.numSamples);
+			fVuPPM = processAudio<Sample64> ((Sample64**)in, (Sample64**)out, numChannels, data.numSamples);
 	}
 
 	// 4) Вывод параметра выходной громкости VuMeter обратно в плагин
@@ -219,8 +207,6 @@ tresult PLUGIN_API MathReverb::getState (IBStream* state)
 
 #if BYTEORDER == kBigEndian
 	SWAP_32 (toSaveGain)
-#endif
-#if BYTEORDER == kBigEndian
 	SWAP_32 (toSaveBypass)
 #endif
 
@@ -239,25 +225,20 @@ tresult PLUGIN_API MathReverb::setState (IBStream* state)
 	{
 		return kResultFalse;
 	}
-
-	#if BYTEORDER == kBigEndian
-		SWAP_32 (savedGain)
-	#endif
-
-	fGain = savedGain;
-
 	// Считаем Bypass
-	int32 savedBypass = 0.f;
+	int32 savedBypass = 0;
 	if (state->read (&savedBypass, sizeof (savedBypass)) != kResultOk)
 	{
 		return kResultFalse;
 	}
 
 	#if BYTEORDER == kBigEndian
+		SWAP_32 (savedGain)
 		SWAP_32 (savedBypass)
 	#endif
 
-	bBypass = savedGain;
+	fGain = savedGain;
+	bBypass = (savedBypass > 0);
 
 	return kResultOk;
 }
