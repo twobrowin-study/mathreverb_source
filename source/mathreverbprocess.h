@@ -24,7 +24,7 @@ SampleType MathReverb::processAudio (SampleType** in, SampleType** out, int32 nu
 		for (int32 sample = 0; sample < sampleFrames; sample++)
 		{
 			if (bBypass)
-				ptrOut[sample] = ptrIn[sample
+				ptrOut[sample] = ptrIn[sample];
 			else
 			{
 				tmp = ptrIn[sample] * fGain;
