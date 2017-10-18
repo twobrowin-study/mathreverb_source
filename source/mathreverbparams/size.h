@@ -9,14 +9,14 @@ namespace Steinberg {
 namespace Vst {
 
 //------------------------------------------------------------------------
-// CoordinateParameter Деклорация
+// SizeParameter Деклорация
 // Описание параметров координат, длины, ширины, высоты
 //------------------------------------------------------------------------
-class CoordinateParameter : public Parameter
+class SizeParameter : public Parameter
 {
 public:
   // Конструктор
-  CoordinateParameter (int32 flags, int32 id, const char* name);
+  SizeParameter (int32 flags, int32 id, const char* name);
 
   // Преобразование на вывод
   virtual void toString (ParamValue normValue, String128 string) const;
@@ -25,9 +25,9 @@ public:
 };
 
 //------------------------------------------------------------------------
-// CoordinateParameter Реализация
+// SizeParameter Реализация
 //------------------------------------------------------------------------
-CoordinateParameter::CoordinateParameter (int32 flags, int32 id, const char* name)
+SizeParameter::SizeParameter (int32 flags, int32 id, const char* name)
 {
   // Установка информации для хоста
   UString (info.title, USTRINGSIZE (info.title)).assign (USTRING (name));
@@ -37,7 +37,7 @@ CoordinateParameter::CoordinateParameter (int32 flags, int32 id, const char* nam
   info.flags = flags;
   info.id = id;
   info.stepCount = 0;
-  info.defaultNormalizedValue = 0.f;
+  info.defaultNormalizedValue = 1.f;
   info.unitId = kRootUnitId;
 
   // Установка начального значения
@@ -45,23 +45,22 @@ CoordinateParameter::CoordinateParameter (int32 flags, int32 id, const char* nam
 }
 
 //------------------------------------------------------------------------
-void CoordinateParameter::toString (ParamValue normValue, String128 string) const
+void SizeParameter::toString (ParamValue normValue, String128 string) const
 {
   char text [32];
-  if (normValue > 0.5f)
-    normValue = 0.5f;
-  if (normValue < -0.5f)
-    normValue = -0.5f;
   sprintf (text, "%.2f", (float) normValue * 100);
   UString (string, 128).fromAscii (text);
 }
 
 //------------------------------------------------------------------------
-bool CoordinateParameter::fromString (const TChar* string, ParamValue& normValue) const
+bool SizeParameter::fromString (const TChar* string, ParamValue& normValue) const
 {
   String wrapper ((TChar*) string);
   double tmp = 0;
   if (wrapper.scanFloat (tmp)) {
+    if (tmp < 0.0)
+      tmp = -tmp;
+
     normValue = tmp / 100.f;
     return true;
   }
