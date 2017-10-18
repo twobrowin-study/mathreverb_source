@@ -24,7 +24,7 @@ public:
 		if (pControl->getTag () == kResetId) // Нажата кнопка сброса параметров
 			if (pControl->getValueNormalized () > 0.5f) // Нажатие кнопки соответвует значению 1.f
         // Сброс параметров
-				((Steinberg::Vst::MathReverbController *) originalController)->reset ();
+				recreateView ();
 	}
 };
 

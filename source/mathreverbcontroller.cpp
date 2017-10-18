@@ -182,20 +182,5 @@ CView* MathReverbController::createCustomView (UTF8StringPtr name, const UIAttri
 }
 
 //------------------------------------------------------------------------
-void MathReverbController::reset ()
-{
-	setParamNormalized(kGainId, 1.f);
-	setParamNormalized(kLengthId, 1.f);
-	setParamNormalized(kWidthId, 1.f);
-	setParamNormalized(kHeightId, 1.f);
-	setParamNormalized(kReflectionId, 1.f);
-	setParamNormalized(kXPosId, 1.f);
-	setParamNormalized(kYPosId, 1.f);
-	setParamNormalized(kZPosId, 1.f);
-	setParamNormalized(kBypassId, 0.f);
-	setParamNormalized(kResetId, 0.f);
-}
-
-//------------------------------------------------------------------------
 } // пространство имён Vst
 } // пространство имён Steinberg
