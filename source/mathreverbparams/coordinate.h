@@ -48,7 +48,7 @@ CoordinateParameter::CoordinateParameter (int32 flags, int32 id, const char* nam
 void CoordinateParameter::toString (ParamValue normValue, String128 string) const
 {
   char text [32];
-  normValue -= 1.0f;
+  normValue -= 0.5f;
   sprintf (text, "%.2f", (float) normValue * 100);
   UString (string, 128).fromAscii (text);
 }
@@ -59,7 +59,7 @@ bool CoordinateParameter::fromString (const TChar* string, ParamValue& normValue
   String wrapper ((TChar*) string);
   double tmp = 0;
   if (wrapper.scanFloat (tmp)) {
-    normValue = tmp / 100.f + 1.f;
+    normValue = tmp / 100.f + 0.5f;
     return true;
   }
   return false;
