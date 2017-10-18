@@ -28,6 +28,7 @@ public:
         // Установка Gain в исходное значение
         pControl->setTag (kGainId);
         pControl->setValue (1.f);
+				recreateView ();
 				// Установка Length в исходное значение
         pControl->setTag (kLengthId);
         pControl->setValue (1.f);
@@ -52,7 +53,9 @@ public:
 				// Установка Bypass в исходное значение
         pControl->setTag (kBypassId);
         pControl->setValue (0.f);
-				// recreateView ();
+				recreateView ();
+				pControl->setTag (kResetId);
+				recreateView ();
       }
     VST3Editor::valueChanged (pControl);
 	}
