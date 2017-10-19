@@ -88,8 +88,8 @@ tresult PLUGIN_API MathReverb::initialize (FUnknown* context)
 	// Создание аудио шин
 	// Стерео вход и выход
 	// TODO: Вернуть сетерео
-	addAudioInput  (STR16 ("Mono In"),  SpeakerArr::kMono);
-	addAudioOutput (STR16 ("Mono Out"), SpeakerArr::kMono);
+	addAudioInput  (STR16 ("Stereo In"),  SpeakerArr::kStereo);
+	addAudioOutput (STR16 ("Stereo Out"), SpeakerArr::kStereo);
 
 	return kResultOk;
 }
