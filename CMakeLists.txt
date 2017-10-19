@@ -6,6 +6,8 @@ set(mathreverb_sources
 	source/mathreverbcontroller.cpp
 	source/mathreverbcontroller.h
 	source/mathreverbentry.cpp
+	source/mathreverbgraph.cpp
+	source/mathreverbgraph.h
 	source/mathreverbprocess.h
 	source/version.h
 	source/mathreverbparams/coordinate.h

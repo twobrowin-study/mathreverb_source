@@ -42,6 +42,8 @@ tresult PLUGIN_API MathReverb::setActive (TBool isActive)
 
 	if (isActive)
 	{
+		// Инициализация модели обработчика
+		graph = new MathReverbGraph ();
 		// Инициализация буфера
 		// Выделение памяти под указатели на буферы буфера
 		mBuffer = (float**)std::malloc (numChannels * sizeof (float*));
@@ -59,6 +61,9 @@ tresult PLUGIN_API MathReverb::setActive (TBool isActive)
 	}
 	else
 	{
+		// Уничтожение модели обработчика
+		delete graph;
+		graph = NULL;
 		// Очистка буфера
 		if (mBuffer)
 		{
