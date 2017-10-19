@@ -1,4 +1,8 @@
 #pragma once
+#include "pluginterfaces/vst/ivstparameterchanges.h"
+
+typedef float Sample32
+typedef double Sample64
 
 namespace Steinberg {
 namespace Vst {
@@ -17,13 +21,13 @@ public:
   ~MathReverbGraph ();
 
   // Методы обрабоки очередного семпла
-  float process (float inSample)
+  SampleType32 process (SampleType32 inSample)
   {
-    return processTemplate<float> (inSample);
+    return processTemplate<SampleType32> (inSample);
   }
-  double process (double inSample)
+  SampleType64 process (SampleType64 inSample)
   {
-    return processTemplate<double> (inSample);
+    return processTemplate<SampleType64> (inSample);
   }
 
 private:
