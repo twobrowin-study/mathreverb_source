@@ -1,5 +1,7 @@
 #pragma once
 
+#include <algorithm>
+
 namespace Steinberg {
 namespace Vst {
 
@@ -20,6 +22,30 @@ public:
   template <typename SampleType>
   SampleType process (SampleType inSample);
 };
+
+//------------------------------------------------------------------------
+// MathReverbGraph: Реализация
+//------------------------------------------------------------------------
+
+//------------------------------------------------------------------------
+MathReverbGraph::MathReverbGraph ()
+{
+
+}
+
+//------------------------------------------------------------------------
+MathReverbGraph::~MathReverbGraph ()
+{
+
+}
+
+//------------------------------------------------------------------------
+template <typename SampleType>
+SampleType MathReverbGraph::process (SampleType inSample)
+{
+  return inSample;
+}
+
 
 //------------------------------------------------------------------------
 } // Пространство имён Vst
