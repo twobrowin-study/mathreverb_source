@@ -1,8 +1,5 @@
 #pragma once
 
-namespace Steinberg {
-namespace Vst {
-
 //------------------------------------------------------------------------
 // MathReverbGraph: Декларация
 // Математическая модель плагина
@@ -20,7 +17,3 @@ public:
   template <typename SampleType>
   SampleType process (SampleType inSample);
 };
-
-//------------------------------------------------------------------------
-} // Пространство имён Vst
-} // Пространство имён Steinberg
