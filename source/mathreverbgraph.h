@@ -17,8 +17,8 @@ public:
   ~MathReverbGraph ();
 
   // Метод обрабоки очередного семпла
-  template <typename SampleType>
-  SampleType process (SampleType inSample);
+  // template <typename SampleType>
+  float process (float inSample);
 };
 
 //------------------------------------------------------------------------

@@ -111,7 +111,7 @@ tresult PLUGIN_API MathReverb::process (ProcessData& data)
 	// 1) Чтение изменения параметров
 	getInputParamChanges (data.inputParameterChanges);
 
-	graph->process<float> (1.0);
+	graph->process (1.0);
 
 	// 2) Непосредственно обработка
 	float fVuPPM = 0.f;
