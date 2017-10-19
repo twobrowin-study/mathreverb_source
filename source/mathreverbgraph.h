@@ -1,8 +1,8 @@
 #pragma once
 #include "pluginterfaces/vst/ivstparameterchanges.h"
 
-typedef float Sample32
-typedef double Sample64
+typedef float Sample32;
+typedef double Sample64;
 
 namespace Steinberg {
 namespace Vst {
