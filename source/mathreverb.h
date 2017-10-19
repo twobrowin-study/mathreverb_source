@@ -34,7 +34,7 @@ public:
 	void getInputParamChanges (IParameterChanges* paramChanges);
 
 	// Метод вывода параметров в хост
-	void setOutputParamChanges (IParameterChanges* paramChanges);
+	void setOutputParamChanges (IParameterChanges* paramChanges, float fVuPPM);
 
 protected:
 	// Метод непосредственно обработки аудио потока

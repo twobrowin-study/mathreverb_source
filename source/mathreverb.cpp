@@ -154,7 +154,7 @@ tresult PLUGIN_API MathReverb::process (ProcessData& data)
 	}
 
 	// 3) Вывод параметра выходной громкости VuMeter обратно в плагин
-	setOutputParamChanges (data.outputParameterChanges);
+	setOutputParamChanges (data.outputParameterChanges, fVuPPM);
 
 	return kResultOk;
 }
@@ -236,7 +236,7 @@ void MathReverb::getInputParamChanges (IParameterChanges* paramChanges)
 }
 
 //------------------------------------------------------------------------
-void MathReverb::setOutputParamChanges (IParameterChanges* paramChanges)
+void MathReverb::setOutputParamChanges (IParameterChanges* paramChanges, float fVuPPM)
 {
 	// Новое значение VuPPM будет отправлено в хост для синхронизации,
 	// после чего он передаст его контроллеру плагина
