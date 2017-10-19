@@ -37,7 +37,7 @@ SampleType MathReverb::processAudio (SampleType** in, SampleType** out, int32 nu
 	// Обновляем значение выходной громкости
 	for (int32 sample = 0; sample < sampleFrames; sample++)
 		if (out[0][sample] > vuPPM)
-			vuPPM = ptrOut[sample];
+			vuPPM = out[0][sample];
 
 	return vuPPM;
 }
