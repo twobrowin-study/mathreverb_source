@@ -22,8 +22,8 @@ MathReverbGraph::~MathReverbGraph ()
 }
 
 //------------------------------------------------------------------------
-// template <typename SampleType>
-float MathReverbGraph::process (float inSample)
+template <typename SampleType>
+SampleType MathReverbGraph::processTemplate (SampleType inSample)
 {
   return inSample;
 }

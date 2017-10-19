@@ -16,9 +16,20 @@ public:
   // Деструктор
   ~MathReverbGraph ();
 
-  // Метод обрабоки очередного семпла
-  // template <typename SampleType>
-  float process (float inSample);
+  // Методы обрабоки очередного семпла
+  SampleType32 process (SampleType32 inSample)
+  {
+    return processTemplate<SampleType32> (inSample);
+  }
+  SampleType64 process (SampleType64 inSample)
+  {
+    return processTemplate<SampleType64> (inSample);
+  }
+
+private:
+  // Шаблон обработки очередного семпла
+  template <typename SampleType>
+  SampleType processTemplate (SampleType inSample);
 };
 
 //------------------------------------------------------------------------

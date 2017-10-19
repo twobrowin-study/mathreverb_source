@@ -27,7 +27,7 @@ SampleType MathReverb::processAudio (SampleType** in, SampleType** out, int32 nu
 			ptrOut[sample] = ptrIn[sample];
 		else
 		{
-			// ptrOut[sample] = graph->process<SampleType> (ptrIn[sample]);
+			ptrOut[sample] = graph->process<SampleType> (ptrIn[sample]);
 			// // Поменяем местами входной и выходной семплы через буфер
 			// tmp = ptrIn[sample] * fGain;
 			// ptrOut[sample] = mBuffer[channel][tempBufferPos];
