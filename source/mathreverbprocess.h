@@ -17,36 +17,27 @@ SampleType MathReverb::processAudio (SampleType** in, SampleType** out, int32 nu
 
 	int32 channel = 0; // Временное ограничение в один канал
 
-	// Обработка
-	SampleType* ptrIn = (SampleType*)in[channel];
-	SampleType* ptrOut = (SampleType*)out[channel];
-	// int32 tempBufferPos = mBufferPos;
-	for (int32 sample = 0; sample < sampleFrames; sample++)
+	if (bBypass) // Пропускаем обработку, если включён проброс
+		for (int32 channel = 0; channel < numChannels; channel++)
+			for (int32 sample = 0; sample < sampleFrames; sample++)
+				out[channel][sample] = in[channel][sample];
+	else
 	{
-		if (bBypass) // Пропускаем обработку, если включён проброс
-			ptrOut[sample] = ptrIn[sample];
-		else
+		// Обработка
+		SampleType processingIn = 0.f;
+		SampleType processingOut = 0.f;
+		for (int32 sample = 0; sample < sampleFrames; sample++)
 		{
-			ptrOut[sample] = graph->process (ptrIn[sample]);
-			// // Поменяем местами входной и выходной семплы через буфер
-			// tmp = ptrIn[sample] * fGain;
-			// ptrOut[sample] = mBuffer[channel][tempBufferPos];
-			// mBuffer[channel][tempBufferPos] = tmp;
-			// tempBufferPos++;
-			// // Если дошли до максимума обработки по длине - идём в начало буфера
-			// if (tempBufferPos >= delayInSamples)
-			// 	tempBufferPos = 0;
+			for (int32 channel = 0; channel < numChannels; channel++, processingIn += in[channel][sample]);
+			processingOut = graph->process (processingIn);
+			for (int32 channel = 0; channel < numChannels; channel++, out[channel][sample] = processingIn);
 		}
-		// Обновляем значение выходной громкости
-		if (ptrOut[sample] > vuPPM)
-			vuPPM = ptrOut[sample];
 	}
 
-
-	// // Расчёт позиции в буфере после обработки на данный момент
-	// mBufferPos += sampleFrames;
-	// while (delayInSamples && mBufferPos >= delayInSamples)
-	// 	mBufferPos -= delayInSamples;
+	// Обновляем значение выходной громкости
+	for (int32 sample = 0; sample < sampleFrames; sample++)
+		if (out[0][sample] > vuPPM)
+			vuPPM = ptrOut[sample];
 
 	return vuPPM;
 }
