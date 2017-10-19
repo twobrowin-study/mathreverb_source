@@ -118,32 +118,32 @@ tresult PLUGIN_API MathReverbController::setComponentState (IBStream* state)
 		// Получение параметров в том же порядке, что и определены
 		if (state->read (&savedGain, sizeof (float)) != kResultTrue)
 			return kResultFalse;
-		if (state->read (&savedLength, sizeof (float)) != kResultTrue)
-			return kResultFalse;
-		if (state->read (&savedWidth, sizeof (float)) != kResultTrue)
-			return kResultFalse;
-		if (state->read (&savedHeight, sizeof (float)) != kResultTrue)
-			return kResultFalse;
-		if (state->read (&savedReflection, sizeof (float)) != kResultTrue)
-			return kResultFalse;
-		if (state->read (&savedXPos, sizeof (float)) != kResultTrue)
-			return kResultFalse;
-		if (state->read (&savedYPos, sizeof (float)) != kResultTrue)
-			return kResultFalse;
-		if (state->read (&savedZPos, sizeof (float)) != kResultTrue)
-			return kResultFalse;
+		// if (state->read (&savedLength, sizeof (float)) != kResultTrue)
+		// 	return kResultFalse;
+		// if (state->read (&savedWidth, sizeof (float)) != kResultTrue)
+		// 	return kResultFalse;
+		// if (state->read (&savedHeight, sizeof (float)) != kResultTrue)
+		// 	return kResultFalse;
+		// if (state->read (&savedReflection, sizeof (float)) != kResultTrue)
+		// 	return kResultFalse;
+		// if (state->read (&savedXPos, sizeof (float)) != kResultTrue)
+		// 	return kResultFalse;
+		// if (state->read (&savedYPos, sizeof (float)) != kResultTrue)
+		// 	return kResultFalse;
+		// if (state->read (&savedZPos, sizeof (float)) != kResultTrue)
+		// 	return kResultFalse;
 		if (state->read (&bypassState, sizeof (bypassState)) != kResultTrue)
 			return kResultFalse;
 
 		// Установка значений параметров
 		setParamNormalized (kGainId, savedGain);
-		setParamNormalized (kLengthId, savedLength);
-		setParamNormalized (kWidthId, savedWidth);
-		setParamNormalized (kHeightId, savedHeight);
-		setParamNormalized (kReflectionId, savedReflection);
-		setParamNormalized (kXPosId, savedXPos);
-		setParamNormalized (kYPosId, savedYPos);
-		setParamNormalized (kZPosId, savedZPos);
+		// setParamNormalized (kLengthId, savedLength);
+		// setParamNormalized (kWidthId, savedWidth);
+		// setParamNormalized (kHeightId, savedHeight);
+		// setParamNormalized (kReflectionId, savedReflection);
+		// setParamNormalized (kXPosId, savedXPos);
+		// setParamNormalized (kYPosId, savedYPos);
+		// setParamNormalized (kZPosId, savedZPos);
 		setParamNormalized (kBypassId, bypassState);
 	}
 	return kResultTrue;

@@ -172,7 +172,7 @@ tresult PLUGIN_API MathReverb::getState (IBStream* state)
 #endif
 
 	state->write (&toSaveGain, sizeof (float));
-	state->write (&toSaveBypass, sizeof (toSaveBypass));
+	state->write (&toSaveBypass, sizeof (int32));
 
 	return kResultOk;
 }
@@ -188,7 +188,7 @@ tresult PLUGIN_API MathReverb::setState (IBStream* state)
 	}
 	// Считаем Bypass
 	int32 savedBypass = 0;
-	if (state->read (&savedBypass, sizeof (savedBypass)) != kResultOk)
+	if (state->read (&savedBypass, sizeof (int32)) != kResultOk)
 	{
 		return kResultFalse;
 	}
