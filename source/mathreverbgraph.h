@@ -9,21 +9,11 @@ class MathReverbGraph
 {
 public:
   // Конструктор
-  MathReverbGraph ()
-  {
-
-  }
-
+  MathReverbGraph ();
   // Деструктор
-  ~MathReverbGraph ()
-  {
-
-  }
+  ~MathReverbGraph ();
 
   // Метод обрабоки очередного семпла
   template <typename SampleType>
-  SampleType process (SampleType inSample)
-  {
-    return inSample;
-  }
+  SampleType process (SampleType inSample);
 };
