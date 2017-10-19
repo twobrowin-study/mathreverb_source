@@ -1,7 +1,7 @@
 #pragma once
 
 #include "public.sdk/source/vst/vstaudioeffect.h"
-#include "mathreververbgraph.h"
+#include "mathreverberbgraph.h"
 
 namespace Steinberg {
 namespace Vst {
