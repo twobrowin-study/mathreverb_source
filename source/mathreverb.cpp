@@ -87,8 +87,9 @@ tresult PLUGIN_API MathReverb::initialize (FUnknown* context)
 
 	// Создание аудио шин
 	// Стерео вход и выход
-	addAudioInput  (STR16 ("Stereo In"),  SpeakerArr::kStereo);
-	addAudioOutput (STR16 ("Stereo Out"), SpeakerArr::kStereo);
+	// TODO: Вернуть сетерео
+	addAudioInput  (STR16 ("Mono In"),  SpeakerArr::kMono);
+	addAudioOutput (STR16 ("Mono Out"), SpeakerArr::kMono);
 
 	return kResultOk;
 }
@@ -103,33 +104,7 @@ tresult PLUGIN_API MathReverb::process (ProcessData& data)
 	// 3) Вывод параметра выходной громкости VuPPM обратно в плагин
 
 	// 1) Чтение изменения параметров
-	IParameterChanges* paramChanges = data.inputParameterChanges; // Изменения параметров
-	if (paramChanges)
-	{
-		for (int32 i = 0; i < paramChanges->getParameterCount (); i++) // Проходим по всем изменённым параметрам
-		{
-			IParamValueQueue* paramQueue = paramChanges->getParameterData (i); // Очередной изменённый параметр
-			if (paramQueue)
-			{
-				// Определяем необходимые переменные для получения
-				ParamValue value;
-				int32 sampleOffset;
-				int32 numPoints = paramQueue->getPointCount ();
-				switch (paramQueue->getParameterId ())
-				{
-					case kGainId: // Если параметр Gain - записываем его
-						if (paramQueue->getPoint (numPoints - 1, sampleOffset, value) == kResultTrue)
-							fGain = (float)value;
-						break;
-
-					case kBypassId: // Если параметр Bypass - записываем его
-						if (paramQueue->getPoint (numPoints - 1, sampleOffset, value) == kResultTrue)
-							bBypass = (value > 0.5f);
-						break;
-				}
-			}
-		}
-	}
+	getInputParamChanges (data.inputParameterChanges);
 
 	// 2) Непосредственно обработка
 	float fVuPPM = 0.f;
@@ -178,22 +153,8 @@ tresult PLUGIN_API MathReverb::process (ProcessData& data)
 			fVuPPM = processAudio<Sample64> ((Sample64**)in, (Sample64**)out, numChannels, data.numSamples);
 	}
 
-	// 4) Вывод параметра выходной громкости VuMeter обратно в плагин
-	IParameterChanges* outParamChanges = data.outputParameterChanges; // Выходные изменения
-	// Новое значение VuPPM будет отправлено в хост для синхронизации,
-	// после чего он передаст его контроллеру плагина
-	if (outParamChanges && fVuPPMOld != fVuPPM)
-	{
-		// Запишем новое значение, если оно изменено
-		int32 index = 0;
-		IParamValueQueue* paramQueue = outParamChanges->addParameterData (kVuPPMId, index);
-		if (paramQueue)
-		{
-			int32 index2 = 0;
-			paramQueue->addPoint (0, fVuPPM, index2);
-		}
-	}
-	fVuPPMOld = fVuPPM;
+	// 3) Вывод параметра выходной громкости VuMeter обратно в плагин
+	setOutputParamChanges (data.outputParameterChanges);
 
 	return kResultOk;
 }
@@ -241,6 +202,56 @@ tresult PLUGIN_API MathReverb::setState (IBStream* state)
 	bBypass = (savedBypass > 0);
 
 	return kResultOk;
+}
+
+//------------------------------------------------------------------------
+void MathReverb::getInputParamChanges (IParameterChanges* paramChanges)
+{
+	if (paramChanges)
+	{
+		for (int32 i = 0; i < paramChanges->getParameterCount (); i++) // Проходим по всем изменённым параметрам
+		{
+			IParamValueQueue* paramQueue = paramChanges->getParameterData (i); // Очередной изменённый параметр
+			if (paramQueue)
+			{
+				// Определяем необходимые переменные для получения
+				ParamValue value;
+				int32 sampleOffset;
+				int32 numPoints = paramQueue->getPointCount ();
+				switch (paramQueue->getParameterId ())
+				{
+					case kGainId: // Если параметр Gain - записываем его
+						if (paramQueue->getPoint (numPoints - 1, sampleOffset, value) == kResultTrue)
+							fGain = (float)value;
+						break;
+
+					case kBypassId: // Если параметр Bypass - записываем его
+						if (paramQueue->getPoint (numPoints - 1, sampleOffset, value) == kResultTrue)
+							bBypass = (value > 0.5f);
+						break;
+				}
+			}
+		}
+	}
+}
+
+//------------------------------------------------------------------------
+void MathReverb::setOutputParamChanges (IParameterChanges* paramChanges)
+{
+	// Новое значение VuPPM будет отправлено в хост для синхронизации,
+	// после чего он передаст его контроллеру плагина
+	if (paramChanges && fVuPPMOld != fVuPPM)
+	{
+		// Запишем новое значение, если оно изменено
+		int32 index = 0;
+		IParamValueQueue* paramQueue = paramChanges->addParameterData (kVuPPMId, index);
+		if (paramQueue)
+		{
+			int32 index2 = 0;
+			paramQueue->addPoint (0, fVuPPM, index2);
+		}
+	}
+	fVuPPMOld = fVuPPM;
 }
 
 

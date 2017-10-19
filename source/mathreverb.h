@@ -30,6 +30,12 @@ public:
 	tresult PLUGIN_API getState (IBStream* state) SMTG_OVERRIDE;
 	tresult PLUGIN_API setState (IBStream* state) SMTG_OVERRIDE;
 
+	// Метод получения входных изменений параметров
+	void getInputParamChanges (IParameterChanges* paramChanges);
+
+	// Метод вывода параметров в хост
+	void setOutputParamChanges (IParameterChanges* paramChanges);
+
 protected:
 	// Метод непосредственно обработки аудио потока
 	template <typename SampleType>

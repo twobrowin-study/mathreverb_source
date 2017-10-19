@@ -11,33 +11,38 @@ namespace Vst {
 template <typename SampleType>
 SampleType MathReverb::processAudio (SampleType** in, SampleType** out, int32 numChannels, int32 sampleFrames)
 {
-	// Комментарии здесь будут после разработки модели и реализации её
 	SampleType vuPPM = 0, tmp;
+	// Длина задержки - количество задерживаемых семплов, минимум - 1
+	int32 delayInSamples = std::max<int32> (1, 0.f * processSetup.sampleRate);
 
-	int32 delayInSamples = std::max<int32> (1,0.f * processSetup.sampleRate);
+	int32 channel = 0; // Временное ограничение в один канал
 
-	for (int32 channel = 0; channel < numChannels; channel++)
+	// Обработка
+	SampleType* ptrIn = (SampleType*)in[channel];
+	SampleType* ptrOut = (SampleType*)out[channel];
+	int32 tempBufferPos = mBufferPos;
+	for (int32 sample = 0; sample < sampleFrames; sample++)
 	{
-		SampleType* ptrIn = (SampleType*)in[channel];
-		SampleType* ptrOut = (SampleType*)out[channel];
-		int32 tempBufferPos = mBufferPos;
-		for (int32 sample = 0; sample < sampleFrames; sample++)
+		if (bBypass) // Пропускаем обработку, если включён проброс
+			ptrOut[sample] = ptrIn[sample];
+		else
 		{
-			if (bBypass)
-				ptrOut[sample] = ptrIn[sample];
-			else
-			{
-				tmp = ptrIn[sample] * fGain;
-				ptrOut[sample] = mBuffer[channel][tempBufferPos];
-				mBuffer[channel][tempBufferPos] = tmp;
-				tempBufferPos++;
-				if (tempBufferPos >= delayInSamples)
-					tempBufferPos = 0;
-			}
-			if (ptrOut[sample] > vuPPM)
-				vuPPM = ptrOut[sample];
+			// Поменяем местами входной и выходной семплы через буфер
+			tmp = ptrIn[sample] * fGain;
+			ptrOut[sample] = mBuffer[channel][tempBufferPos];
+			mBuffer[channel][tempBufferPos] = tmp;
+			tempBufferPos++;
+			// Если дошли до максимума обработки по длине - идём в начало буфера
+			if (tempBufferPos >= delayInSamples)
+				tempBufferPos = 0;
 		}
+		// Обновляем значение выходной громкости
+		if (ptrOut[sample] > vuPPM)
+			vuPPM = ptrOut[sample];
 	}
+
+
+	// Расчёт позиции в буфере после обработки на данный момент
 	mBufferPos += sampleFrames;
 	while (delayInSamples && mBufferPos >= delayInSamples)
 		mBufferPos -= delayInSamples;
