@@ -1,4 +1,5 @@
 #pragma once
+#include "pluginterfaces/vst/ivstparameterchanges.h"
 
 namespace Steinberg {
 namespace Vst {
