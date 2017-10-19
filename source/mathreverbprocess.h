@@ -1,7 +1,6 @@
 #pragma once
 
 #include <algorithm>
-#include "mathreverbgraph.h"
 
 namespace Steinberg {
 namespace Vst {
