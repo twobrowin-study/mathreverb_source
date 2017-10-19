@@ -2,6 +2,9 @@
 
 #include <algorithm>
 
+namespace Steinberg {
+namespace Vst {
+
 //------------------------------------------------------------------------
 // MathReverbGraph: Реализация
 //------------------------------------------------------------------------
@@ -24,3 +27,7 @@ SampleType MathReverbGraph::process (SampleType inSample)
 {
   return inSample;
 }
+
+//------------------------------------------------------------------------
+} // Пространство имён Vst
+} // Пространство имён Steinberg
