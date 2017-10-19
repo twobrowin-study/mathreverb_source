@@ -172,7 +172,7 @@ tresult PLUGIN_API MathReverb::getState (IBStream* state)
 #endif
 
 	state->write (&toSaveGain, sizeof (float));
-	state->write (&toSaveBypass, sizeof (float));
+	state->write (&toSaveBypass, sizeof (toSaveBypass));
 
 	return kResultOk;
 }
