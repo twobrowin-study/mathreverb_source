@@ -134,7 +134,22 @@ tresult PLUGIN_API MathReverb::process (ProcessData& data)
 	}
 
 	// 3) Вывод параметра выходной громкости VuMeter обратно в плагин
-	setOutputParamChanges (data.outputParameterChanges, fVuPPM);
+	// setOutputParamChanges (data.outputParameterChanges, fVuPPM);
+
+	IParameterChanges* paramChanges = data.outputParameterChanges;
+
+	if (paramChanges && fVuPPMOld != fVuPPM)
+	{
+		// Запишем новое значение, если оно изменено
+		int32 index = 0;
+		IParamValueQueue* paramQueue = paramChanges->addParameterData (kVuPPMId, index);
+		if (paramQueue)
+		{
+			int32 index2 = 0;
+			paramQueue->addPoint (0, fVuPPM, index2);
+		}
+	}
+	fVuPPMOld = fVuPPM;
 
 	return kResultOk;
 }
@@ -222,18 +237,18 @@ void MathReverb::setOutputParamChanges (IParameterChanges* paramChanges, float f
 {
 	// Новое значение VuPPM будет отправлено в хост для синхронизации,
 	// после чего он передаст его контроллеру плагина
-	if (paramChanges && fVuPPMOld != fVuPPM)
-	{
-		// Запишем новое значение, если оно изменено
-		int32 index = 0;
-		IParamValueQueue* paramQueue = paramChanges->addParameterData (kVuPPMId, index);
-		if (paramQueue)
-		{
-			int32 index2 = 0;
-			paramQueue->addPoint (0, fVuPPM, index2);
-		}
-	}
-	fVuPPMOld = fVuPPM;
+	// if (paramChanges && fVuPPMOld != fVuPPM)
+	// {
+	// 	// Запишем новое значение, если оно изменено
+	// 	int32 index = 0;
+	// 	IParamValueQueue* paramQueue = paramChanges->addParameterData (kVuPPMId, index);
+	// 	if (paramQueue)
+	// 	{
+	// 		int32 index2 = 0;
+	// 		paramQueue->addPoint (0, fVuPPM, index2);
+	// 	}
+	// }
+	// fVuPPMOld = fVuPPM;
 }
 
 
