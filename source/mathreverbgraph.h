@@ -13,12 +13,18 @@ class MathReverbGraph
 {
 public:
   // Конструктор
-  MathReverbGraph ();
+  MathReverbGraph (int32 nChannels, SampleRate sampleRate);
   // Деструктор
   ~MathReverbGraph ();
 
   // Метод обрабоки очередного семпла
   Sample64 process (Sample64 inSample);
+
+private:
+    int32 numChannels;
+
+  	float **mBuffer;
+  	int32 mBufferPos;
 };
 
 //------------------------------------------------------------------------

@@ -43,35 +43,13 @@ tresult PLUGIN_API MathReverb::setActive (TBool isActive)
 	if (isActive)
 	{
 		// Инициализация модели обработчика
-		graph = new MathReverbGraph ();
-		// Инициализация буфера
-		// Выделение памяти под указатели на буферы буфера
-		mBuffer = (float**)std::malloc (numChannels * sizeof (float*));
-
-		// Получение размера одного блока канала
-		size_t size = (size_t)(processSetup.sampleRate * sizeof (float) + 0.5);
-
-		// Разметка буфера по каналлам
-		for (int32 channel = 0; channel < numChannels; channel ++)
-		{
-			mBuffer[channel] = (float*)std::malloc (size); // максимум задержки - 1 секунда
-			memset (mBuffer[channel], 0, size);
-		}
-		mBufferPos = 0;
+		graph = new MathReverbGraph (numChannels, processSetup.sampleRate);
 	}
 	else
 	{
 		// Уничтожение модели обработчика
 		delete graph;
 		graph = NULL;
-		// Очистка буфера
-		if (mBuffer)
-		{
-			for (int32 channel = 0; channel < numChannels; channel++)
-				std::free (mBuffer[channel]);
-			std::free (mBuffer);
-			mBuffer = 0;
-		}
 	}
 
 	// Вызов метода родителя

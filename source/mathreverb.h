@@ -48,9 +48,6 @@ protected:
 	bool bBypass;
 
 	MathReverbGraph* graph;
-
-	float **mBuffer;
-	int32 mBufferPos;
 };
 
 //------------------------------------------------------------------------
