@@ -10,7 +10,8 @@ namespace Vst {
 //------------------------------------------------------------------------
 
 //------------------------------------------------------------------------
-MathReverbGraph::MathReverbGraph (int32 nChannels, SampleRate sampleRate): numChannels (nChannels)
+MathReverbGraph::MathReverbGraph (int32 nChannels, SampleRate sampleRate)
+: numChannels (nChannels)
 {
   // Инициализация буфера
   // Выделение памяти под указатели на буферы буфера

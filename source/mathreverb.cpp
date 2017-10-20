@@ -20,8 +20,6 @@ namespace Vst {
 MathReverb::MathReverb ()
 : fVuPPMOld (0.f)
 , fGain (1.f)
-, mBuffer (0)
-, mBufferPos (0)
 {
 	// Регистрация класса контроллера, содержащего интерфейс пользователя (тот же, что указан mathreverbentry.cpp)
 	setControllerClass (MathReverbControllerUID);
