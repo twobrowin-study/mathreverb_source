@@ -13,7 +13,7 @@ class MathReverbGraph
 {
 public:
   // Конструктор
-  MathReverbGraph (int32 nChannels, SampleRate sampleRate);
+  MathReverbGraph (SampleRate samRate);
   // Деструктор
   ~MathReverbGraph ();
 
@@ -21,8 +21,10 @@ public:
   Sample64 process (Sample64 inSample);
 
 private:
-    int32 numChannels;
+    // Количество семплов в 1 секунде
+    SampleRate sampleRate;
 
+    // Буфер
   	float **mBuffer;
   	int32 mBufferPos;
 };

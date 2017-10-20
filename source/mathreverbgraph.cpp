@@ -10,22 +10,19 @@ namespace Vst {
 //------------------------------------------------------------------------
 
 //------------------------------------------------------------------------
-MathReverbGraph::MathReverbGraph (int32 nChannels, SampleRate sampleRate)
-: numChannels (nChannels)
+MathReverbGraph::MathReverbGraph (SampleRate samRate)
+: sampleRate (samRate)
 {
   // Инициализация буфера
   // Выделение памяти под указатели на буферы буфера
-  mBuffer = (float**)std::malloc (numChannels * sizeof (float*));
+  mBuffer = (float**)std::malloc (sizeof (float*));
 
   // Получение размера одного блока канала
   size_t size = (size_t)(sampleRate * sizeof (float) + 0.5);
 
   // Разметка буфера по каналлам
-  for (int32 channel = 0; channel < numChannels; channel ++)
-  {
-    mBuffer[channel] = (float*)std::malloc (size); // максимум задержки - 1 секунда
-    memset (mBuffer[channel], 0, size);
-  }
+    mBuffer[0] = (float*)std::malloc (size); // максимум задержки - 1 секунда
+    memset (mBuffer[0], 0, size);
   mBufferPos = 0;
 }
 
@@ -35,8 +32,7 @@ MathReverbGraph::~MathReverbGraph ()
   // Очистка буфера
   if (mBuffer)
   {
-    for (int32 channel = 0; channel < numChannels; channel++)
-      std::free (mBuffer[channel]);
+    std::free (mBuffer[0]);
     std::free (mBuffer);
     mBuffer = 0;
   }
@@ -46,11 +42,13 @@ MathReverbGraph::~MathReverbGraph ()
 Sample64 MathReverbGraph::process (Sample64 inSample)
 {
   return inSample;
+  // // Длина задержки - количество задерживаемых семплов, минимум - 1
+	// int32 delayInSamples = std::max<int32> (1, 0.f * sampleRate);
   // int32 tempBufferPos = mBufferPos;
   // // Поменяем местами входной и выходной семплы через буфер
   // tmp = ptrIn[sample] * fGain;
-  // ptrOut[sample] = mBuffer[channel][tempBufferPos];
-  // mBuffer[channel][tempBufferPos] = tmp;
+  // ptrOut[sample] = mBuffer[0][tempBufferPos];
+  // mBuffer[0][tempBufferPos] = tmp;
   // tempBufferPos++;
   // // Если дошли до максимума обработки по длине - идём в начало буфера
   // if (tempBufferPos >= delayInSamples)

@@ -28,7 +28,7 @@ MathReverb::MathReverb ()
 //------------------------------------------------------------------------
 tresult PLUGIN_API MathReverb::setActive (TBool isActive)
 {
-	// проверка наличия устройств
+	// Проверка наличия устройств
 	SpeakerArrangement arr;
 	if (getBusArrangement (kOutput, 0, arr) != kResultTrue)
 		return kResultFalse;
@@ -41,7 +41,7 @@ tresult PLUGIN_API MathReverb::setActive (TBool isActive)
 	if (isActive)
 	{
 		// Инициализация модели обработчика
-		graph = new MathReverbGraph (numChannels, processSetup.sampleRate);
+		graph = new MathReverbGraph (processSetup.sampleRate);
 	}
 	else
 	{
@@ -68,7 +68,6 @@ tresult PLUGIN_API MathReverb::initialize (FUnknown* context)
 
 	// Создание аудио шин
 	// Стерео вход и выход
-	// TODO: Вернуть сетерео
 	addAudioInput  (STR16 ("Stereo In"),  SpeakerArr::kStereo);
 	addAudioOutput (STR16 ("Stereo Out"), SpeakerArr::kStereo);
 

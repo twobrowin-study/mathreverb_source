@@ -11,11 +11,8 @@ namespace Vst {
 template <typename SampleType>
 SampleType MathReverb::processAudio (SampleType** in, SampleType** out, int32 numChannels, int32 sampleFrames)
 {
-	SampleType vuPPM = 0, tmp;
-	// Длина задержки - количество задерживаемых семплов, минимум - 1
-	int32 delayInSamples = std::max<int32> (1, 0.f * processSetup.sampleRate);
-
-	int32 channel = 0; // Временное ограничение в один канал
+	// Возвращаемое значение
+	SampleType vuPPM = 0;
 
 	if (bBypass) // Пропускаем обработку, если включён проброс
 		for (int32 channel = 0; channel < numChannels; channel++)
