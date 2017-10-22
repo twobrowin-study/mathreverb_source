@@ -14,25 +14,23 @@ SampleType MathReverb::processAudio (SampleType** in, SampleType** out, int32 nu
 	// Возвращаемое значение
 	SampleType vuPPM = 0;
 
-	// if (bBypass) // Пропускаем обработку, если включён проброс
-	// 	for (int32 channel = 0; channel < numChannels; channel++)
-	// 		for (int32 sample = 0; sample < sampleFrames; sample++)
-	// 			out[channel][sample] = in[channel][sample];
-	// else
-	// {
+	if (bBypass) // Пропускаем обработку, если включён проброс
+		for (int32 channel = 0; channel < numChannels; channel++)
+			for (int32 sample = 0; sample < sampleFrames; sample++)
+				out[channel][sample] = in[channel][sample];
+	else
+	{
 		// Обработка
 		SampleType processingIn = 0.f;
 		SampleType processingOut = 0.f;
 		for (int32 sample = 0; sample < sampleFrames; sample++)
 		{
 			// fGain = 0.1f;
-			for (int32 channel = 0; channel < numChannels; channel++)
-				processingIn += in[channel][sample];
+			for (int32 channel = 0, processingOut = 0.f; channel < numChannels; channel++, processingIn += in[channel][sample]);
 			// processingOut = /*graph->process (*/processingIn * fGain/*)*/;
-			for (int32 channel = 0; channel < numChannels; channel++)
-				out[channel][sample] = 0.f;
+			for (int32 channel = 0; channel < numChannels; channel++, out[channel][sample] = 0.f);
 		}
-	// }
+	}
 
 	// Обновляем значение выходной громкости
 	for (int32 sample = 0; sample < sampleFrames; sample++)
