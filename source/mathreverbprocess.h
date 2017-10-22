@@ -32,7 +32,7 @@ SampleType MathReverb::processAudio (SampleType** in, SampleType** out, int32 nu
 			for (int32 channel = 0; channel < numChannels; channel++)
 				out[channel][sample] = 0.f;
 		}
-	}
+	// }
 
 	// Обновляем значение выходной громкости
 	for (int32 sample = 0; sample < sampleFrames; sample++)
