@@ -14,12 +14,12 @@ SampleType MathReverb::processAudio (SampleType** in, SampleType** out, int32 nu
 	// Возвращаемое значение
 	SampleType vuPPM = 0;
 
-	if (bBypass) // Пропускаем обработку, если включён проброс
-		for (int32 channel = 0; channel < numChannels; channel++)
-			for (int32 sample = 0; sample < sampleFrames; sample++)
-				out[channel][sample] = in[channel][sample];
-	else
-	{
+	// if (bBypass) // Пропускаем обработку, если включён проброс
+	// 	for (int32 channel = 0; channel < numChannels; channel++)
+	// 		for (int32 sample = 0; sample < sampleFrames; sample++)
+	// 			out[channel][sample] = in[channel][sample];
+	// else
+	// {
 		// Обработка
 		SampleType processingIn = 0.f;
 		SampleType processingOut = 0.f;
@@ -38,7 +38,7 @@ SampleType MathReverb::processAudio (SampleType** in, SampleType** out, int32 nu
 			vuPPM = out[0][sample];
 
 	return vuPPM;
-}
+// }
 
 } // Пространство имён Vst
 } // Пространство имён Steinberg
