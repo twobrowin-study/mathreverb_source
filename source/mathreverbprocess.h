@@ -40,7 +40,7 @@ SampleType MathReverb::processAudio (SampleType** in, SampleType** out, int32 nu
 			vuPPM = out[0][sample];
 
 	return vuPPM;
-// }
+}
 
 } // Пространство имён Vst
 } // Пространство имён Steinberg
