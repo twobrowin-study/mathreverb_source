@@ -26,9 +26,10 @@ SampleType MathReverb::processAudio (SampleType** in, SampleType** out, int32 nu
 		for (int32 sample = 0; sample < sampleFrames; sample++)
 		{
 			// fGain = 0.1f;
-			for (int32 channel = 0; channel < numChannels; channel++, processingIn += in[channel][sample]);
+			for (int32 channel = 0; channel < numChannels; channel++)
+				processingIn += in[channel][sample];
 			// processingOut = /*graph->process (*/processingIn * fGain/*)*/;
-			for (int32 channel = 0; channel < numChannels; channel++/*processingOut*/)
+			for (int32 channel = 0; channel < numChannels; channel++)
 				out[channel][sample] = 0.f;
 		}
 	}
