@@ -84,7 +84,34 @@ tresult PLUGIN_API MathReverb::process (ProcessData& data)
 	// 3) Вывод параметра выходной громкости VuPPM обратно в плагин
 
 	// 1) Чтение изменения параметров
-	getInputParamChanges (data.inputParameterChanges);
+	// getInputParamChanges (data.inputParameterChanges);
+  IParameterChanges* paramChanges = data.inputParameterChanges;
+	if (paramChanges)
+	{
+		for (int32 i = 0; i < paramChanges->getParameterCount (); i++) // Проходим по всем изменённым параметрам
+		{
+			IParamValueQueue* paramQueue = paramChanges->getParameterData (i); // Очередной изменённый параметр
+			if (paramQueue)
+			{
+				// Определяем необходимые переменные для получения
+				ParamValue value;
+				int32 sampleOffset;
+				int32 numPoints = paramQueue->getPointCount ();
+				switch (paramQueue->getParameterId ())
+				{
+					case kGainId: // Если параметр Gain - записываем его
+						if (paramQueue->getPoint (numPoints - 1, sampleOffset, value) == kResultTrue)
+							fGain = (float)value;
+						break;
+
+					case kBypassId: // Если параметр Bypass - записываем его
+						if (paramQueue->getPoint (numPoints - 1, sampleOffset, value) == kResultTrue)
+							bBypass = (value > 0.5f);
+						break;
+				}
+			}
+		}
+	}
 
 	// 2) Непосредственно обработка
 	float fVuPPM = 0.f;
@@ -189,32 +216,7 @@ tresult PLUGIN_API MathReverb::setState (IBStream* state)
 //------------------------------------------------------------------------
 void MathReverb::getInputParamChanges (IParameterChanges* paramChanges)
 {
-	if (paramChanges)
-	{
-		for (int32 i = 0; i < paramChanges->getParameterCount (); i++) // Проходим по всем изменённым параметрам
-		{
-			IParamValueQueue* paramQueue = paramChanges->getParameterData (i); // Очередной изменённый параметр
-			if (paramQueue)
-			{
-				// Определяем необходимые переменные для получения
-				ParamValue value;
-				int32 sampleOffset;
-				int32 numPoints = paramQueue->getPointCount ();
-				switch (paramQueue->getParameterId ())
-				{
-					case kGainId: // Если параметр Gain - записываем его
-						if (paramQueue->getPoint (numPoints - 1, sampleOffset, value) == kResultTrue)
-							fGain = (float)value;
-						break;
 
-					case kBypassId: // Если параметр Bypass - записываем его
-						if (paramQueue->getPoint (numPoints - 1, sampleOffset, value) == kResultTrue)
-							bBypass = (value > 0.5f);
-						break;
-				}
-			}
-		}
-	}
 }
 
 //------------------------------------------------------------------------
