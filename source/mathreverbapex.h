@@ -43,7 +43,7 @@ public:
 
 private:
     // Буфер
-  	float* mBuffer;
+  	Sample64* mBuffer;
     int32 mBufferPos;
     int32 mBufferLen;
 
