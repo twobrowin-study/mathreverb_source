@@ -10,7 +10,7 @@ namespace Vst {
 //------------------------------------------------------------------------
 
 //------------------------------------------------------------------------
-MathReverbApex::MathReverbApex (SampleRate sampleRate, delayPoint* delayArray, int32 numberOfApexes)
+MathReverbApex::MathReverbApex (SampleRate sampleRate, DelayPoint* delayArray, int32 numberOfApexes)
 : mBufferLen (sampleRate)
 , mBufferPos (0)
 , mDelayArrayLen (numberOfApexes)
@@ -20,7 +20,7 @@ MathReverbApex::MathReverbApex (SampleRate sampleRate, delayPoint* delayArray, i
   memset (mBuffer, 0, bufferSize);
 
   // Передача параметров задержки
-  mDelayArray = (delayPoint*)std::malloc ((size_t)(numberOfApexes * sizeof (delayPoint)));
+  mDelayArray = (DelayPoint*)std::malloc ((size_t)(numberOfApexes * sizeof (DelayPoint)));
   for (int32 i = 0; i < numberOfApexes; i++)
     mDelayArray[i] = delayArray[i];
 }
