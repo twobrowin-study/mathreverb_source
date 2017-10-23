@@ -22,9 +22,9 @@ public:
   Sample64 process (Sample64 inSample);
 
 private:
-    MathReverbApex sourceApex;
+    MathReverbApex *sourceApex;
     MathReverbApex modelApexes[8];
-    MathReverbApex sinkApex;
+    MathReverbApex *sinkApex;
 
     SampleRate mSampleRate;
 };

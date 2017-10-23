@@ -8,8 +8,9 @@ namespace Vst {
 // Стурктура передачи указателей на объеты класса
 // -----------------------------------------------------------------------
 class MathReverbApex;
-struct delayPoint
+struct DelayPoint
 {
+  DelayPoint () : apex (0), delayInSamples (0) {}
   MathReverbApex* apex;
   int32 delayInSamples;
 };
@@ -30,7 +31,7 @@ public:
   };
 
   // Конструктор
-  MathReverbApex (SampleRate sampleRate, delayPoint* delayArray, int32 numberOfApexes);
+  MathReverbApex (SampleRate sampleRate, DelayPoint* delayArray, int32 numberOfApexes);
   // Деструктор
   ~MathReverbApex ();
 
@@ -47,7 +48,7 @@ private:
     int32 mBufferLen;
 
     // Прочие вершины с задержками
-  	delayPoint* mDelayArray;
+  	DelayPoint* mDelayArray;
     int32 mDelayArrayLen;
 };
 
