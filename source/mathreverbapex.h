@@ -15,6 +15,12 @@ struct DelayPoint
   int32 delayInSamples;
 };
 
+enum ApexType // Вспомогательные определения
+{
+    kNoDelay // У вершины нет линий задержек - исток
+  , kNoBuffer // У вершины нет буфера - сток
+  , kNormalApex // Обычная вершина
+};
 
 //------------------------------------------------------------------------
 // MathReverbApex: Декларация
@@ -24,13 +30,6 @@ struct DelayPoint
 class MathReverbApex
 {
 public:
-  enum ApexType // Вспомогательные определения
-  {
-      kNoDelay // У вершины нет линий задержек - исток
-    , kNoBuffer // У вершины нет буфера - сток
-    , kNormalApex // Обычная вершина
-  };
-
   // Конструктор
   MathReverbApex (SampleRate sampleRate, DelayPoint* delayArray, int32 numberOfApexes);
   // Деструктор
