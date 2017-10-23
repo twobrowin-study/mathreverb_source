@@ -52,7 +52,7 @@ Sample64 MathReverbApex::getSample (int32 delay)
     pos += mBufferLen;
 
   if (pos >= 0)
-    return mBufferPos[pos];
+    return mBuffer[pos];
 
   return 0.f;
 }
