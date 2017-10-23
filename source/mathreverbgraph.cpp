@@ -13,11 +13,13 @@ namespace Vst {
 MathReverbGraph::MathReverbGraph (SampleRate sampleRate)
 : mSampleRate (sampleRate)
 {
+
 }
 
 //------------------------------------------------------------------------
 MathReverbGraph::~MathReverbGraph ()
 {
+  delete sourceApex
 }
 
 //------------------------------------------------------------------------

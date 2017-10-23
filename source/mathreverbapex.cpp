@@ -10,20 +10,26 @@ namespace Vst {
 //------------------------------------------------------------------------
 
 //------------------------------------------------------------------------
-MathReverbApex::MathReverbApex (SampleRate sampleRate, DelayPoint* delayArray, int32 numberOfApexes)
+MathReverbApex::MathReverbApex (SampleRate sampleRate, DelayPoint* delayArray, int32 numberOfApexes, ApexType key = kNormalApex)
 : mBufferLen (sampleRate)
 , mBufferPos (0)
 , mDelayArrayLen (numberOfApexes)
 {
-  // Инициализация буфера
-  size_t bufferSize = (size_t) (sampleRate * sizeof (Sample64) + 0.5);
-  mBuffer = (Sample64*)std::malloc (bufferSize); // максимум задержки - 1 секунда
-  memset (mBuffer, 0, bufferSize);
+  if (key != kNoBuffer)
+  {
+    // Инициализация буфера
+    size_t bufferSize = (size_t) (sampleRate * sizeof (Sample64) + 0.5);
+    mBuffer = (Sample64*)std::malloc (bufferSize); // максимум задержки - 1 секунда
+    memset (mBuffer, 0, bufferSize);
+  }
 
-  // Передача параметров задержки
-  mDelayArray = (DelayPoint*)std::malloc ((size_t) (numberOfApexes * sizeof (DelayPoint)));
-  for (int32 i = 0; i < numberOfApexes; i++)
-    mDelayArray[i] = delayArray[i];
+  if (key != kNoDelay)
+  {
+    // Передача параметров задержки
+    mDelayArray = (DelayPoint*)std::malloc ((size_t) (numberOfApexes * sizeof (DelayPoint)));
+    for (int32 i = 0; i < numberOfApexes; i++)
+      mDelayArray[i] = delayArray[i];
+  }
 }
 
 //------------------------------------------------------------------------

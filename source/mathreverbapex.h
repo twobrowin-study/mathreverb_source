@@ -24,10 +24,11 @@ struct DelayPoint
 class MathReverbApex
 {
 public:
-  enum // Вспомогательные определения
+  enum ApexType // Вспомогательные определения
   {
       kNoDelay // У вершины нет линий задержек - исток
     , kNoBuffer // У вершины нет буфера - сток
+    , kNormalApex // Обычная вершина
   };
 
   // Конструктор
