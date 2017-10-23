@@ -19,7 +19,11 @@ MathReverbGraph::MathReverbGraph (SampleRate sampleRate)
 //------------------------------------------------------------------------
 MathReverbGraph::~MathReverbGraph ()
 {
-  delete sourceApex
+  if (sourceApex)
+  {
+    delete sourceApex;
+    sourceApex = 0;
+  }
 }
 
 //------------------------------------------------------------------------
