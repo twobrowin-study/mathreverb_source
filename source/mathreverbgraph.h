@@ -23,7 +23,7 @@ public:
 
 private:
     MathReverbApex sourceApex;
-    MathReverbApex[8] modelApexes;
+    MathReverbApex modelApexes[8];
     MathReverbApex sinkApex;
 
     SampleRate mSampleRate;
