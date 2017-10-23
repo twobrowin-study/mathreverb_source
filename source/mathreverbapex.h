@@ -31,7 +31,7 @@ class MathReverbApex
 {
 public:
   // Конструктор
-  MathReverbApex (SampleRate sampleRate, DelayPoint* delayArray, int32 numberOfApexes);
+  MathReverbApex (SampleRate sampleRate, DelayPoint* delayArray, int32 numberOfApexes, ApexType key = kNormalApex);
   // Деструктор
   ~MathReverbApex ();
 
