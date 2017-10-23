@@ -9,8 +9,8 @@ namespace Vst {
 // -----------------------------------------------------------------------
 struct delayPoint
 {
-  MathReverbApex* apex,
-  int32 delayInSamples
+  MathReverbApex* apex;
+  int32 delayInSamples;
 };
 
 

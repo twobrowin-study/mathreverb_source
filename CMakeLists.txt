@@ -8,6 +8,8 @@ set(mathreverb_sources
 	source/mathreverbentry.cpp
 	source/mathreverbgraph.cpp
 	source/mathreverbgraph.h
+	source/mathreverbapex.cpp
+	source/mathreverbapex.h
 	source/mathreverbprocess.h
 	source/version.h
 	source/mathreverbparams/coordinate.h
