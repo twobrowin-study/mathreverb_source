@@ -13,7 +13,7 @@ class MathReverbGraph
 {
 public:
   // Конструктор
-  MathReverbGraph (SampleRate samRate);
+  MathReverbGraph (SampleRate sampleRate);
   // Деструктор
   ~MathReverbGraph ();
 
@@ -21,12 +21,11 @@ public:
   Sample64 process (Sample64 inSample);
 
 private:
-    // Количество семплов в 1 секунде
-    SampleRate sampleRate;
+    MathReverbApex sourceApex;
+    MathReverbApex[8] modelApexes;
+    MathReverbApex sinkApex;
 
-    // Буфер
-  	float **mBuffer;
-  	int32 mBufferPos;
+    SampleRate mSampleRate;
 };
 
 //------------------------------------------------------------------------
