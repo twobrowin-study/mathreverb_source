@@ -16,11 +16,12 @@ MathReverbApex::MathReverbApex (SampleRate sampleRate, DelayPoint* delayArray, i
 , mDelayArrayLen (numberOfApexes)
 {
   // Инициализация буфера
-  mBuffer = (float*)std::malloc ((size_t)(sampleRate * sizeof (float) + 0.5)); // максимум задержки - 1 секунда
+  size_t bufferSize = (size_t) (sampleRate * sizeof (float) + 0.5);
+  mBuffer = (float*)std::malloc (bufferSize); // максимум задержки - 1 секунда
   memset (mBuffer, 0, bufferSize);
 
   // Передача параметров задержки
-  mDelayArray = (DelayPoint*)std::malloc ((size_t)(numberOfApexes * sizeof (DelayPoint)));
+  mDelayArray = (DelayPoint*)std::malloc ((size_t) (numberOfApexes * sizeof (DelayPoint)));
   for (int32 i = 0; i < numberOfApexes; i++)
     mDelayArray[i] = delayArray[i];
 }
