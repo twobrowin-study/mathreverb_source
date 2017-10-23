@@ -1,5 +1,6 @@
 #pragma once
 #include "pluginterfaces/vst/ivstparameterchanges.h"
+#include "mathreverbapex.h"
 
 namespace Steinberg {
 namespace Vst {
