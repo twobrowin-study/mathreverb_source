@@ -7,6 +7,7 @@ namespace Vst {
 //------------------------------------------------------------------------
 // Стурктура передачи указателей на объеты класса
 // -----------------------------------------------------------------------
+class MathReverbApex;
 struct delayPoint
 {
   MathReverbApex* apex;
@@ -42,8 +43,8 @@ public:
 private:
     // Буфер
   	float* mBuffer;
-    int32 mBuferPos;
-    int32 mBuferLen;
+    int32 mBufferPos;
+    int32 mBufferLen;
 
     // Прочие вершины с задержками
   	delayPoint* mDelayArray;
