@@ -9,7 +9,7 @@ namespace Vst {
 
 //------------------------------------------------------------------------
 MathReverbGraph::MathReverbGraph (SampleRate sampleRate)
-: mNumberOfModelApexes (1)
+: mNumberOfModelApexes (2)
 {
   // Создадим исток - источник
   sourceApex = new MathReverbApex (sampleRate, kNoDelay);
@@ -18,13 +18,17 @@ MathReverbGraph::MathReverbGraph (SampleRate sampleRate)
   modelApexes = (MathReverbApex*)std::malloc ((size_t) (mNumberOfModelApexes * sizeof (MathReverbApex)));
 
   // Создадим сток - приёмник
-  sinkApex = new MathReverbApex (new DelayPoint (modelApexes, 0.5f * sampleRate), 1, kNoBuffer);
+  DelayPoint[2] sinkApexDelay = {
+    DelayPoint (modelApexes + 0, 0.5f * sampleRate),
+    DelayPoint (modelApexes + 1, 0.5f * sampleRate)
+  };
+  sinkApex = new MathReverbApex (sinkApexDelay, 1, kNoBuffer);
 
   // Создадим прочие вершины
   for (int32 i = 0; i < mNumberOfModelApexes; i++)
     std::memcpy ( modelApexes + i
                 , new MathReverbApex (sampleRate, new DelayPoint (sourceApex, 0.5f * sampleRate), 1, kNormalApex)
-                , sizeof (MathReverbApex) 
+                , sizeof (MathReverbApex)
                 );
 
 }

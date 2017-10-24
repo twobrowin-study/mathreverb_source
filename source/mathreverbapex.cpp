@@ -101,8 +101,7 @@ Sample64 MathReverbApex::setSampleFromApexes ()
   {
     // Пройдёмся по всем вершинам
     for (int32 i = 0; i < mDelayArrayLen; i++)
-      if (mDelayArray[i].delayInSamples != -1) // Если задержка -1 - вершина совпадает с текущей
-        sampleToPush += mDelayArray[i].apex -> getSampleWithDelay (mDelayArray[i].delayInSamples);
+      sampleToPush += mDelayArray[i].apex -> getSampleWithDelay (mDelayArray[i].delayInSamples);
   }
 
   if (mBuffer)
