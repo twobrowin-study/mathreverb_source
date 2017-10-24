@@ -15,14 +15,14 @@ MathReverbGraph::MathReverbGraph (SampleRate sampleRate)
   sourceApex = new MathReverbApex (sampleRate, kNoDelay);
 
   // Разметим прочие вершины
-  modelApexes = (MathReverbApex*)std::malloc ((size_t) (mNumberOfModelApexes * sizeof (MathReverbApex)));
+  modelApexes = new MathReverbApex (sampleRate, new DelayPoint (sourceApex, 0.5f * sampleRate), 1, kNormalApex);//(MathReverbApex*)std::malloc ((size_t) (mNumberOfModelApexes * sizeof (MathReverbApex)));
 
   // Создадим сток - приёмник
   sinkApex = new MathReverbApex (new DelayPoint (modelApexes, 0.5f * sampleRate), 1, kNoBuffer);
 
-  // Создадим прочие вершины
-  for (int32 i = 0; i < mNumberOfModelApexes; i++)
-    modelApexes[i] = MathReverbApex (sampleRate, new DelayPoint (sourceApex, 0.5f * sampleRate), 1, kNormalApex);
+  // // Создадим прочие вершины
+  // for (int32 i = 0; i < mNumberOfModelApexes; i++)
+  //   modelApexes[i] = MathReverbApex (sampleRate, new DelayPoint (sourceApex, 0.5f * sampleRate), 1, kNormalApex);
 
 }
 
@@ -37,7 +37,8 @@ MathReverbGraph::~MathReverbGraph ()
 
   if (modelApexes)
   {
-    std::free (modelApexes);
+    // std::free (modelApexes);
+    delete modelApexes;
     modelApexes = 0;
   }
 
