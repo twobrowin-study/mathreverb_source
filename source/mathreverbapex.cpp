@@ -33,7 +33,7 @@ MathReverbApex::MathReverbApex (SampleRate sampleRate, DelayPoint* delayArray, i
 MathReverbApex::MathReverbApex (SampleRate sampleRate, ApexType key)
 : mBufferLen (sampleRate)
 , mBufferPos (0)
-, mDelayArrayLen (numberOfApexes)
+, mDelayArrayLen (0)
 , mDelayArray (0)
 {
   if (key == kNoDelay)
@@ -48,7 +48,7 @@ MathReverbApex::MathReverbApex (SampleRate sampleRate, ApexType key)
 //------------------------------------------------------------------------
 MathReverbApex::MathReverbApex (DelayPoint* delayArray, int32 numberOfApexes, ApexType key)
 : mBuffer (0)
-, mBufferLen (sampleRate)
+, mBufferLen (0)
 , mBufferPos (0)
 , mDelayArrayLen (numberOfApexes)
 {
@@ -104,7 +104,7 @@ Sample64 MathReverbApex::setSampleFromApexes ()
     // Пройдёмся по всем вершинам
     for (int32 i = 0; i < mDelayArrayLen; i++)
       if (mDelayArray[i].delayInSamples != -1) // Если задержка -1 - вершина совпадает с текущей
-        sampleToPush += mDelayArray[i].apex -> getSample (mDelayArray[i].delayInSamples);
+        sampleToPush += mDelayArray[i].apex -> getSampleWithDelay (mDelayArray[i].delayInSamples);
   }
 
   if (mBuffer)
