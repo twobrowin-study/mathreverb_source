@@ -102,7 +102,7 @@ Sample64 MathReverbApex::setSampleFromApexes ()
     // Пройдёмся по всем вершинам
     for (int32 i = 0; i < mDelayArrayLen; i++)
       // Добавим приглушенное отражение
-      sampleToPush += 0.1f * mDelayArray[i].apex -> getSampleWithDelay (mDelayArray[i].delayInSamples);
+      sampleToPush += 0.7f * mDelayArray[i].apex -> getSampleWithDelay (mDelayArray[i].delayInSamples);
   }
 
   if (mBuffer)
