@@ -22,11 +22,12 @@ public:
   Sample64 process (Sample64 inSample);
 
 private:
+    // Вершины графа
     MathReverbApex *sourceApex;
     MathReverbApex *modelApexes;
     MathReverbApex *sinkApex;
 
-    SampleRate mSampleRate;
+    int32 mNumberOfModelApexes;
 };
 
 //------------------------------------------------------------------------

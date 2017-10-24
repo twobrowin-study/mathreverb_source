@@ -1,7 +1,5 @@
 #include "mathreverbgraph.h"
 
-#include <algorithm>
-
 namespace Steinberg {
 namespace Vst {
 
@@ -11,10 +9,21 @@ namespace Vst {
 
 //------------------------------------------------------------------------
 MathReverbGraph::MathReverbGraph (SampleRate sampleRate)
-: mSampleRate (sampleRate)
+: mNumberOfModelApexes (1)
 {
+  // Создадим исток - источник
   sourceApex = new MathReverbApex (sampleRate, kNoDelay);
-  sinkApex = new MathReverbApex (new DelayPoint (sourceApex, 0.5f * mSampleRate), 1, kNoBuffer);
+
+  // Разметим прочие вершины
+  modelApexes = (MathReverbApex*)std::malloc ((size_t) (mNumberOfModelApexes * sizeof (MathReverbApex)));
+
+  // Создадим сток - приёмник
+  sinkApex = new MathReverbApex (new DelayPoint (modelApexes, 0.5f * sampleRate), 1, kNoBuffer);
+
+  // Создадим прочие вершины
+  for (int32 i = 0; i < mNumberOfModelApexes; i++)
+    modelApexes[i] = MathReverbApex (sampleRate, new DelayPoint (sourceApex, 0.5f * sampleRate), 1, kNormalApex)
+
 }
 
 //------------------------------------------------------------------------
@@ -37,8 +46,8 @@ MathReverbGraph::~MathReverbGraph ()
 Sample64 MathReverbGraph::process (Sample64 inSample)
 {
   sourceApex->setSourceSample (inSample);
+  modelApexes[0].setSampleFromApexes();
   return sinkApex->setSampleFromApexes ();
-  // return inSample;
 }
 
 //------------------------------------------------------------------------

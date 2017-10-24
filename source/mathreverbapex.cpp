@@ -1,7 +1,5 @@
 #include "mathreverbapex.h"
 
-#include <algorithm>
-
 namespace Steinberg {
 namespace Vst {
 
