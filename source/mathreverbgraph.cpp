@@ -20,7 +20,7 @@ MathReverbGraph::MathReverbGraph (SampleRate sampleRate)
   // Создадим сток - приёмник
   DelayPoint sinkApexDelay [] = { DelayPoint (modelApexes + 0, 0.5f * sampleRate),
                                   DelayPoint (modelApexes + 1, 0.1f * sampleRate) };
-  sinkApex = new MathReverbApex (sinkApexDelay, 1, kNoBuffer);
+  sinkApex = new MathReverbApex (sinkApexDelay, 2, kNoBuffer);
 
   // Создадим прочие вершины
   for (int32 i = 0; i < mNumberOfModelApexes; i++)
