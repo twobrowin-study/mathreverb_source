@@ -57,7 +57,7 @@ MathReverbGraph::~MathReverbGraph ()
 Sample64 MathReverbGraph::process (Sample64 inSample)
 {
   sourceApex->setSourceSample (inSample);
-  for (int32 i = mNumberOfModelApexes; i > 0; i--)
+  for (int32 i = 0; i < 1; i++)
     modelApexes[i].setSampleFromApexes();
   return sinkApex->setSampleFromApexes ();
 }
