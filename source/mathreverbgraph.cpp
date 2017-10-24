@@ -19,98 +19,98 @@ MathReverbGraph::MathReverbGraph (SampleRate sampleRate)
 
   // Создадим сток - приёмник
   DelayPoint sinkApexDelay [8] = {
-    DelayPoint (modelApexes + 0, 0.1f * sampleRate),
-    DelayPoint (modelApexes + 1, 0.1f * sampleRate),
-    DelayPoint (modelApexes + 2, 0.1f * sampleRate),
-    DelayPoint (modelApexes + 3, 0.1f * sampleRate),
-    DelayPoint (modelApexes + 4, 0.1f * sampleRate),
-    DelayPoint (modelApexes + 5, 0.1f * sampleRate),
-    DelayPoint (modelApexes + 6, 0.1f * sampleRate),
-    DelayPoint (modelApexes + 7, 0.1f * sampleRate)
+    DelayPoint (modelApexes + 0, 0.05f * sampleRate),
+    DelayPoint (modelApexes + 1, 0.05f * sampleRate),
+    DelayPoint (modelApexes + 2, 0.05f * sampleRate),
+    DelayPoint (modelApexes + 3, 0.05f * sampleRate),
+    DelayPoint (modelApexes + 4, 0.05f * sampleRate),
+    DelayPoint (modelApexes + 5, 0.05f * sampleRate),
+    DelayPoint (modelApexes + 6, 0.05f * sampleRate),
+    DelayPoint (modelApexes + 7, 0.05f * sampleRate)
   };
   sinkApex = new MathReverbApex (sinkApexDelay, mNumberOfModelApexes, kNoBuffer);
 
   // Создадим прочие вершины
   DelayPoint modelApexesDelay [8][8] = {
     {
-      DelayPoint (sourceApex, 0.1f * sampleRate),
-      DelayPoint (modelApexes + 1, 0.2f * sampleRate),
-      DelayPoint (modelApexes + 2, 0.2f * sampleRate),
-      DelayPoint (modelApexes + 3, 0.2f * sampleRate),
-      DelayPoint (modelApexes + 4, 0.2f * sampleRate),
-      DelayPoint (modelApexes + 5, 0.2f * sampleRate),
-      DelayPoint (modelApexes + 6, 0.2f * sampleRate),
-      DelayPoint (modelApexes + 7, 0.2f * sampleRate)
+      DelayPoint (sourceApex, 0.05f * sampleRate),
+      DelayPoint (modelApexes + 1, 0.1f * sampleRate),
+      DelayPoint (modelApexes + 2, 0.1f * sampleRate),
+      DelayPoint (modelApexes + 3, 0.1f * sampleRate),
+      DelayPoint (modelApexes + 4, 0.1f * sampleRate),
+      DelayPoint (modelApexes + 5, 0.1f * sampleRate),
+      DelayPoint (modelApexes + 6, 0.1f * sampleRate),
+      DelayPoint (modelApexes + 7, 0.1f * sampleRate)
     },
     {
-      DelayPoint (sourceApex, 0.1f * sampleRate),
-      DelayPoint (modelApexes + 0, 0.2f * sampleRate),
-      DelayPoint (modelApexes + 2, 0.2f * sampleRate),
-      DelayPoint (modelApexes + 3, 0.2f * sampleRate),
-      DelayPoint (modelApexes + 4, 0.2f * sampleRate),
-      DelayPoint (modelApexes + 5, 0.2f * sampleRate),
-      DelayPoint (modelApexes + 6, 0.2f * sampleRate),
-      DelayPoint (modelApexes + 7, 0.2f * sampleRate)
+      DelayPoint (sourceApex, 0.05f * sampleRate),
+      DelayPoint (modelApexes + 0, 0.1f * sampleRate),
+      DelayPoint (modelApexes + 2, 0.1f * sampleRate),
+      DelayPoint (modelApexes + 3, 0.1f * sampleRate),
+      DelayPoint (modelApexes + 4, 0.1f * sampleRate),
+      DelayPoint (modelApexes + 5, 0.1f * sampleRate),
+      DelayPoint (modelApexes + 6, 0.1f * sampleRate),
+      DelayPoint (modelApexes + 7, 0.1f * sampleRate)
     },
     {
-      DelayPoint (sourceApex, 0.1f * sampleRate),
-      DelayPoint (modelApexes + 0, 0.2f * sampleRate),
-      DelayPoint (modelApexes + 1, 0.2f * sampleRate),
-      DelayPoint (modelApexes + 3, 0.2f * sampleRate),
-      DelayPoint (modelApexes + 4, 0.2f * sampleRate),
-      DelayPoint (modelApexes + 5, 0.2f * sampleRate),
-      DelayPoint (modelApexes + 6, 0.2f * sampleRate),
-      DelayPoint (modelApexes + 7, 0.2f * sampleRate)
+      DelayPoint (sourceApex, 0.05f * sampleRate),
+      DelayPoint (modelApexes + 0, 0.1f * sampleRate),
+      DelayPoint (modelApexes + 1, 0.1f * sampleRate),
+      DelayPoint (modelApexes + 3, 0.1f * sampleRate),
+      DelayPoint (modelApexes + 4, 0.1f * sampleRate),
+      DelayPoint (modelApexes + 5, 0.1f * sampleRate),
+      DelayPoint (modelApexes + 6, 0.1f * sampleRate),
+      DelayPoint (modelApexes + 7, 0.1f * sampleRate)
     },
     {
-      DelayPoint (sourceApex, 0.1f * sampleRate),
-      DelayPoint (modelApexes + 0, 0.2f * sampleRate),
-      DelayPoint (modelApexes + 1, 0.2f * sampleRate),
-      DelayPoint (modelApexes + 2, 0.2f * sampleRate),
-      DelayPoint (modelApexes + 4, 0.2f * sampleRate),
-      DelayPoint (modelApexes + 5, 0.2f * sampleRate),
-      DelayPoint (modelApexes + 6, 0.2f * sampleRate),
-      DelayPoint (modelApexes + 7, 0.2f * sampleRate)
+      DelayPoint (sourceApex, 0.05f * sampleRate),
+      DelayPoint (modelApexes + 0, 0.1f * sampleRate),
+      DelayPoint (modelApexes + 1, 0.1f * sampleRate),
+      DelayPoint (modelApexes + 2, 0.1f * sampleRate),
+      DelayPoint (modelApexes + 4, 0.1f * sampleRate),
+      DelayPoint (modelApexes + 5, 0.1f * sampleRate),
+      DelayPoint (modelApexes + 6, 0.1f * sampleRate),
+      DelayPoint (modelApexes + 7, 0.1f * sampleRate)
     },
     {
-      DelayPoint (sourceApex, 0.1f * sampleRate),
-      DelayPoint (modelApexes + 0, 0.2f * sampleRate),
-      DelayPoint (modelApexes + 1, 0.2f * sampleRate),
-      DelayPoint (modelApexes + 2, 0.2f * sampleRate),
-      DelayPoint (modelApexes + 3, 0.2f * sampleRate),
-      DelayPoint (modelApexes + 5, 0.2f * sampleRate),
-      DelayPoint (modelApexes + 6, 0.2f * sampleRate),
-      DelayPoint (modelApexes + 7, 0.2f * sampleRate)
+      DelayPoint (sourceApex, 0.05f * sampleRate),
+      DelayPoint (modelApexes + 0, 0.1f * sampleRate),
+      DelayPoint (modelApexes + 1, 0.1f * sampleRate),
+      DelayPoint (modelApexes + 2, 0.1f * sampleRate),
+      DelayPoint (modelApexes + 3, 0.1f * sampleRate),
+      DelayPoint (modelApexes + 5, 0.1f * sampleRate),
+      DelayPoint (modelApexes + 6, 0.1f * sampleRate),
+      DelayPoint (modelApexes + 7, 0.1f * sampleRate)
     },
     {
-      DelayPoint (sourceApex, 0.1f * sampleRate),
-      DelayPoint (modelApexes + 0, 0.2f * sampleRate),
-      DelayPoint (modelApexes + 1, 0.2f * sampleRate),
-      DelayPoint (modelApexes + 2, 0.2f * sampleRate),
-      DelayPoint (modelApexes + 3, 0.2f * sampleRate),
-      DelayPoint (modelApexes + 4, 0.2f * sampleRate),
-      DelayPoint (modelApexes + 6, 0.2f * sampleRate),
-      DelayPoint (modelApexes + 7, 0.2f * sampleRate)
+      DelayPoint (sourceApex, 0.05f * sampleRate),
+      DelayPoint (modelApexes + 0, 0.1f * sampleRate),
+      DelayPoint (modelApexes + 1, 0.1f * sampleRate),
+      DelayPoint (modelApexes + 2, 0.1f * sampleRate),
+      DelayPoint (modelApexes + 3, 0.1f * sampleRate),
+      DelayPoint (modelApexes + 4, 0.1f * sampleRate),
+      DelayPoint (modelApexes + 6, 0.1f * sampleRate),
+      DelayPoint (modelApexes + 7, 0.1f * sampleRate)
     },
     {
-      DelayPoint (sourceApex, 0.1f * sampleRate),
-      DelayPoint (modelApexes + 0, 0.2f * sampleRate),
-      DelayPoint (modelApexes + 1, 0.2f * sampleRate),
-      DelayPoint (modelApexes + 2, 0.2f * sampleRate),
-      DelayPoint (modelApexes + 3, 0.2f * sampleRate),
-      DelayPoint (modelApexes + 4, 0.2f * sampleRate),
-      DelayPoint (modelApexes + 5, 0.2f * sampleRate),
-      DelayPoint (modelApexes + 7, 0.2f * sampleRate)
+      DelayPoint (sourceApex, 0.05f * sampleRate),
+      DelayPoint (modelApexes + 0, 0.1f * sampleRate),
+      DelayPoint (modelApexes + 1, 0.1f * sampleRate),
+      DelayPoint (modelApexes + 2, 0.1f * sampleRate),
+      DelayPoint (modelApexes + 3, 0.1f * sampleRate),
+      DelayPoint (modelApexes + 4, 0.1f * sampleRate),
+      DelayPoint (modelApexes + 5, 0.1f * sampleRate),
+      DelayPoint (modelApexes + 7, 0.1f * sampleRate)
     },
     {
-      DelayPoint (sourceApex, 0.1f * sampleRate),
-      DelayPoint (modelApexes + 0, 0.2f * sampleRate),
-      DelayPoint (modelApexes + 1, 0.2f * sampleRate),
-      DelayPoint (modelApexes + 2, 0.2f * sampleRate),
-      DelayPoint (modelApexes + 3, 0.2f * sampleRate),
-      DelayPoint (modelApexes + 4, 0.2f * sampleRate),
-      DelayPoint (modelApexes + 5, 0.2f * sampleRate),
-      DelayPoint (modelApexes + 6, 0.2f * sampleRate)
+      DelayPoint (sourceApex, 0.05f * sampleRate),
+      DelayPoint (modelApexes + 0, 0.1f * sampleRate),
+      DelayPoint (modelApexes + 1, 0.1f * sampleRate),
+      DelayPoint (modelApexes + 2, 0.1f * sampleRate),
+      DelayPoint (modelApexes + 3, 0.1f * sampleRate),
+      DelayPoint (modelApexes + 4, 0.1f * sampleRate),
+      DelayPoint (modelApexes + 5, 0.1f * sampleRate),
+      DelayPoint (modelApexes + 6, 0.1f * sampleRate)
     }
   };
   for (int32 i = 0; i < mNumberOfModelApexes; i++)
