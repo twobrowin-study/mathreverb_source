@@ -22,7 +22,7 @@ MathReverbGraph::MathReverbGraph (SampleRate sampleRate)
 
   // Создадим прочие вершины
   for (int32 i = 0; i < mNumberOfModelApexes; i++)
-    modelApexes[i] = MathReverbApex (sampleRate, new DelayPoint (sourceApex, 0.5f * sampleRate), 1, kNormalApex)
+    modelApexes[i] = MathReverbApex (sampleRate, new DelayPoint (sourceApex, 0.5f * sampleRate), 1, kNormalApex);
 
 }
 
@@ -33,6 +33,12 @@ MathReverbGraph::~MathReverbGraph ()
   {
     delete sourceApex;
     sourceApex = 0;
+  }
+
+  if (modelApexes)
+  {
+    std::free (modelApexes);
+    modelApexes = 0;
   }
 
   if (sinkApex)
