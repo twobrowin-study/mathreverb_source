@@ -15,15 +15,44 @@ MathReverbApex::MathReverbApex (SampleRate sampleRate, DelayPoint* delayArray, i
 , mBufferPos (0)
 , mDelayArrayLen (numberOfApexes)
 {
-  if (key != kNoBuffer)
+  if (key == kNormalApex)
+  {
+    // Инициализация буфера
+    size_t bufferSize = (size_t) (sampleRate * sizeof (Sample64) + 0.5);
+    mBuffer = (Sample64*)std::malloc (bufferSize); // максимум задержки - 1 секунда
+    memset (mBuffer, 0, bufferSize);
+
+    // Передача параметров задержки
+    mDelayArray = (DelayPoint*)std::malloc ((size_t) (numberOfApexes * sizeof (DelayPoint)));
+    for (int32 i = 0; i < numberOfApexes; i++)
+      mDelayArray[i] = delayArray[i];
+  }
+}
+
+//------------------------------------------------------------------------
+MathReverbApex::MathReverbApex (SampleRate sampleRate, ApexType key)
+: mBufferLen (sampleRate)
+, mBufferPos (0)
+, mDelayArrayLen (numberOfApexes)
+, mDelayArray (0)
+{
+  if (key == kNoDelay)
   {
     // Инициализация буфера
     size_t bufferSize = (size_t) (sampleRate * sizeof (Sample64) + 0.5);
     mBuffer = (Sample64*)std::malloc (bufferSize); // максимум задержки - 1 секунда
     memset (mBuffer, 0, bufferSize);
   }
+}
 
-  if (key != kNoDelay)
+//------------------------------------------------------------------------
+MathReverbApex::MathReverbApex (DelayPoint* delayArray, int32 numberOfApexes, ApexType key)
+: mBuffer (0)
+, mBufferLen (sampleRate)
+, mBufferPos (0)
+, mDelayArrayLen (numberOfApexes)
+{
+  if (key == kNoBuffer)
   {
     // Передача параметров задержки
     mDelayArray = (DelayPoint*)std::malloc ((size_t) (numberOfApexes * sizeof (DelayPoint)));
@@ -51,32 +80,58 @@ MathReverbApex::~MathReverbApex ()
 }
 
 //------------------------------------------------------------------------
-Sample64 MathReverbApex::getSample (int32 delay)
+Sample64 MathReverbApex::getSampleWithDelay (int32 delay)
 {
-  int32 pos = mBufferPos - delay;
-  if (pos < 0)
-    pos += mBufferLen;
+  if (mBuffer)
+  {
+    int32 pos = mBufferPos - delay;
+    if (pos < 0)
+      pos += mBufferLen;
 
-  if (pos >= 0)
-    return mBuffer[pos];
+    if (pos >= 0)
+      return mBuffer[pos];
+  }
 
   return 0.f;
 }
 
 //------------------------------------------------------------------------
-void MathReverbApex::setSample ()
+Sample64 MathReverbApex::setSampleFromApexes ()
 {
-  Sample64 sampleToPush = 0.f;
-  // Пройдёмся по всем вершинам
-  for (int32 i = 0; i < mDelayArrayLen; i++)
-    if (mDelayArray[i].delayInSamples != -1) // Если задержка -1 - вершина совпадает с текущей
-      sampleToPush += mDelayArray[i].apex -> getSample (mDelayArray[i].delayInSamples);
+  if (mDelayArray)
+  {
+    Sample64 sampleToPush = 0.f;
+    // Пройдёмся по всем вершинам
+    for (int32 i = 0; i < mDelayArrayLen; i++)
+      if (mDelayArray[i].delayInSamples != -1) // Если задержка -1 - вершина совпадает с текущей
+        sampleToPush += mDelayArray[i].apex -> getSample (mDelayArray[i].delayInSamples);
+  }
 
-  mBuffer[mBufferPos] = sampleToPush;
-  mBufferPos++;
-  if (mBufferPos == mBufferLen)
-    mBufferPos = 0;
+  if (mBuffer)
+  {
+    mBuffer[mBufferPos] = sampleToPush;
+    mBufferPos++;
+    if (mBufferPos == mBufferLen)
+      mBufferPos = 0;
+  }
+
+  return sampleToPush;
 }
+
+//------------------------------------------------------------------------
+Sample64 MathReverbApex::setSourceSample (Sample64 sourceSample)
+{
+  if (mBuffer)
+  {
+    mBuffer[mBufferPos] = sourceSample;
+    mBufferPos++;
+    if (mBufferPos == mBufferLen)
+      mBufferPos = 0;
+  }
+
+  return sourceSample;
+}
+
 
 //------------------------------------------------------------------------
 } // Пространство имён Vst

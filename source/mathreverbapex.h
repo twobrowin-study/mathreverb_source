@@ -32,14 +32,20 @@ class MathReverbApex
 public:
   // Конструктор
   MathReverbApex (SampleRate sampleRate, DelayPoint* delayArray, int32 numberOfApexes, ApexType key = kNormalApex);
+  MathReverbApex (SampleRate sampleRate, ApexType key = kNoDelay);
+  MathReverbApex (DelayPoint* delayArray, int32 numberOfApexes, ApexType key = kNoBuffer);
+
   // Деструктор
   ~MathReverbApex ();
 
   // Метод возвращает очередной семпл из буфера
-  Sample64 getSample (int32 delayInSamples);
+  Sample64 getSampleWithDelay (int32 delayInSamples);
 
   // Метод устанавливает очередной семпл в буфер
-  void setSample ();
+  Sample64 setSampleFromApexes ();
+
+  // Метод устанавливает семпл в буфер источника
+  Sample64 setSourceSample (Sample64 sourceSample);
 
 private:
     // Буфер

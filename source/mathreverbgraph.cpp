@@ -13,7 +13,7 @@ namespace Vst {
 MathReverbGraph::MathReverbGraph (SampleRate sampleRate)
 : mSampleRate (sampleRate)
 {
-
+  sourceApex = new MathReverbApex (sampleRate, kNoDelay);
 }
 
 //------------------------------------------------------------------------
@@ -29,6 +29,8 @@ MathReverbGraph::~MathReverbGraph ()
 //------------------------------------------------------------------------
 Sample64 MathReverbGraph::process (Sample64 inSample)
 {
+  // sourceApex->setSample (inSample);
+  // return sourceApex->getSample(0.5f * mSampleRate);
   return inSample;
 }
 
