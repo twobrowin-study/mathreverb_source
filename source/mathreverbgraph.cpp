@@ -9,7 +9,7 @@ namespace Vst {
 
 //------------------------------------------------------------------------
 MathReverbGraph::MathReverbGraph (SampleRate sampleRate)
-: mNumberOfModelApexes (2)
+: mNumberOfModelApexes (8)
 {
   // Создадим исток - источник
   sourceApex = new MathReverbApex (sampleRate, kNoDelay);
@@ -18,26 +18,104 @@ MathReverbGraph::MathReverbGraph (SampleRate sampleRate)
   modelApexes = (MathReverbApex*)std::malloc ((size_t) (mNumberOfModelApexes * sizeof (MathReverbApex)));
 
   // Создадим сток - приёмник
-  DelayPoint sinkApexDelay [2] = {
+  DelayPoint sinkApexDelay [8] = {
     DelayPoint (modelApexes + 0, 0.5f * sampleRate),
-    DelayPoint (modelApexes + 1, 0.5f * sampleRate)
+    DelayPoint (modelApexes + 1, 0.5f * sampleRate),
+    DelayPoint (modelApexes + 2, 0.5f * sampleRate),
+    DelayPoint (modelApexes + 3, 0.5f * sampleRate),
+    DelayPoint (modelApexes + 4, 0.5f * sampleRate),
+    DelayPoint (modelApexes + 5, 0.5f * sampleRate),
+    DelayPoint (modelApexes + 6, 0.5f * sampleRate),
+    DelayPoint (modelApexes + 7, 0.5f * sampleRate)
   };
   sinkApex = new MathReverbApex (sinkApexDelay, mNumberOfModelApexes, kNoBuffer);
 
   // Создадим прочие вершины
-  DelayPoint modelApexesDelay [2][2] = {
+  DelayPoint modelApexesDelay [8][8] = {
     {
       DelayPoint (sourceApex, 0.5f * sampleRate),
-      DelayPoint (modelApexes + 1, 1.f * sampleRate)
+      DelayPoint (modelApexes + 1, 1.f * sampleRate),
+      DelayPoint (modelApexes + 2, 1.f * sampleRate),
+      DelayPoint (modelApexes + 3, 1.f * sampleRate),
+      DelayPoint (modelApexes + 4, 1.f * sampleRate),
+      DelayPoint (modelApexes + 5, 1.f * sampleRate),
+      DelayPoint (modelApexes + 6, 1.f * sampleRate),
+      DelayPoint (modelApexes + 7, 1.f * sampleRate)
     },
     {
       DelayPoint (sourceApex, 0.5f * sampleRate),
-      DelayPoint (modelApexes + 0, 1.f * sampleRate)
+      DelayPoint (modelApexes + 0, 1.f * sampleRate),
+      DelayPoint (modelApexes + 2, 1.f * sampleRate),
+      DelayPoint (modelApexes + 3, 1.f * sampleRate),
+      DelayPoint (modelApexes + 4, 1.f * sampleRate),
+      DelayPoint (modelApexes + 5, 1.f * sampleRate),
+      DelayPoint (modelApexes + 6, 1.f * sampleRate),
+      DelayPoint (modelApexes + 7, 1.f * sampleRate)
+    },
+    {
+      DelayPoint (sourceApex, 0.5f * sampleRate),
+      DelayPoint (modelApexes + 0, 1.f * sampleRate),
+      DelayPoint (modelApexes + 1, 1.f * sampleRate),
+      DelayPoint (modelApexes + 3, 1.f * sampleRate),
+      DelayPoint (modelApexes + 4, 1.f * sampleRate),
+      DelayPoint (modelApexes + 5, 1.f * sampleRate),
+      DelayPoint (modelApexes + 6, 1.f * sampleRate),
+      DelayPoint (modelApexes + 7, 1.f * sampleRate)
+    },
+    {
+      DelayPoint (sourceApex, 0.5f * sampleRate),
+      DelayPoint (modelApexes + 0, 1.f * sampleRate),
+      DelayPoint (modelApexes + 1, 1.f * sampleRate),
+      DelayPoint (modelApexes + 2, 1.f * sampleRate),
+      DelayPoint (modelApexes + 4, 1.f * sampleRate),
+      DelayPoint (modelApexes + 5, 1.f * sampleRate),
+      DelayPoint (modelApexes + 6, 1.f * sampleRate),
+      DelayPoint (modelApexes + 7, 1.f * sampleRate)
+    },
+    {
+      DelayPoint (sourceApex, 0.5f * sampleRate),
+      DelayPoint (modelApexes + 0, 1.f * sampleRate),
+      DelayPoint (modelApexes + 1, 1.f * sampleRate),
+      DelayPoint (modelApexes + 2, 1.f * sampleRate),
+      DelayPoint (modelApexes + 3, 1.f * sampleRate),
+      DelayPoint (modelApexes + 5, 1.f * sampleRate),
+      DelayPoint (modelApexes + 6, 1.f * sampleRate),
+      DelayPoint (modelApexes + 7, 1.f * sampleRate)
+    },
+    {
+      DelayPoint (sourceApex, 0.5f * sampleRate),
+      DelayPoint (modelApexes + 0, 1.f * sampleRate),
+      DelayPoint (modelApexes + 1, 1.f * sampleRate),
+      DelayPoint (modelApexes + 2, 1.f * sampleRate),
+      DelayPoint (modelApexes + 3, 1.f * sampleRate),
+      DelayPoint (modelApexes + 4, 1.f * sampleRate),
+      DelayPoint (modelApexes + 6, 1.f * sampleRate),
+      DelayPoint (modelApexes + 7, 1.f * sampleRate)
+    },
+    {
+      DelayPoint (sourceApex, 0.5f * sampleRate),
+      DelayPoint (modelApexes + 0, 1.f * sampleRate),
+      DelayPoint (modelApexes + 1, 1.f * sampleRate),
+      DelayPoint (modelApexes + 2, 1.f * sampleRate),
+      DelayPoint (modelApexes + 3, 1.f * sampleRate),
+      DelayPoint (modelApexes + 4, 1.f * sampleRate),
+      DelayPoint (modelApexes + 5, 1.f * sampleRate),
+      DelayPoint (modelApexes + 7, 1.f * sampleRate)
+    },
+    {
+      DelayPoint (sourceApex, 0.5f * sampleRate),
+      DelayPoint (modelApexes + 0, 1.f * sampleRate),
+      DelayPoint (modelApexes + 1, 1.f * sampleRate),
+      DelayPoint (modelApexes + 2, 1.f * sampleRate),
+      DelayPoint (modelApexes + 3, 1.f * sampleRate),
+      DelayPoint (modelApexes + 4, 1.f * sampleRate),
+      DelayPoint (modelApexes + 5, 1.f * sampleRate),
+      DelayPoint (modelApexes + 6, 1.f * sampleRate)
     }
   };
   for (int32 i = 0; i < mNumberOfModelApexes; i++)
     std::memcpy ( modelApexes + i
-                , new MathReverbApex (sampleRate, modelApexesDelay[i], 1, kNormalApex)
+                , new MathReverbApex (sampleRate, modelApexesDelay[i], mNumberOfModelApexes, kNormalApex)
                 , sizeof (MathReverbApex)
                 );
 
