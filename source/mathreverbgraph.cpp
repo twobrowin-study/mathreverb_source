@@ -18,14 +18,26 @@ MathReverbGraph::MathReverbGraph (SampleRate sampleRate)
   modelApexes = (MathReverbApex*)std::malloc ((size_t) (mNumberOfModelApexes * sizeof (MathReverbApex)));
 
   // Создадим сток - приёмник
-  DelayPoint sinkApexDelay [] = { DelayPoint (modelApexes + 0, 0.5f * sampleRate),
-                                  DelayPoint (modelApexes + 1, 0.1f * sampleRate) };
+  DelayPoint sinkApexDelay [] = {
+    DelayPoint (modelApexes + 0, 0.5f * sampleRate),
+    DelayPoint (modelApexes + 1, 0.5f * sampleRate)
+  };
   sinkApex = new MathReverbApex (sinkApexDelay, 2, kNoBuffer);
 
   // Создадим прочие вершины
+  DelayPoint modelApexesDelay [][] = {
+    {
+      DelayPoint (sourceApex, 0.5f * sampleRate),
+      DelayPoint (modelApexes + 1, 1.f * sampleRate)
+    },
+    {
+      DelayPoint (sourceApex, 0.5f * sampleRate),
+      DelayPoint (modelApexes + 0, 1.f * sampleRate)
+    }
+  }
   for (int32 i = 0; i < mNumberOfModelApexes; i++)
     std::memcpy ( modelApexes + i
-                , new MathReverbApex (sampleRate, new DelayPoint (sourceApex, 0.5f * sampleRate), 1, kNormalApex)
+                , new MathReverbApex (sampleRate, modelApexesDelay[i], 1, kNormalApex)
                 , sizeof (MathReverbApex)
                 );
 
