@@ -29,9 +29,9 @@ MathReverbGraph::~MathReverbGraph ()
 //------------------------------------------------------------------------
 Sample64 MathReverbGraph::process (Sample64 inSample)
 {
-  // sourceApex->setSample (inSample);
-  // return sourceApex->getSample(0.5f * mSampleRate);
-  return inSample;
+  sourceApex->setSourceSample (inSample);
+  return sourceApex->getSample(0.5f * mSampleRate);
+  // return inSample;
 }
 
 //------------------------------------------------------------------------
