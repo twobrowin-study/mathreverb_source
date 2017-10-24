@@ -9,8 +9,8 @@ namespace Vst {
 
 //------------------------------------------------------------------------
 MathReverbGraph::MathReverbGraph (SampleRate sampleRate)
-: mNumberOfModelApexes (2)
 {
+  mNumberOfModelApexes = 2;
   // Создадим исток - источник
   sourceApex = new MathReverbApex (sampleRate, kNoDelay);
 
