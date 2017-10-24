@@ -11,6 +11,7 @@ class MathReverbApex;
 struct DelayPoint
 {
   DelayPoint () : apex (0), delayInSamples (0) {}
+  DelayPoint (MathReverbApex* apx, int32 dly) : apex (apx), delayInSamples (dly) {}
   MathReverbApex* apex;
   int32 delayInSamples;
 };
