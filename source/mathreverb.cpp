@@ -161,7 +161,7 @@ tresult PLUGIN_API MathReverb::getState (IBStream* state)
 	state->write (&toSaveBypass, sizeof (int32));
 
 	return kResultOk;
-}toSaveGain
+}
 
 //------------------------------------------------------------------------
 tresult PLUGIN_API MathReverb::setState (IBStream* state)
