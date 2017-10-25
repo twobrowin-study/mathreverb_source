@@ -204,7 +204,7 @@ tresult PLUGIN_API MathReverb::setState (IBStream* state)
 	#endif
 
 	fGain = savedGain;
-	fReflection = savedRefelection;
+	fReflection = savedRfelection;
 	bBypass = (bypassState > 0);
 
 	return kResultOk;
