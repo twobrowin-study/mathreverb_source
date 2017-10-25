@@ -31,6 +31,7 @@ private:
     MathReverbApex *sinkApex;
 
     int32 mNumberOfModelApexes;
+    SampleRate mSampleRate;
 };
 
 //------------------------------------------------------------------------
