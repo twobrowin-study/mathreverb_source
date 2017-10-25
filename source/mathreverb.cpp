@@ -24,9 +24,9 @@ MathReverb::MathReverb ()
 , fWidth (1.f)
 , fHeight (1.f)
 , fReflection (1.f)
-, fXPos (1.f)
-, fYPos (1.f)
-, fZPos (1.f)
+, fXPos (0.f)
+, fYPos (0.f)
+, fZPos (0.f)
 , bBypass (false)
 {
 	// Регистрация класса контроллера, содержащего интерфейс пользователя (тот же, что указан mathreverbentry.cpp)
@@ -152,7 +152,13 @@ tresult PLUGIN_API MathReverb::process (ProcessData& data)
 tresult PLUGIN_API MathReverb::getState (IBStream* state)
 {
 	float  toSaveGain = fGain
-			 , toSaveReflection = fReflection;
+			 , toSaveLength = fLength
+			 , toSaveWidth = fWidth
+			 , toSaveHeight = fHeight
+			 , toSaveReflection = fReflection
+			 , toSaveXPos = fXPos + 0.5f
+			 , toSaveYPos = fYPos + 0.5f
+			 , toSaveZPos = fZPos + 0.5f;
 	int32 toSaveBypass = bBypass ? 1 : 0;
 
 #if BYTEORDER == kBigEndian
@@ -220,9 +226,9 @@ tresult PLUGIN_API MathReverb::setState (IBStream* state)
 	fWidth = savedWidth;
 	fHeight = savedHeight;
 	fReflection = savedReflection;
-	fXPos = savedXPos;
-	fYPos = savedYPos;
-	fZPos = savedZPos;
+	fXPos = savedXPos - 0.5f;
+	fYPos = savedYPos - 0.5f;
+	fZPos = savedZPos - 0.5f;
 	bBypass = (bypassState > 0);
 
 	return kResultOk;
@@ -271,17 +277,17 @@ void MathReverb::getInputParamChanges (IParameterChanges* paramChanges)
 
 					case kXPosId: // Если параметр XPos - записываем его
 						if (paramQueue->getPoint (numPoints - 1, sampleOffset, value) == kResultTrue)
-							fXPos = (float)value;
+							fXPos = (float)value - 0.5f;
 						break;
 
 					case kYPosId: // Если параметр YPos - записываем его
 						if (paramQueue->getPoint (numPoints - 1, sampleOffset, value) == kResultTrue)
-							fYPos = (float)value;
+							fYPos = (float)value - 0.5f;
 						break;
 
 					case kZPosId: // Если параметр ZPos - записываем его
 						if (paramQueue->getPoint (numPoints - 1, sampleOffset, value) == kResultTrue)
-							fZPos = (float)value;
+							fZPos = (float)value - 0.5f;
 						break;
 
 					case kBypassId: // Если параметр Bypass - записываем его
