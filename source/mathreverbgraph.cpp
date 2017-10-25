@@ -262,7 +262,7 @@ void MathReverbGraph::setDementoinParams (float length, float width, float heigh
 
   // Зададим задержки прочим вершинам
   for (int32 i = 0; i < mNumberOfModelApexes; i++)
-    modelApexes[i].setDelayArray (reflection);
+    modelApexes[i].setDelayArray (modelApexesDelay[i], mNumberOfModelApexes);
 }
 
 //------------------------------------------------------------------------
