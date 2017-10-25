@@ -225,8 +225,8 @@ void MathReverbGraph::setDementoinParams (float length, float width, float heigh
       DelayPoint (modelApexes + 2, 0.1f * sqrt (pow (width, 2) + pow (height, 2)) * 0.2778f * mSampleRate),
       DelayPoint (modelApexes + 3, 0.1f * sqrt (pow (width, 2) + pow (height, 2) + pow (length, 2)) * 0.2778f * mSampleRate),
       DelayPoint (modelApexes + 5, 0.1f * length * 0.2778f * mSampleRate),
-      DelayPoint (modelApexes + 6, 0.1f * heigth * 0.2778f * mSampleRate),
-      DelayPoint (modelApexes + 7, 0.1f * sqrt (pow (heigth, 2) + pow (length, 2)) * 0.2778f * mSampleRate)
+      DelayPoint (modelApexes + 6, 0.1f * height * 0.2778f * mSampleRate),
+      DelayPoint (modelApexes + 7, 0.1f * sqrt (pow (height, 2) + pow (length, 2)) * 0.2778f * mSampleRate)
     },
     {
       DelayPoint (sourceApex, 0.1f * sqrt (pow (+widthABSCoord - xPos, 2) + pow (-heightABSCoord - yPos, 2) + pow (+lengthABSCoord - zPos, 2)) * 0.2778f * mSampleRate),
@@ -235,7 +235,7 @@ void MathReverbGraph::setDementoinParams (float length, float width, float heigh
       DelayPoint (modelApexes + 2, 0.1f * sqrt (pow (width, 2) + pow (height, 2) + pow (length, 2)) * 0.2778f * mSampleRate),
       DelayPoint (modelApexes + 3, 0.1f * sqrt (pow (width, 2) + pow (height, 2)) * 0.2778f * mSampleRate),
       DelayPoint (modelApexes + 4, 0.1f * length * 0.2778f * mSampleRate),
-      DelayPoint (modelApexes + 6, 0.1f * sqrt (pow (heigth, 2) + pow (length, 2)) * 0.2778f * mSampleRate),
+      DelayPoint (modelApexes + 6, 0.1f * sqrt (pow (height, 2) + pow (length, 2)) * 0.2778f * mSampleRate),
       DelayPoint (modelApexes + 7, 0.1f * height * 0.2778f * mSampleRate)
     },
     {
@@ -244,8 +244,8 @@ void MathReverbGraph::setDementoinParams (float length, float width, float heigh
       DelayPoint (modelApexes + 1, 0.1f * sqrt (pow (width, 2) + pow (height, 2) + pow (length, 2)) * 0.2778f * mSampleRate),
       DelayPoint (modelApexes + 2, 0.1f * width * 0.2778f * mSampleRate),
       DelayPoint (modelApexes + 3, 0.1f * sqrt (pow (width, 2) + pow (length, 2)) * 0.2778f * mSampleRate),
-      DelayPoint (modelApexes + 4, 0.1f * heigth * 0.2778f * mSampleRate),
-      DelayPoint (modelApexes + 5, 0.1f * sqrt (pow (heigth, 2) + pow (length, 2)) * 0.2778f * mSampleRate),
+      DelayPoint (modelApexes + 4, 0.1f * height * 0.2778f * mSampleRate),
+      DelayPoint (modelApexes + 5, 0.1f * sqrt (pow (height, 2) + pow (length, 2)) * 0.2778f * mSampleRate),
       DelayPoint (modelApexes + 7, 0.1f * length * 0.2778f * mSampleRate)
     },
     {
@@ -254,7 +254,7 @@ void MathReverbGraph::setDementoinParams (float length, float width, float heigh
       DelayPoint (modelApexes + 1, 0.1f * sqrt (pow (width, 2) + pow (height, 2)) * 0.2778f * mSampleRate),
       DelayPoint (modelApexes + 2, 0.1f * sqrt (pow (width, 2) + pow (length, 2)) * 0.2778f * mSampleRate),
       DelayPoint (modelApexes + 3, 0.1f * width * 0.2778f * mSampleRate),
-      DelayPoint (modelApexes + 4, 0.1f * sqrt (pow (heigth, 2) + pow (length, 2)) * 0.2778f * mSampleRate),
+      DelayPoint (modelApexes + 4, 0.1f * sqrt (pow (height, 2) + pow (length, 2)) * 0.2778f * mSampleRate),
       DelayPoint (modelApexes + 5, 0.1f * height * 0.2778f * mSampleRate),
       DelayPoint (modelApexes + 6, 0.1f * length  * 0.2778f * mSampleRate)
     }
