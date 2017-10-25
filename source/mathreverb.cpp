@@ -163,13 +163,24 @@ tresult PLUGIN_API MathReverb::getState (IBStream* state)
 
 #if BYTEORDER == kBigEndian
 	SWAP_32 (toSaveGain)
+	SWAP_32 (toSaveLength)
+	SWAP_32 (toSaveWidth)
+	SWAP_32 (toSaveHeight)
 	SWAP_32 (toSaveReflection)
+	SWAP_32 (toSaveXPos)
+	SWAP_32 (toSaveYPos)
+	SWAP_32 (toSaveZPos)
 	SWAP_32 (toSaveBypass)
 #endif
 
 	state->write (&toSaveGain, sizeof (float));
-	// NOTE: Здесь будут остальные переменные
+	state->write (&toSaveLength, sizeof (float));
+	state->write (&toSaveWidth, sizeof (float));
+	state->write (&toSaveHeight, sizeof (float));
 	state->write (&toSaveReflection, sizeof (float));
+	state->write (&toSaveXPos, sizeof (float));
+	state->write (&toSaveYPos, sizeof (float));
+	state->write (&toSaveZPos, sizeof (float));
 	state->write (&toSaveBypass, sizeof (int32));
 
 	return kResultOk;
