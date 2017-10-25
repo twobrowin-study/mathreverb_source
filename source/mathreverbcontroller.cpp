@@ -106,44 +106,56 @@ tresult PLUGIN_API MathReverbController::setComponentState (IBStream* state)
 	if (state)
 	{
 		float  savedGain
-					,savedLength
-					,savedWidth
-					,savedHeight
-					,savedReflection
-					,savedXPos
-					,savedYPos
-					,savedZPos;
+				 , savedLength
+				 , savedWidth
+				 , savedHeight
+				 , savedReflection
+				 , savedXPos
+				 , savedYPos
+				 , savedZPos;
 		int32 bypassState;
 
 		// Получение параметров в том же порядке, что и определены
 		if (state->read (&savedGain, sizeof (float)) != kResultTrue)
 			return kResultFalse;
-		// if (state->read (&savedLength, sizeof (float)) != kResultTrue)
-		// 	return kResultFalse;
-		// if (state->read (&savedWidth, sizeof (float)) != kResultTrue)
-		// 	return kResultFalse;
-		// if (state->read (&savedHeight, sizeof (float)) != kResultTrue)
-		// 	return kResultFalse;
+		if (state->read (&savedLength, sizeof (float)) != kResultTrue)
+			return kResultFalse;
+		if (state->read (&savedWidth, sizeof (float)) != kResultTrue)
+			return kResultFalse;
+		if (state->read (&savedHeight, sizeof (float)) != kResultTrue)
+			return kResultFalse;
 		if (state->read (&savedReflection, sizeof (float)) != kResultTrue)
 			return kResultFalse;
-		// if (state->read (&savedXPos, sizeof (float)) != kResultTrue)
-		// 	return kResultFalse;
-		// if (state->read (&savedYPos, sizeof (float)) != kResultTrue)
-		// 	return kResultFalse;
-		// if (state->read (&savedZPos, sizeof (float)) != kResultTrue)
-		// 	return kResultFalse;
+		if (state->read (&savedXPos, sizeof (float)) != kResultTrue)
+			return kResultFalse;
+		if (state->read (&savedYPos, sizeof (float)) != kResultTrue)
+			return kResultFalse;
+		if (state->read (&savedZPos, sizeof (float)) != kResultTrue)
+			return kResultFalse;
 		if (state->read (&bypassState, sizeof (bypassState)) != kResultTrue)
 			return kResultFalse;
 
+		#if BYTEORDER == kBigEndian
+			SWAP_32 (savedGain)
+			SWAP_32 (savedLength)
+			SWAP_32 (savedWidth)
+			SWAP_32 (savedHeight)
+			SWAP_32 (savedRefelection)
+			SWAP_32 (savedXPos)
+			SWAP_32 (savedYPos)
+			SWAP_32 (savedZPos)
+			SWAP_32 (bypassState)
+		#endif
+
 		// Установка значений параметров
 		setParamNormalized (kGainId, savedGain);
-		// setParamNormalized (kLengthId, savedLength);
-		// setParamNormalized (kWidthId, savedWidth);
-		// setParamNormalized (kHeightId, savedHeight);
+		setParamNormalized (kLengthId, savedLength);
+		setParamNormalized (kWidthId, savedWidth);
+		setParamNormalized (kHeightId, savedHeight);
 		setParamNormalized (kReflectionId, savedReflection);
-		// setParamNormalized (kXPosId, savedXPos);
-		// setParamNormalized (kYPosId, savedYPos);
-		// setParamNormalized (kZPosId, savedZPos);
+		setParamNormalized (kXPosId, savedXPos);
+		setParamNormalized (kYPosId, savedYPos);
+		setParamNormalized (kZPosId, savedZPos);
 		setParamNormalized (kBypassId, bypassState);
 	}
 	return kResultTrue;

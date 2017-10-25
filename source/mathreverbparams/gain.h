@@ -50,7 +50,7 @@ void GainParameter::toString (ParamValue normValue, String128 string) const
 {
   char text [32];
   if (normValue > 0.001f)
-    sprintf (text, "%.2f", 20 * log10f ( (float) normValue)); // Формула преобразования из долей в дБ
+    sprintf (text, "%.1f", 20 * log10f ( (float) normValue)); // Формула преобразования из долей в дБ
   else
     strcpy (text, "-oo");
   UString (string, 128).fromAscii (text);

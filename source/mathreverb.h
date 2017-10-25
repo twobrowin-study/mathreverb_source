@@ -44,8 +44,14 @@ protected:
 	// Параметры модели
 	float fVuPPMOld;
 
-	float fGain;
-	float fReflection;
+	float fGain
+			, fLength
+			, fWidth
+			, fHeight
+			, fReflection
+			, fXPos
+			, fYPos
+			, fZPos;
 	bool bBypass;
 
 	MathReverbGraph* graph;

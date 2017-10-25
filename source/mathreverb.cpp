@@ -20,7 +20,13 @@ namespace Vst {
 MathReverb::MathReverb ()
 : fVuPPMOld (0.f)
 , fGain (1.f)
+, fLength (1.f)
+, fWidth (1.f)
+, fHeight (1.f)
 , fReflection (1.f)
+, fXPos (1.f)
+, fYPos (1.f)
+, fZPos (1.f)
 , bBypass (false)
 {
 	// Регистрация класса контроллера, содержащего интерфейс пользователя (тот же, что указан mathreverbentry.cpp)
@@ -145,8 +151,8 @@ tresult PLUGIN_API MathReverb::process (ProcessData& data)
 //------------------------------------------------------------------------
 tresult PLUGIN_API MathReverb::getState (IBStream* state)
 {
-	float toSaveGain = fGain;
-	float toSaveReflection = fReflection;
+	float  toSaveGain = fGain
+			 , toSaveReflection = fReflection;
 	int32 toSaveBypass = bBypass ? 1 : 0;
 
 #if BYTEORDER == kBigEndian
@@ -167,44 +173,56 @@ tresult PLUGIN_API MathReverb::getState (IBStream* state)
 tresult PLUGIN_API MathReverb::setState (IBStream* state)
 {
 	float  savedGain
-				,savedLength
-				,savedWidth
-				,savedHeight
-				,savedReflection
-				,savedXPos
-				,savedYPos
-				,savedZPos;
+			 , savedLength
+			 , savedWidth
+			 , savedHeight
+			 , savedReflection
+			 , savedXPos
+			 , savedYPos
+			 , savedZPos;
 	int32 bypassState;
 
 		// Получение параметров в том же порядке, что и определены
 	if (state->read (&savedGain, sizeof (float)) != kResultTrue)
 		return kResultFalse;
-	// if (state->read (&savedLength, sizeof (float)) != kResultTrue)
-	// 	return kResultFalse;
-	// if (state->read (&savedWidth, sizeof (float)) != kResultTrue)
-	// 	return kResultFalse;
-	// if (state->read (&savedHeight, sizeof (float)) != kResultTrue)
-	// 	return kResultFalse;
+	if (state->read (&savedLength, sizeof (float)) != kResultTrue)
+		return kResultFalse;
+	if (state->read (&savedWidth, sizeof (float)) != kResultTrue)
+		return kResultFalse;
+	if (state->read (&savedHeight, sizeof (float)) != kResultTrue)
+		return kResultFalse;
 	if (state->read (&savedReflection, sizeof (float)) != kResultTrue)
 		return kResultFalse;
-	// if (state->read (&savedXPos, sizeof (float)) != kResultTrue)
-	// 	return kResultFalse;
-	// if (state->read (&savedYPos, sizeof (float)) != kResultTrue)
-	// 	return kResultFalse;
-	// if (state->read (&savedZPos, sizeof (float)) != kResultTrue)
-	// 	return kResultFalse;
+	if (state->read (&savedXPos, sizeof (float)) != kResultTrue)
+		return kResultFalse;
+	if (state->read (&savedYPos, sizeof (float)) != kResultTrue)
+		return kResultFalse;
+	if (state->read (&savedZPos, sizeof (float)) != kResultTrue)
+		return kResultFalse;
 	if (state->read (&bypassState, sizeof (bypassState)) != kResultTrue)
 		return kResultFalse;
 
 
 	#if BYTEORDER == kBigEndian
 		SWAP_32 (savedGain)
+		SWAP_32 (savedLength)
+		SWAP_32 (savedWidth)
+		SWAP_32 (savedHeight)
 		SWAP_32 (savedRefelection)
+		SWAP_32 (savedXPos)
+		SWAP_32 (savedYPos)
+		SWAP_32 (savedZPos)
 		SWAP_32 (bypassState)
 	#endif
 
 	fGain = savedGain;
+	fLength = savedLength;
+	fWidth = savedWidth;
+	fHeight = savedHeight;
 	fReflection = savedReflection;
+	fXPos = savedXPos;
+	fYPos = savedYPos;
+	fZPos = savedZPos;
 	bBypass = (bypassState > 0);
 
 	return kResultOk;
@@ -231,9 +249,39 @@ void MathReverb::getInputParamChanges (IParameterChanges* paramChanges)
 							fGain = (float)value;
 						break;
 
+					case kLengthId: // Если параметр Length - записываем его
+						if (paramQueue->getPoint (numPoints - 1, sampleOffset, value) == kResultTrue)
+							fLength = (float)value;
+						break;
+
+					case kWidthId: // Если параметр Width - записываем его
+						if (paramQueue->getPoint (numPoints - 1, sampleOffset, value) == kResultTrue)
+							fWidth = (float)value;
+						break;
+
+					case kHeightId: // Если параметр Height - записываем его
+						if (paramQueue->getPoint (numPoints - 1, sampleOffset, value) == kResultTrue)
+							fHeight = (float)value;
+						break;
+
 					case kReflectionId: // Если параметр Reflection - записываем его
 						if (paramQueue->getPoint (numPoints - 1, sampleOffset, value) == kResultTrue)
 							fReflection = (float)value;
+						break;
+
+					case kXPosId: // Если параметр XPos - записываем его
+						if (paramQueue->getPoint (numPoints - 1, sampleOffset, value) == kResultTrue)
+							fXPos = (float)value;
+						break;
+
+					case kYPosId: // Если параметр YPos - записываем его
+						if (paramQueue->getPoint (numPoints - 1, sampleOffset, value) == kResultTrue)
+							fYPos = (float)value;
+						break;
+
+					case kZPosId: // Если параметр ZPos - записываем его
+						if (paramQueue->getPoint (numPoints - 1, sampleOffset, value) == kResultTrue)
+							fZPos = (float)value;
 						break;
 
 					case kBypassId: // Если параметр Bypass - записываем его
