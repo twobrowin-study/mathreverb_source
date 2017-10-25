@@ -45,6 +45,7 @@ protected:
 	float fVuPPMOld;
 
 	float fGain;
+	float fReflection;
 	bool bBypass;
 
 	MathReverbGraph* graph;

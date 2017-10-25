@@ -19,7 +19,7 @@ public:
   ~MathReverbGraph ();
 
   // Метод обрабоки очередного семпла
-  Sample64 process (Sample64 inSample);
+  Sample64 process (Sample64 inSample, float reflection);
 
 private:
     // Вершины графа

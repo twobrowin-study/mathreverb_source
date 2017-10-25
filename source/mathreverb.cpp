@@ -20,6 +20,8 @@ namespace Vst {
 MathReverb::MathReverb ()
 : fVuPPMOld (0.f)
 , fGain (1.f)
+, fReflection (1.f)
+, bBypass (false)
 {
 	// Регистрация класса контроллера, содержащего интерфейс пользователя (тот же, что указан mathreverbentry.cpp)
 	setControllerClass (MathReverbControllerUID);
@@ -144,44 +146,66 @@ tresult PLUGIN_API MathReverb::process (ProcessData& data)
 tresult PLUGIN_API MathReverb::getState (IBStream* state)
 {
 	float toSaveGain = fGain;
+	float toSaveReflection = fReflection;
 	int32 toSaveBypass = bBypass ? 1 : 0;
 
 #if BYTEORDER == kBigEndian
 	SWAP_32 (toSaveGain)
+	SWAP_32 (toSaveReflection)
 	SWAP_32 (toSaveBypass)
 #endif
 
 	state->write (&toSaveGain, sizeof (float));
 	// NOTE: Здесь будут остальные переменные
+	state->write (&toSaveReflection, sizeof (float));
 	state->write (&toSaveBypass, sizeof (int32));
 
 	return kResultOk;
-}
+}toSaveGain
 
 //------------------------------------------------------------------------
 tresult PLUGIN_API MathReverb::setState (IBStream* state)
 {
-	// Считаем Gain
-	float savedGain = 0.f;
-	if (state->read (&savedGain, sizeof (float)) != kResultOk)
-	{
+	float  savedGain
+				,savedLength
+				,savedWidth
+				,savedHeight
+				,savedReflection
+				,savedXPos
+				,savedYPos
+				,savedZPos;
+	int32 bypassState;
+
+		// Получение параметров в том же порядке, что и определены
+	if (state->read (&savedGain, sizeof (float)) != kResultTrue)
 		return kResultFalse;
-	}
-	// NOTE: Здесь будут остальные переменные
-	// Считаем Bypass
-	int32 savedBypass = 0;
-	if (state->read (&savedBypass, sizeof (int32)) != kResultOk)
-	{
+	// if (state->read (&savedLength, sizeof (float)) != kResultTrue)
+	// 	return kResultFalse;
+	// if (state->read (&savedWidth, sizeof (float)) != kResultTrue)
+	// 	return kResultFalse;
+	// if (state->read (&savedHeight, sizeof (float)) != kResultTrue)
+	// 	return kResultFalse;
+	if (state->read (&savedReflection, sizeof (float)) != kResultTrue)
 		return kResultFalse;
-	}
+	// if (state->read (&savedXPos, sizeof (float)) != kResultTrue)
+	// 	return kResultFalse;
+	// if (state->read (&savedYPos, sizeof (float)) != kResultTrue)
+	// 	return kResultFalse;
+	// if (state->read (&savedZPos, sizeof (float)) != kResultTrue)
+	// 	return kResultFalse;
+	if (state->read (&bypassState, sizeof (bypassState)) != kResultTrue)
+		return kResultFalse;
+
 
 	#if BYTEORDER == kBigEndian
 		SWAP_32 (savedGain)
-		SWAP_32 (savedBypass)
+		SWAP_32 (savedRefelection)
+		SWAP_32 (bypassState)
 	#endif
 
 	fGain = savedGain;
-	bBypass = (savedBypass > 0);
+	fReflection = savedRefelection;
+	bBypass = (bypassState > 0);
 
 	return kResultOk;
 }
@@ -196,7 +220,7 @@ void MathReverb::getInputParamChanges (IParameterChanges* paramChanges)
 			IParamValueQueue* paramQueue = paramChanges->getParameterData (i); // Очередной изменённый параметр
 			if (paramQueue)
 			{
-				// Определяем необходимые переменные для получения
+				// Определяем необходимые переменные для получения изменений параметров
 				ParamValue value;
 				int32 sampleOffset;
 				int32 numPoints = paramQueue->getPointCount ();
@@ -205,6 +229,11 @@ void MathReverb::getInputParamChanges (IParameterChanges* paramChanges)
 					case kGainId: // Если параметр Gain - записываем его
 						if (paramQueue->getPoint (numPoints - 1, sampleOffset, value) == kResultTrue)
 							fGain = (float)value;
+						break;
+
+					case kReflectionId: // Если параметр Reflection - записываем его
+						if (paramQueue->getPoint (numPoints - 1, sampleOffset, value) == kResultTrue)
+							fReflection = (float)value;
 						break;
 
 					case kBypassId: // Если параметр Bypass - записываем его

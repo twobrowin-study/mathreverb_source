@@ -144,7 +144,7 @@ MathReverbGraph::~MathReverbGraph ()
 }
 
 //------------------------------------------------------------------------
-Sample64 MathReverbGraph::process (Sample64 inSample)
+Sample64 MathReverbGraph::process (Sample64 inSample, float reflection)
 {
   sourceApex->setSourceSample (inSample);
   for (int32 i = 0; i < mNumberOfModelApexes; i++)

@@ -124,8 +124,8 @@ tresult PLUGIN_API MathReverbController::setComponentState (IBStream* state)
 		// 	return kResultFalse;
 		// if (state->read (&savedHeight, sizeof (float)) != kResultTrue)
 		// 	return kResultFalse;
-		// if (state->read (&savedReflection, sizeof (float)) != kResultTrue)
-		// 	return kResultFalse;
+		if (state->read (&savedReflection, sizeof (float)) != kResultTrue)
+			return kResultFalse;
 		// if (state->read (&savedXPos, sizeof (float)) != kResultTrue)
 		// 	return kResultFalse;
 		// if (state->read (&savedYPos, sizeof (float)) != kResultTrue)
@@ -140,7 +140,7 @@ tresult PLUGIN_API MathReverbController::setComponentState (IBStream* state)
 		// setParamNormalized (kLengthId, savedLength);
 		// setParamNormalized (kWidthId, savedWidth);
 		// setParamNormalized (kHeightId, savedHeight);
-		// setParamNormalized (kReflectionId, savedReflection);
+		setParamNormalized (kReflectionId, savedReflection);
 		// setParamNormalized (kXPosId, savedXPos);
 		// setParamNormalized (kYPosId, savedYPos);
 		// setParamNormalized (kZPosId, savedZPos);
