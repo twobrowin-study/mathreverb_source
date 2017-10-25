@@ -130,6 +130,13 @@ Sample64 MathReverbApex::setSourceSample (Sample64 sourceSample)
   return sourceSample;
 }
 
+//------------------------------------------------------------------------
+void MathReverbApex::setDelayArray (DelayPoint* delayArray, int32 numberOfApexes)
+{
+  // Передача параметров задержки
+  for (int32 i = 0; i < numberOfApexes; i++)
+    mDelayArray[i] = delayArray[i];
+}
 
 //------------------------------------------------------------------------
 } // Пространство имён Vst

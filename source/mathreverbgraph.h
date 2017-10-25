@@ -21,6 +21,9 @@ public:
   // Метод обрабоки очередного семпла
   Sample64 process (Sample64 inSample, float reflection);
 
+  // Метод обработки изменения пространственных параметров
+  void setDementoinParams (float length, float width, float height, float xPos, float yPos, float zPos);
+
 private:
     // Вершины графа
     MathReverbApex *sourceApex;

@@ -48,6 +48,9 @@ public:
   // Метод устанавливает семпл в буфер источника
   Sample64 setSourceSample (Sample64 sourceSample);
 
+  // Метод устанавливает новые отношения связи
+  void setDelayArray (DelayPoint* delayArray, int32 numberOfApexes);
+
 private:
     // Буфер
   	Sample64* mBuffer;
