@@ -148,7 +148,7 @@ Sample64 MathReverbGraph::process (Sample64 inSample, float reflection)
 {
   sourceApex->setSourceSample (inSample);
   for (int32 i = 0; i < mNumberOfModelApexes; i++)
-    modelApexes[i].setSampleFromApexes();
+    modelApexes[i].setSampleFromApexes(reflection);
   return sinkApex->setSampleFromApexes ();
 }
 

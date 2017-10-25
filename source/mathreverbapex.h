@@ -42,8 +42,8 @@ public:
   // Метод возвращает очередной семпл из буфера
   Sample64 getSampleWithDelay (int32 delayInSamples);
 
-  // Метод устанавливает очередной семпл в буфер
-  Sample64 setSampleFromApexes ();
+  // Метод устанавливает очередной семпл в
+  Sample64 setSampleFromApexes (float reflection = 1.f);
 
   // Метод устанавливает семпл в буфер источника
   Sample64 setSourceSample (Sample64 sourceSample);
