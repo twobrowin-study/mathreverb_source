@@ -165,9 +165,9 @@ tresult PLUGIN_API MathReverbController::setParamNormalized (ParamID tag, ParamV
 {
 	tresult result = EditControllerEx1::setParamNormalized (tag, value)
 	// Обновление ограничений для параметров координат
-	(CoordinateParameter *) getParameterObject (kXPosId) -> updateLimit ();
-	(CoordinateParameter *) getParameterObject (kYPosId) -> updateLimit ();
-	(CoordinateParameter *) getParameterObject (kZPosId) -> updateLimit ();
+	((CoordinateParameter *) getParameterObject (kXPosId)) -> updateLimit ();
+	((CoordinateParameter *) getParameterObject (kYPosId)) -> updateLimit ();
+	((CoordinateParameter *) getParameterObject (kZPosId)) -> updateLimit ();
 	return result;
 }
 
