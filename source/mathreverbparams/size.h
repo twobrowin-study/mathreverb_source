@@ -58,8 +58,10 @@ bool SizeParameter::fromString (const TChar* string, ParamValue& normValue) cons
   String wrapper ((TChar*) string);
   double tmp = 0;
   if (wrapper.scanFloat (tmp)) {
-    if (tmp < 0.0)
-      tmp = -tmp;
+    if (tmp < 0.01)
+      tmp = 0.01;
+    if (tmp < 99.99)
+      tmp = 99.99;
 
     normValue = tmp / 100.f;
     return true;
