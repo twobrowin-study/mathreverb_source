@@ -5,6 +5,8 @@
 
 #include <stdio.h>
 
+#include "size.h"
+
 namespace Steinberg {
 namespace Vst {
 

@@ -13,7 +13,6 @@
 #include "mathreverbparams/coordinate.h"
 #include "mathreverbparams/gain.h"
 #include "mathreverbparams/reflection.h"
-#include "mathreverbparams/size.h"
 
 #include "cmathreverbview.h"
 
