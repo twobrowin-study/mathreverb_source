@@ -29,6 +29,9 @@ public:
 	// Установить состояние параметров
 	tresult PLUGIN_API setComponentState (IBStream* state) SMTG_OVERRIDE;
 
+	// Установить значение параметра
+	tresult PLUGIN_API setParamNormalized (ParamID tag, ParamValue value) SMTG_OVERRIDE;
+
 	//---Из VST3EditorDelegate---
 	// Создать описанное внешне представление
 	virtual CView* createCustomView (UTF8StringPtr name, const UIAttributes &attributes, const IUIDescription *description, VST3Editor *editor)  SMTG_OVERRIDE;

@@ -156,13 +156,19 @@ tresult PLUGIN_API MathReverbController::setComponentState (IBStream* state)
 		setParamNormalized (kYPosId, savedYPos);
 		setParamNormalized (kZPosId, savedZPos);
 		setParamNormalized (kBypassId, bypassState);
-
-		// Обновление ограничений для параметров координат
-		((CoordinateParameter *) getParameterObject (kXPosId)) -> updateLimit ();
-		((CoordinateParameter *) getParameterObject (kYPosId)) -> updateLimit ();
-		((CoordinateParameter *) getParameterObject (kZPosId)) -> updateLimit ();
 	}
 	return kResultTrue;
+}
+
+//------------------------------------------------------------------------
+tresult PLUGIN_API MathReverbController::setParamNormalized (ParamID tag, ParamValue value)
+{
+	tresult result = EditControllerEx1::setParamNormalized (tag, value)
+	// Обновление ограничений для параметров координат
+	(CoordinateParameter *) getParameterObject (kXPosId) -> updateLimit ();
+	(CoordinateParameter *) getParameterObject (kYPosId) -> updateLimit ();
+	(CoordinateParameter *) getParameterObject (kZPosId) -> updateLimit ();
+	return result;
 }
 
 //------------------------------------------------------------------------
