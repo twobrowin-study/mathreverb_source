@@ -39,9 +39,9 @@ MathReverbGraph::MathReverbGraph (SampleRate sampleRate)
     },
     {
       DelayPoint (sourceApex, 0.05f * mSampleRate),
-      DelayPoint (modelApexes + 0, 0.1f * mSampleRate + 1),
-      DelayPoint (modelApexes + 2, 0.1f * mSampleRate + 1),
-      DelayPoint (modelApexes + 3, 0.1f * mSampleRate + 1)
+      DelayPoint (modelApexes + 0, 0.11f * mSampleRate),
+      DelayPoint (modelApexes + 2, 0.11f * mSampleRate),
+      DelayPoint (modelApexes + 3, 0.11f * mSampleRate)
     },
     {
       DelayPoint (sourceApex, 0.05f * mSampleRate),
@@ -51,9 +51,9 @@ MathReverbGraph::MathReverbGraph (SampleRate sampleRate)
     },
     {
       DelayPoint (sourceApex, 0.05f * mSampleRate),
-      DelayPoint (modelApexes + 0, 0.1f * mSampleRate + 1),
-      DelayPoint (modelApexes + 1, 0.1f * mSampleRate + 1),
-      DelayPoint (modelApexes + 2, 0.1f * mSampleRate + 1)
+      DelayPoint (modelApexes + 0, 0.11f * mSampleRate),
+      DelayPoint (modelApexes + 1, 0.11f * mSampleRate),
+      DelayPoint (modelApexes + 2, 0.11f * mSampleRate)
     }
   };
   for (int32 i = 0; i < mNumberOfModelApexes; i++)
