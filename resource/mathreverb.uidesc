@@ -18,21 +18,21 @@
 			<!-- Блок переменной ширины -->
 			<view class="CViewContanier" transparent="true" size="248, 50" origin="0, 18">
 				<view class="CTextLabel" title="Ширина:" text-alignment="right" transparent="true" size="48, 16" origin="0, 16"/>
-				<view class="CSlider" control-tag="Width" max-value="0.1" bitmap="slider_background" handle-bitmap="slider_handle" handle-offset="0, 2" size="130, 18" origin="50, 16"/>
+				<view class="CSlider" control-tag="Width" bitmap="slider_background" handle-bitmap="slider_handle" handle-offset="0, 2" size="130, 18" origin="50, 16"/>
 				<view class="CTextEdit" control-tag="Width" transparent="true" size="41, 16" origin="187, 16"/>
 				<view class="CTextLabel" title="m" text-alignment="left" transparent="true" size="12, 16" origin="232, 16"/>
 			</view>
 			<!-- Блок переменной высоты -->
 			<view class="CViewContanier" transparent="true" size="248, 50" origin="0, 68">
 				<view class="CTextLabel" title="Высота:" text-alignment="right" transparent="true" size="48, 16" origin="0, 16"/>
-				<view class="CSlider" control-tag="Height" max-value="0.1" bitmap="slider_background" handle-bitmap="slider_handle" handle-offset="0, 2" size="130, 18" origin="50, 16"/>
+				<view class="CSlider" control-tag="Height" bitmap="slider_background" handle-bitmap="slider_handle" handle-offset="0, 2" size="130, 18" origin="50, 16"/>
 				<view class="CTextEdit" control-tag="Height" transparent="true" size="41, 16" origin="187, 16"/>
 				<view class="CTextLabel" title="m" text-alignment="left" transparent="true" size="12, 16" origin="232, 16"/>
 			</view>
 			<!-- Блок переменной длины -->
 			<view class="CViewContanier" transparent="true" size="248, 50" origin="0, 118">
 				<view class="CTextLabel" title="Длина:" text-alignment="right" transparent="true" size="48, 16" origin="0, 16"/>
-				<view class="CSlider" control-tag="Length" max-value="0.1" bitmap="slider_background" handle-bitmap="slider_handle" handle-offset="0, 2" size="130, 18" origin="50, 16"/>
+				<view class="CSlider" control-tag="Length" bitmap="slider_background" handle-bitmap="slider_handle" handle-offset="0, 2" size="130, 18" origin="50, 16"/>
 				<view class="CTextEdit" control-tag="Length" transparent="true" size="41, 16" origin="187, 16"/>
 				<view class="CTextLabel" title="m" text-alignment="left" transparent="true" size="12, 16" origin="232, 16"/>
 			</view>
