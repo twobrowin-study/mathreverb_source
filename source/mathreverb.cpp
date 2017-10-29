@@ -152,9 +152,9 @@ tresult PLUGIN_API MathReverb::process (ProcessData& data)
 tresult PLUGIN_API MathReverb::getState (IBStream* state)
 {
 	float  toSaveGain = fGain
-			 , toSaveLength = fLength
 			 , toSaveWidth = fWidth
 			 , toSaveHeight = fHeight
+ 			 , toSaveLength = fLength
 			 , toSaveReflection = fReflection
 			 , toSaveXPos = fXPos + 0.5f
 			 , toSaveYPos = fYPos + 0.5f
@@ -163,9 +163,9 @@ tresult PLUGIN_API MathReverb::getState (IBStream* state)
 
 #if BYTEORDER == kBigEndian
 	SWAP_32 (toSaveGain)
-	SWAP_32 (toSaveLength)
 	SWAP_32 (toSaveWidth)
 	SWAP_32 (toSaveHeight)
+	SWAP_32 (toSaveLength)
 	SWAP_32 (toSaveReflection)
 	SWAP_32 (toSaveXPos)
 	SWAP_32 (toSaveYPos)
@@ -174,9 +174,9 @@ tresult PLUGIN_API MathReverb::getState (IBStream* state)
 #endif
 
 	state->write (&toSaveGain, sizeof (float));
-	state->write (&toSaveLength, sizeof (float));
 	state->write (&toSaveWidth, sizeof (float));
 	state->write (&toSaveHeight, sizeof (float));
+	state->write (&toSaveLength, sizeof (float));
 	state->write (&toSaveReflection, sizeof (float));
 	state->write (&toSaveXPos, sizeof (float));
 	state->write (&toSaveYPos, sizeof (float));
@@ -189,60 +189,64 @@ tresult PLUGIN_API MathReverb::getState (IBStream* state)
 //------------------------------------------------------------------------
 tresult PLUGIN_API MathReverb::setState (IBStream* state)
 {
-	float  savedGain
-			 , savedLength
-			 , savedWidth
-			 , savedHeight
-			 , savedReflection
-			 , savedXPos
-			 , savedYPos
-			 , savedZPos;
-	int32 bypassState;
+	if (state)
+	{
+		float  savedGain
+				 , savedWidth
+				 , savedHeight
+				 , savedLength
+				 , savedReflection
+				 , savedXPos
+				 , savedYPos
+				 , savedZPos;
+		int32 bypassState;
 
 		// Получение параметров в том же порядке, что и определены
-	if (state->read (&savedGain, sizeof (float)) != kResultTrue)
-		return kResultFalse;
-	if (state->read (&savedLength, sizeof (float)) != kResultTrue)
-		return kResultFalse;
-	if (state->read (&savedWidth, sizeof (float)) != kResultTrue)
-		return kResultFalse;
-	if (state->read (&savedHeight, sizeof (float)) != kResultTrue)
-		return kResultFalse;
-	if (state->read (&savedReflection, sizeof (float)) != kResultTrue)
-		return kResultFalse;
-	if (state->read (&savedXPos, sizeof (float)) != kResultTrue)
-		return kResultFalse;
-	if (state->read (&savedYPos, sizeof (float)) != kResultTrue)
-		return kResultFalse;
-	if (state->read (&savedZPos, sizeof (float)) != kResultTrue)
-		return kResultFalse;
-	if (state->read (&bypassState, sizeof (bypassState)) != kResultTrue)
-		return kResultFalse;
+		if (state->read (&savedGain, sizeof (float)) != kResultTrue)
+			return kResultFalse;
+		if (state->read (&savedWidth, sizeof (float)) != kResultTrue)
+			return kResultFalse;
+		if (state->read (&savedHeight, sizeof (float)) != kResultTrue)
+			return kResultFalse;
+		if (state->read (&savedLength, sizeof (float)) != kResultTrue)
+			return kResultFalse;
+		if (state->read (&savedReflection, sizeof (float)) != kResultTrue)
+			return kResultFalse;
+		if (state->read (&savedXPos, sizeof (float)) != kResultTrue)
+			return kResultFalse;
+		if (state->read (&savedYPos, sizeof (float)) != kResultTrue)
+			return kResultFalse;
+		if (state->read (&savedZPos, sizeof (float)) != kResultTrue)
+			return kResultFalse;
+		if (state->read (&bypassState, sizeof (bypassState)) != kResultTrue)
+			return kResultFalse;
 
+		#if BYTEORDER == kBigEndian
+			SWAP_32 (savedGain)
+			SWAP_32 (savedWidth)
+			SWAP_32 (savedHeight)
+			SWAP_32 (savedLength)
+			SWAP_32 (savedRefelection)
+			SWAP_32 (savedXPos)
+			SWAP_32 (savedYPos)
+			SWAP_32 (savedZPos)
+			SWAP_32 (bypassState)
+		#endif
 
-	#if BYTEORDER == kBigEndian
-		SWAP_32 (savedGain)
-		SWAP_32 (savedLength)
-		SWAP_32 (savedWidth)
-		SWAP_32 (savedHeight)
-		SWAP_32 (savedRefelection)
-		SWAP_32 (savedXPos)
-		SWAP_32 (savedYPos)
-		SWAP_32 (savedZPos)
-		SWAP_32 (bypassState)
-	#endif
+		// Установка значений параметров
+		return kResultTrue;
+		fGain = savedGain;
+		fWidth = savedWidth;
+		fHeight = savedHeight;
+		fLength = savedLength;
+		fReflection = savedReflection;
+		fXPos = savedXPos - 0.5f;
+		fYPos = savedYPos - 0.5f;
+		fZPos = savedZPos - 0.5f;
+		bBypass = (bypassState > 0);
 
-	fGain = savedGain;
-	fLength = savedLength;
-	fWidth = savedWidth;
-	fHeight = savedHeight;
-	fReflection = savedReflection;
-	fXPos = savedXPos - 0.5f;
-	fYPos = savedYPos - 0.5f;
-	fZPos = savedZPos - 0.5f;
-	bBypass = (bypassState > 0);
-
-	return kResultOk;
+		return kResultOk;
+	}
 }
 
 //------------------------------------------------------------------------
@@ -266,11 +270,6 @@ void MathReverb::getInputParamChanges (IParameterChanges* paramChanges)
 							fGain = (float)value;
 						break;
 
-					case kLengthId: // Если параметр Length - записываем его
-						if (paramQueue->getPoint (numPoints - 1, sampleOffset, value) == kResultTrue)
-							fLength = (float)value;
-						break;
-
 					case kWidthId: // Если параметр Width - записываем его
 						if (paramQueue->getPoint (numPoints - 1, sampleOffset, value) == kResultTrue)
 							fWidth = (float)value;
@@ -279,6 +278,11 @@ void MathReverb::getInputParamChanges (IParameterChanges* paramChanges)
 					case kHeightId: // Если параметр Height - записываем его
 						if (paramQueue->getPoint (numPoints - 1, sampleOffset, value) == kResultTrue)
 							fHeight = (float)value;
+						break;
+
+					case kLengthId: // Если параметр Length - записываем его
+						if (paramQueue->getPoint (numPoints - 1, sampleOffset, value) == kResultTrue)
+							fLength = (float)value;
 						break;
 
 					case kReflectionId: // Если параметр Reflection - записываем его

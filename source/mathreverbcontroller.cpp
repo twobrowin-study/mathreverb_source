@@ -48,11 +48,6 @@ tresult PLUGIN_API MathReverbController::initialize (FUnknown* context)
 	parameters.addParameter (gainParam);
 	gainParam->setUnitID (unitInfo.id);
 
-	// Параметр Length
-	SizeParameter* lengthParam = new SizeParameter (ParameterInfo::kCanAutomate, kLengthId, "Length");
-	parameters.addParameter (lengthParam);
-	lengthParam->setUnitID (unitInfo.id);
-
 	// Параметр Width
 	SizeParameter* widthParam = new SizeParameter (ParameterInfo::kCanAutomate, kWidthId, "Width");
 	parameters.addParameter (widthParam);
@@ -62,6 +57,11 @@ tresult PLUGIN_API MathReverbController::initialize (FUnknown* context)
 	SizeParameter* heightParam = new SizeParameter (ParameterInfo::kCanAutomate, kHeightId, "Height");
 	parameters.addParameter (heightParam);
 	heightParam->setUnitID (unitInfo.id);
+
+	// Параметр Length
+	SizeParameter* lengthParam = new SizeParameter (ParameterInfo::kCanAutomate, kLengthId, "Length");
+	parameters.addParameter (lengthParam);
+	lengthParam->setUnitID (unitInfo.id);
 
 	// Параметр Reflection
 	ReflectionParameter* reflectionParam = new ReflectionParameter (ParameterInfo::kCanAutomate, kReflectionId);
@@ -106,9 +106,9 @@ tresult PLUGIN_API MathReverbController::setComponentState (IBStream* state)
 	if (state)
 	{
 		float  savedGain
-				 , savedLength
 				 , savedWidth
 				 , savedHeight
+				 , savedLength
 				 , savedReflection
 				 , savedXPos
 				 , savedYPos
@@ -118,11 +118,11 @@ tresult PLUGIN_API MathReverbController::setComponentState (IBStream* state)
 		// Получение параметров в том же порядке, что и определены
 		if (state->read (&savedGain, sizeof (float)) != kResultTrue)
 			return kResultFalse;
-		if (state->read (&savedLength, sizeof (float)) != kResultTrue)
-			return kResultFalse;
 		if (state->read (&savedWidth, sizeof (float)) != kResultTrue)
 			return kResultFalse;
 		if (state->read (&savedHeight, sizeof (float)) != kResultTrue)
+			return kResultFalse;
+		if (state->read (&savedLength, sizeof (float)) != kResultTrue)
 			return kResultFalse;
 		if (state->read (&savedReflection, sizeof (float)) != kResultTrue)
 			return kResultFalse;
@@ -137,9 +137,9 @@ tresult PLUGIN_API MathReverbController::setComponentState (IBStream* state)
 
 		#if BYTEORDER == kBigEndian
 			SWAP_32 (savedGain)
-			SWAP_32 (savedLength)
 			SWAP_32 (savedWidth)
 			SWAP_32 (savedHeight)
+			SWAP_32 (savedLength)
 			SWAP_32 (savedRefelection)
 			SWAP_32 (savedXPos)
 			SWAP_32 (savedYPos)
@@ -149,9 +149,9 @@ tresult PLUGIN_API MathReverbController::setComponentState (IBStream* state)
 
 		// Установка значений параметров
 		setParamNormalized (kGainId, savedGain);
-		setParamNormalized (kLengthId, savedLength);
 		setParamNormalized (kWidthId, savedWidth);
 		setParamNormalized (kHeightId, savedHeight);
+		setParamNormalized (kLengthId, savedLength);
 		setParamNormalized (kReflectionId, savedReflection);
 		setParamNormalized (kXPosId, savedXPos);
 		setParamNormalized (kYPosId, savedYPos);
