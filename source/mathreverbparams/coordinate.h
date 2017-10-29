@@ -18,7 +18,7 @@ class CoordinateParameter : public Parameter
 {
 public:
   // Конструктор
-  CoordinateParameter (int32 flags, int32 id, const char* name);
+  CoordinateParameter (int32 flags, int32 id, const char* name, SizeParameter *limitGiver);
 
   // Преобразование на вывод
   virtual void toString (ParamValue normValue, String128 string) const;
@@ -37,6 +37,8 @@ private:
 // CoordinateParameter Реализация
 //------------------------------------------------------------------------
 CoordinateParameter::CoordinateParameter (int32 flags, int32 id, const char* name, SizeParameter *limitGiver)
+: mLimitGiver (limitGiver)
+, fLimit (49.f)
 {
   // Установка информации для хоста
   UString (info.title, USTRINGSIZE (info.title)).assign (USTRING (name));
@@ -49,10 +51,8 @@ CoordinateParameter::CoordinateParameter (int32 flags, int32 id, const char* nam
   info.defaultNormalizedValue = 0.5f;
   info.unitId = kRootUnitId;
 
-  // Установка начальных значений
+  // Установка начального значения
   setNormalized (0.5f);
-  mLimitGiver = limitGiver;
-  fLimit  = 49.f;
 }
 
 //------------------------------------------------------------------------
