@@ -47,13 +47,13 @@ MathReverbGraph::MathReverbGraph (SampleRate sampleRate)
     },
     {
       DelayPoint (sourceApex, 0.05f * mSampleRate),
-      DelayPoint (modelApexes + 0, 0.1f * mSampleRate),
-      DelayPoint (modelApexes + 2, 0.1f * mSampleRate),
-      DelayPoint (modelApexes + 3, 0.1f * mSampleRate),
-      DelayPoint (modelApexes + 4, 0.1f * mSampleRate),
-      DelayPoint (modelApexes + 5, 0.1f * mSampleRate),
-      DelayPoint (modelApexes + 6, 0.1f * mSampleRate),
-      DelayPoint (modelApexes + 7, 0.1f * mSampleRate)
+      DelayPoint (modelApexes + 0, 0.1f * mSampleRate + 1),
+      DelayPoint (modelApexes + 2, 0.1f * mSampleRate + 1),
+      DelayPoint (modelApexes + 3, 0.1f * mSampleRate + 1),
+      DelayPoint (modelApexes + 4, 0.1f * mSampleRate + 1),
+      DelayPoint (modelApexes + 5, 0.1f * mSampleRate + 1),
+      DelayPoint (modelApexes + 6, 0.1f * mSampleRate + 1),
+      DelayPoint (modelApexes + 7, 0.1f * mSampleRate + 1)
     },
     {
       DelayPoint (sourceApex, 0.05f * mSampleRate),
@@ -67,13 +67,13 @@ MathReverbGraph::MathReverbGraph (SampleRate sampleRate)
     },
     {
       DelayPoint (sourceApex, 0.05f * mSampleRate),
-      DelayPoint (modelApexes + 0, 0.1f * mSampleRate),
-      DelayPoint (modelApexes + 1, 0.1f * mSampleRate),
-      DelayPoint (modelApexes + 2, 0.1f * mSampleRate),
-      DelayPoint (modelApexes + 4, 0.1f * mSampleRate),
-      DelayPoint (modelApexes + 5, 0.1f * mSampleRate),
-      DelayPoint (modelApexes + 6, 0.1f * mSampleRate),
-      DelayPoint (modelApexes + 7, 0.1f * mSampleRate)
+      DelayPoint (modelApexes + 0, 0.1f * mSampleRate + 1),
+      DelayPoint (modelApexes + 1, 0.1f * mSampleRate + 1),
+      DelayPoint (modelApexes + 2, 0.1f * mSampleRate + 1),
+      DelayPoint (modelApexes + 4, 0.1f * mSampleRate + 1),
+      DelayPoint (modelApexes + 5, 0.1f * mSampleRate + 1),
+      DelayPoint (modelApexes + 6, 0.1f * mSampleRate + 1),
+      DelayPoint (modelApexes + 7, 0.1f * mSampleRate + 1)
     },
     {
       DelayPoint (sourceApex, 0.05f * mSampleRate),
@@ -87,13 +87,13 @@ MathReverbGraph::MathReverbGraph (SampleRate sampleRate)
     },
     {
       DelayPoint (sourceApex, 0.05f * mSampleRate),
-      DelayPoint (modelApexes + 0, 0.1f * mSampleRate),
-      DelayPoint (modelApexes + 1, 0.1f * mSampleRate),
-      DelayPoint (modelApexes + 2, 0.1f * mSampleRate),
-      DelayPoint (modelApexes + 3, 0.1f * mSampleRate),
-      DelayPoint (modelApexes + 4, 0.1f * mSampleRate),
-      DelayPoint (modelApexes + 6, 0.1f * mSampleRate),
-      DelayPoint (modelApexes + 7, 0.1f * mSampleRate)
+      DelayPoint (modelApexes + 0, 0.1f * mSampleRate + 1),
+      DelayPoint (modelApexes + 1, 0.1f * mSampleRate + 1),
+      DelayPoint (modelApexes + 2, 0.1f * mSampleRate + 1),
+      DelayPoint (modelApexes + 3, 0.1f * mSampleRate + 1),
+      DelayPoint (modelApexes + 4, 0.1f * mSampleRate + 1),
+      DelayPoint (modelApexes + 6, 0.1f * mSampleRate + 1),
+      DelayPoint (modelApexes + 7, 0.1f * mSampleRate + 1)
     },
     {
       DelayPoint (sourceApex, 0.05f * mSampleRate),
@@ -107,13 +107,13 @@ MathReverbGraph::MathReverbGraph (SampleRate sampleRate)
     },
     {
       DelayPoint (sourceApex, 0.05f * mSampleRate),
-      DelayPoint (modelApexes + 0, 0.1f * mSampleRate),
-      DelayPoint (modelApexes + 1, 0.1f * mSampleRate),
-      DelayPoint (modelApexes + 2, 0.1f * mSampleRate),
-      DelayPoint (modelApexes + 3, 0.1f * mSampleRate),
-      DelayPoint (modelApexes + 4, 0.1f * mSampleRate),
-      DelayPoint (modelApexes + 5, 0.1f * mSampleRate),
-      DelayPoint (modelApexes + 6, 0.1f * mSampleRate)
+      DelayPoint (modelApexes + 0, 0.1f * mSampleRate + 1),
+      DelayPoint (modelApexes + 1, 0.1f * mSampleRate + 1),
+      DelayPoint (modelApexes + 2, 0.1f * mSampleRate + 1),
+      DelayPoint (modelApexes + 3, 0.1f * mSampleRate + 1),
+      DelayPoint (modelApexes + 4, 0.1f * mSampleRate + 1),
+      DelayPoint (modelApexes + 5, 0.1f * mSampleRate + 1),
+      DelayPoint (modelApexes + 6, 0.1f * mSampleRate + 1)
     }
   };
   for (int32 i = 0; i < mNumberOfModelApexes; i++)
