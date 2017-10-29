@@ -5,6 +5,8 @@
 
 #include <vector>
 
+#include "mathreverbparams/coordinate.h"
+
 namespace Steinberg {
 namespace Vst {
 
