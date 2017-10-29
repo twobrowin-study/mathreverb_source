@@ -68,17 +68,17 @@ tresult PLUGIN_API MathReverbController::initialize (FUnknown* context)
 	reflectionParam->setUnitID (unitInfo.id);
 
 	// Параметр X Pos
-	CoordinateParameter* xPosParam = new CoordinateParameter (ParameterInfo::kCanAutomate, kXPosId, "X Pos", widthParam);
+	xPosParam = new CoordinateParameter (ParameterInfo::kCanAutomate, kXPosId, "X Pos", widthParam);
 	parameters.addParameter (xPosParam);
 	xPosParam->setUnitID (unitInfo.id);
 
 	// Параметр Y Pos
-	CoordinateParameter* yPosParam = new CoordinateParameter (ParameterInfo::kCanAutomate, kYPosId, "Y Pos", lengthParam);
+	yPosParam = new CoordinateParameter (ParameterInfo::kCanAutomate, kYPosId, "Y Pos", lengthParam);
 	parameters.addParameter (yPosParam);
 	yPosParam->setUnitID (unitInfo.id);
 
 	// Параметр Z Pos
-	CoordinateParameter* zPosParam = new CoordinateParameter (ParameterInfo::kCanAutomate, kZPosId, "Z Pos", heightParam);
+	zPosParam = new CoordinateParameter (ParameterInfo::kCanAutomate, kZPosId, "Z Pos", heightParam);
 	parameters.addParameter (zPosParam);
 	zPosParam->setUnitID (unitInfo.id);
 
@@ -163,11 +163,11 @@ tresult PLUGIN_API MathReverbController::setComponentState (IBStream* state)
 //------------------------------------------------------------------------
 tresult PLUGIN_API MathReverbController::setParamNormalized (ParamID tag, ParamValue value)
 {
-	tresult result = EditControllerEx1::setParamNormalized (tag, value)
+	tresult result = EditControllerEx1::setParamNormalized (tag, value);
 	// Обновление ограничений для параметров координат
-	((CoordinateParameter *) getParameterObject (kXPosId)) -> updateLimit ();
-	((CoordinateParameter *) getParameterObject (kYPosId)) -> updateLimit ();
-	((CoordinateParameter *) getParameterObject (kZPosId)) -> updateLimit ();
+	xPosParam->updateLimit ();
+	yPosParam->updateLimit ();
+	zPosParam->updateLimit ();
 	return result;
 }
 
