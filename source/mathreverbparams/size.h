@@ -76,7 +76,7 @@ bool SizeParameter::setNormalized (ParamValue v)
   if ( v >= 0.01 )
     Parameter::setNormalized (v);
   else
-    return false
+    return false;
 }
 
 //------------------------------------------------------------------------
