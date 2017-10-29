@@ -45,9 +45,9 @@ protected:
 	float fVuPPMOld;
 
 	float fGain
-			, fLength
 			, fWidth
 			, fHeight
+			, fLength	
 			, fReflection
 			, fXPos
 			, fYPos

@@ -95,7 +95,7 @@ Sample64 MathReverbGraph::process (Sample64 inSample, float reflection)
   return sinkApex->setSampleFromApexes ();
 }
 
-void MathReverbGraph::setDementoinParams (float length, float width, float height, float xPos, float yPos, float zPos)
+void MathReverbGraph::setDementoinParams (float width, float height, float length, float xPos, float yPos, float zPos)
 {
   // Создадим новые задержки для стока
   float lengthHalf = 0.5f * length

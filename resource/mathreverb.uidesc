@@ -102,9 +102,9 @@
 	<control-tags>
 		<control-tag name="VuPPM" tag="0"/>
 		<control-tag name="Gain" tag="1"/>
-		<control-tag name="Length" tag="2"/>
-		<control-tag name="Width" tag="3"/>
-		<control-tag name="Height" tag="4"/>
+		<control-tag name="Width" tag="2"/>
+		<control-tag name="Height" tag="3"/>
+		<control-tag name="Length" tag="4"/>
 		<control-tag name="Reflection" tag="5"/>
 		<control-tag name="XPos" tag="6"/>
 		<control-tag name="YPos" tag="7"/>
