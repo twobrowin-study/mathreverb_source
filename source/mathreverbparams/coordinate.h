@@ -24,6 +24,8 @@ public:
   virtual void toString (ParamValue normValue, String128 string) const;
   //  Преобразование после ввода
   virtual bool fromString (const TChar* string, ParamValue& normValue) const;
+  // Установка параметра
+  virtual bool setNormalized (ParamValue v);
 
   // Обновление ограничения на максимальное значение
   void updateLimit ();
@@ -81,6 +83,17 @@ bool CoordinateParameter::fromString (const TChar* string, ParamValue& normValue
   }
   return false;
 }
+
+//------------------------------------------------------------------------
+bool CoordinateParameter::setNormalized (ParamValue v)
+{
+  if ( v * 100.f >= fLimit )
+    return Parameter::setNormalized (fLimit / 100.f);
+  if ( v * 100.f <= -fLimit )
+    return Parameter::setNormalized (-fLimit / 100.f);
+  return Parameter::setNormalized (v);
+}
+
 
 //------------------------------------------------------------------------
 void CoordinateParameter::updateLimit ()

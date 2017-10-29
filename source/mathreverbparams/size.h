@@ -73,10 +73,9 @@ bool SizeParameter::fromString (const TChar* string, ParamValue& normValue) cons
 //------------------------------------------------------------------------
 bool SizeParameter::setNormalized (ParamValue v)
 {
-  if ( v >= 0.01 )
-    Parameter::setNormalized (v);
-  else
-    return false;
+  if ( v < 0.01 )
+    return Parameter::setNormalized (0.01);
+  return Parameter::setNormalized (v);
 }
 
 //------------------------------------------------------------------------
