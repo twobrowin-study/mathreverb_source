@@ -57,7 +57,8 @@ bool SizeParameter::fromString (const TChar* string, ParamValue& normValue) cons
 {
   String wrapper ((TChar*) string);
   double tmp = 0;
-  if (wrapper.scanFloat (tmp)) {
+  if (wrapper.scanFloat (tmp))
+  {
     if (tmp < 1)
       tmp = 1;
 

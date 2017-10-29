@@ -58,7 +58,8 @@ bool CoordinateParameter::fromString (const TChar* string, ParamValue& normValue
 {
   String wrapper ((TChar*) string);
   double tmp = 0;
-  if (wrapper.scanFloat (tmp)) {
+  if (wrapper.scanFloat (tmp))
+  {
     normValue = tmp / 100.f + 0.5f;
     return true;
   }
