@@ -10,6 +10,7 @@
 #include "vstgui/uidescription/delegationcontroller.h"
 #include "vstgui/uidescription/uiattributes.h"
 
+#include "mathreverbparams/coordinate.h"
 #include "mathreverbparams/gain.h"
 #include "mathreverbparams/reflection.h"
 
@@ -67,17 +68,17 @@ tresult PLUGIN_API MathReverbController::initialize (FUnknown* context)
 	reflectionParam->setUnitID (unitInfo.id);
 
 	// Параметр X Pos
-	xPosParam = new CoordinateParameter (ParameterInfo::kCanAutomate, kXPosId, "X Pos", widthParam);
+	CoordinateParameter* xPosParam = new CoordinateParameter (ParameterInfo::kCanAutomate, kXPosId, "X Pos", widthParam);
 	parameters.addParameter (xPosParam);
 	xPosParam->setUnitID (unitInfo.id);
 
 	// Параметр Y Pos
-	yPosParam = new CoordinateParameter (ParameterInfo::kCanAutomate, kYPosId, "Y Pos", lengthParam);
+	CoordinateParameter* yPosParam = new CoordinateParameter (ParameterInfo::kCanAutomate, kYPosId, "Y Pos", lengthParam);
 	parameters.addParameter (yPosParam);
 	yPosParam->setUnitID (unitInfo.id);
 
 	// Параметр Z Pos
-	zPosParam = new CoordinateParameter (ParameterInfo::kCanAutomate, kZPosId, "Z Pos", heightParam);
+	CoordinateParameter* zPosParam = new CoordinateParameter (ParameterInfo::kCanAutomate, kZPosId, "Z Pos", heightParam);
 	parameters.addParameter (zPosParam);
 	zPosParam->setUnitID (unitInfo.id);
 
@@ -164,9 +165,9 @@ tresult PLUGIN_API MathReverbController::setParamNormalized (ParamID tag, ParamV
 {
 	tresult result = EditControllerEx1::setParamNormalized (tag, value);
 	// Обновление ограничений для параметров координат
-	xPosParam->updateLimit ();
-	yPosParam->updateLimit ();
-	zPosParam->updateLimit ();
+	((CoordinateParameter *) getParameterObject (kXPosId)) -> updateLimit ();
+	((CoordinateParameter *) getParameterObject (kYPosId)) -> updateLimit ();
+	((CoordinateParameter *) getParameterObject (kZPosId)) -> updateLimit ();
 	return result;
 }
 
