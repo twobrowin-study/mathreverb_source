@@ -5,6 +5,8 @@
 
 #include <stdio.h>
 
+#include "size.h"
+
 namespace Steinberg {
 namespace Vst {
 
@@ -22,12 +24,21 @@ public:
   virtual void toString (ParamValue normValue, String128 string) const;
   //  Преобразование после ввода
   virtual bool fromString (const TChar* string, ParamValue& normValue) const;
+
+  // Обновление ограничения на максимальное значение
+  void updateLimit ();
+
+private:
+  SizeParameter *mLimitGiver;
+  double fLimit;
 };
 
 //------------------------------------------------------------------------
 // CoordinateParameter Реализация
 //------------------------------------------------------------------------
-CoordinateParameter::CoordinateParameter (int32 flags, int32 id, const char* name)
+CoordinateParameter::CoordinateParameter (int32 flags, int32 id, const char* name, SizeParameter *limitGiver)
+: mLimitGiver (limitGiver)
+, fLimit (49.f)
 {
   // Установка информации для хоста
   UString (info.title, USTRINGSIZE (info.title)).assign (USTRING (name));
@@ -60,10 +71,21 @@ bool CoordinateParameter::fromString (const TChar* string, ParamValue& normValue
   double tmp = 0;
   if (wrapper.scanFloat (tmp))
   {
+    if (tmp > fLimit)
+      tmp = fLimit;
+    if (tmp < -fLimit)
+      tmp = -fLimit;
+
     normValue = tmp / 100.f + 0.5f;
     return true;
   }
   return false;
+}
+
+//------------------------------------------------------------------------
+void CoordinateParameter::updateLimit ()
+{
+  fLimit = mLimitGiver->getNormalized () * 49.f;
 }
 
 //------------------------------------------------------------------------

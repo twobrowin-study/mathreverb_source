@@ -22,6 +22,8 @@ public:
   virtual void toString (ParamValue normValue, String128 string) const;
   //  Преобразование после ввода
   virtual bool fromString (const TChar* string, ParamValue& normValue) const;
+  // Установка параметра
+  virtual bool setNormalized (ParamValue v);
 };
 
 //------------------------------------------------------------------------
@@ -66,6 +68,15 @@ bool SizeParameter::fromString (const TChar* string, ParamValue& normValue) cons
     return true;
   }
   return false;
+}
+
+//------------------------------------------------------------------------
+bool SizeParameter::setNormalized (ParamValue v)
+{
+  if ( v >= 0.01 )
+    Parameter::setNormalized (v);
+  else
+    return false
 }
 
 //------------------------------------------------------------------------

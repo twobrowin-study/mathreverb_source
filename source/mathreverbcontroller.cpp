@@ -69,17 +69,17 @@ tresult PLUGIN_API MathReverbController::initialize (FUnknown* context)
 	reflectionParam->setUnitID (unitInfo.id);
 
 	// Параметр X Pos
-	CoordinateParameter* xPosParam = new CoordinateParameter (ParameterInfo::kCanAutomate, kXPosId, "X Pos");
+	CoordinateParameter* xPosParam = new CoordinateParameter (ParameterInfo::kCanAutomate, kXPosId, "X Pos", widthParam);
 	parameters.addParameter (xPosParam);
 	xPosParam->setUnitID (unitInfo.id);
 
 	// Параметр Y Pos
-	CoordinateParameter* yPosParam = new CoordinateParameter (ParameterInfo::kCanAutomate, kYPosId, "Y Pos");
+	CoordinateParameter* yPosParam = new CoordinateParameter (ParameterInfo::kCanAutomate, kYPosId, "Y Pos", lengthParam);
 	parameters.addParameter (yPosParam);
 	yPosParam->setUnitID (unitInfo.id);
 
 	// Параметр Z Pos
-	CoordinateParameter* zPosParam = new CoordinateParameter (ParameterInfo::kCanAutomate, kZPosId, "Z Pos");
+	CoordinateParameter* zPosParam = new CoordinateParameter (ParameterInfo::kCanAutomate, kZPosId, "Z Pos", heightParam);
 	parameters.addParameter (zPosParam);
 	zPosParam->setUnitID (unitInfo.id);
 
