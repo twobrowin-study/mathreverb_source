@@ -103,10 +103,10 @@ void MathReverbGraph::setDementoinParams (float width, float height, float lengt
       , lengthHalf = 0.5f * length;
 
   DelayPoint sinkApexDelay [4] = {
-    DelayPoint (modelApexes + 0, 0.1f * sqrt (pow (-widthHalf - xPos, 2) + pow (-heightHalf - yPos, 2) + pow (-lengthHalf - zPos, 2)) * 0.2778f * mSampleRate),
-    DelayPoint (modelApexes + 1, 0.1f * sqrt (pow (-widthHalf - xPos, 2) + pow (-heightHalf - yPos, 2) + pow (+lengthHalf - zPos, 2)) * 0.2778f * mSampleRate),
-    DelayPoint (modelApexes + 2, 0.1f * sqrt (pow (-widthHalf - xPos, 2) + pow (+heightHalf - yPos, 2) + pow (-lengthHalf - zPos, 2)) * 0.2778f * mSampleRate),
-    DelayPoint (modelApexes + 3, 0.1f * sqrt (pow (-widthHalf - xPos, 2) + pow (+heightHalf - yPos, 2) + pow (+lengthHalf - zPos, 2)) * 0.2778f * mSampleRate)
+    DelayPoint (modelApexes + 0, 0.1f * widthHalf * mSampleRate),
+    DelayPoint (modelApexes + 1, 0.1f * lengthHalf * mSampleRate),
+    DelayPoint (modelApexes + 2, 0.1f * widthHalf * mSampleRate),
+    DelayPoint (modelApexes + 3, 0.1f * lengthHalf * mSampleRate)
   };
 
   // Зададим стоку задержки
@@ -115,28 +115,28 @@ void MathReverbGraph::setDementoinParams (float width, float height, float lengt
   // Создадим новые задержки для прочих вершин
   DelayPoint modelApexesDelay [4][4] = {
     {
-      DelayPoint (sourceApex, 0.1f * sqrt (pow (-widthHalf - xPos, 2) + pow (-heightHalf - yPos, 2) + pow (-lengthHalf - zPos, 2)) * 0.2778f * mSampleRate),
-      DelayPoint (modelApexes + 1, 0.1f * length * 0.2778f * mSampleRate),
-      DelayPoint (modelApexes + 2, 0.1f * height * 0.2778f * mSampleRate),
-      DelayPoint (modelApexes + 3, 0.1f * sqrt (pow (height, 2) + pow (length, 2)) * 0.2778f * mSampleRate)
+      DelayPoint (sourceApex, 0.1f * widthHalf * mSampleRate),
+      DelayPoint (modelApexes + 1, 0.1f * sqrt (pow (widthHalf,2) + pow (lengthHalf, 2)) * mSampleRate),
+      DelayPoint (modelApexes + 2, 0.1f * width * mSampleRate),
+      DelayPoint (modelApexes + 3, 0.1f * sqrt (pow (widthHalf,2) + pow (lengthHalf, 2)) * mSampleRate)
     },
     {
-      DelayPoint (sourceApex, 0.1f * sqrt (pow (-widthHalf - xPos, 2) + pow (-heightHalf - yPos, 2) + pow (+lengthHalf - zPos, 2)) * 0.2778f * mSampleRate),
-      DelayPoint (modelApexes + 0, 0.1f * length * 0.2778f * mSampleRate),
-      DelayPoint (modelApexes + 2, 0.1f * sqrt (pow (height, 2) + pow (length, 2)) * 0.2778f * mSampleRate),
-      DelayPoint (modelApexes + 3, 0.1f * height * 0.2778f * mSampleRate)
+      DelayPoint (sourceApex, 0.1f * lengthHalf * mSampleRate),
+      DelayPoint (modelApexes + 0, 0.1f * sqrt (pow (widthHalf,2) + pow (lengthHalf, 2)) * mSampleRate),
+      DelayPoint (modelApexes + 2, 0.1f * sqrt (pow (widthHalf,2) + pow (lengthHalf, 2)) * mSampleRate),
+      DelayPoint (modelApexes + 3, 0.1f * length * mSampleRate)
     },
     {
-      DelayPoint (sourceApex, 0.1f * sqrt (pow (-widthHalf - xPos, 2) + pow (+heightHalf - yPos, 2) + pow (-lengthHalf - zPos, 2)) * 0.2778f * mSampleRate),
-      DelayPoint (modelApexes + 0, 0.1f * height * 0.2778f * mSampleRate),
-      DelayPoint (modelApexes + 1, 0.1f * sqrt (pow (height, 2) + pow (length, 2)) * 0.2778f * mSampleRate),
-      DelayPoint (modelApexes + 3, 0.1f * length * 0.2778f * mSampleRate)
+      DelayPoint (sourceApex, 0.1f * widthHalf * mSampleRate),
+      DelayPoint (modelApexes + 0, 0.1f * width * mSampleRate),
+      DelayPoint (modelApexes + 1, 0.1f * sqrt (pow (widthHalf,2) + pow (lengthHalf, 2)) * mSampleRate),
+      DelayPoint (modelApexes + 3, 0.1f * sqrt (pow (widthHalf,2) + pow (lengthHalf, 2)) * mSampleRate)
     },
     {
-      DelayPoint (sourceApex, 0.1f * sqrt (pow (-widthHalf - xPos, 2) + pow (+heightHalf - yPos, 2) + pow (+lengthHalf - zPos, 2)) * 0.2778f * mSampleRate),
-      DelayPoint (modelApexes + 0, 0.1f * sqrt (pow (height, 2) + pow (length, 2)) * 0.2778f * mSampleRate),
-      DelayPoint (modelApexes + 1, 0.1f * height * 0.2778f * mSampleRate),
-      DelayPoint (modelApexes + 2, 0.1f * length * 0.2778f * mSampleRate)
+      DelayPoint (sourceApex, 0.1f * lengthHalf * mSampleRate),
+      DelayPoint (modelApexes + 0, 0.1f * sqrt (pow (widthHalf,2) + pow (lengthHalf, 2)) * mSampleRate),
+      DelayPoint (modelApexes + 1, 0.1f * length * mSampleRate),
+      DelayPoint (modelApexes + 2, 0.1f * sqrt (pow (widthHalf,2) + pow (lengthHalf, 2)) * mSampleRate)
     }
   };
 
