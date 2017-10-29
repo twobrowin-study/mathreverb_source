@@ -103,46 +103,46 @@ void MathReverbGraph::setDementoinParams (float length, float width, float heigh
       , heightABSCoord = 0.5f * height;
 
   DelayPoint sinkApexDelay [4] = {
-    DelayPoint (modelApexes + 0, 0.1f * sqrt (pow (-widthABSCoord - xPos, 2) + pow (-heightABSCoord - yPos, 2) + pow (-lengthABSCoord - zPos, 2)) * 0.2778f * mSampleRate),
-    DelayPoint (modelApexes + 1, 0.1f * sqrt (pow (-widthABSCoord - xPos, 2) + pow (-heightABSCoord - yPos, 2) + pow (+lengthABSCoord - zPos, 2)) * 0.2778f * mSampleRate),
-    DelayPoint (modelApexes + 2, 0.1f * sqrt (pow (-widthABSCoord - xPos, 2) + pow (+heightABSCoord - yPos, 2) + pow (-lengthABSCoord - zPos, 2)) * 0.2778f * mSampleRate),
-    DelayPoint (modelApexes + 3, 0.1f * sqrt (pow (-widthABSCoord - xPos, 2) + pow (+heightABSCoord - yPos, 2) + pow (+lengthABSCoord - zPos, 2)) * 0.2778f * mSampleRate)
+    DelayPoint (modelApexes + 0, 0.1f * lengthABSCoord * mSampleRate),
+    DelayPoint (modelApexes + 1, 0.1f * widthABSCoord * mSampleRate),
+    DelayPoint (modelApexes + 2, 0.1f * lengthABSCoord * mSampleRate),
+    DelayPoint (modelApexes + 3, 0.1f * widthABSCoord * mSampleRate)
   };
 
   // Зададим стоку задержки
   sinkApex->setDelayArray (sinkApexDelay, mNumberOfModelApexes);
 
-  // Создадим новые задержки для прочих вершин
-  DelayPoint modelApexesDelay [4][4] = {
-    {
-      DelayPoint (sourceApex, 0.1f * sqrt (pow (-widthABSCoord - xPos, 2) + pow (-heightABSCoord - yPos, 2) + pow (-lengthABSCoord - zPos, 2)) * 0.2778f * mSampleRate),
-      DelayPoint (modelApexes + 1, 0.1f * length * 0.2778f * mSampleRate),
-      DelayPoint (modelApexes + 2, 0.1f * height * 0.2778f * mSampleRate),
-      DelayPoint (modelApexes + 3, 0.1f * sqrt (pow (height, 2) + pow (length, 2)) * 0.2778f * mSampleRate)
-    },
-    {
-      DelayPoint (sourceApex, 0.1f * sqrt (pow (-widthABSCoord - xPos, 2) + pow (-heightABSCoord - yPos, 2) + pow (+lengthABSCoord - zPos, 2)) * 0.2778f * mSampleRate),
-      DelayPoint (modelApexes + 0, 0.1f * length * 0.2778f * mSampleRate),
-      DelayPoint (modelApexes + 2, 0.1f * sqrt (pow (height, 2) + pow (length, 2)) * 0.2778f * mSampleRate),
-      DelayPoint (modelApexes + 3, 0.1f * height * 0.2778f * mSampleRate)
-    },
-    {
-      DelayPoint (sourceApex, 0.1f * sqrt (pow (-widthABSCoord - xPos, 2) + pow (+heightABSCoord - yPos, 2) + pow (-lengthABSCoord - zPos, 2)) * 0.2778f * mSampleRate),
-      DelayPoint (modelApexes + 0, 0.1f * height * 0.2778f * mSampleRate),
-      DelayPoint (modelApexes + 1, 0.1f * sqrt (pow (height, 2) + pow (length, 2)) * 0.2778f * mSampleRate),
-      DelayPoint (modelApexes + 3, 0.1f * length * 0.2778f * mSampleRate)
-    },
-    {
-      DelayPoint (sourceApex, 0.1f * sqrt (pow (-widthABSCoord - xPos, 2) + pow (+heightABSCoord - yPos, 2) + pow (+lengthABSCoord - zPos, 2)) * 0.2778f * mSampleRate),
-      DelayPoint (modelApexes + 0, 0.1f * sqrt (pow (height, 2) + pow (length, 2)) * 0.2778f * mSampleRate),
-      DelayPoint (modelApexes + 1, 0.1f * height * 0.2778f * mSampleRate),
-      DelayPoint (modelApexes + 2, 0.1f * length * 0.2778f * mSampleRate)
-    }
-  };
-
-  // Зададим задержки прочим вершинам
-  for (int32 i = 0; i < mNumberOfModelApexes; i++)
-    modelApexes[i].setDelayArray (modelApexesDelay[i], mNumberOfModelApexes);
+  // // Создадим новые задержки для прочих вершин
+  // DelayPoint modelApexesDelay [4][4] = {
+  //   {
+  //     DelayPoint (sourceApex, 0.1f * sqrt (pow (-widthABSCoord - xPos, 2) + pow (-heightABSCoord - yPos, 2) + pow (-lengthABSCoord - zPos, 2)) * mSampleRate),
+  //     DelayPoint (modelApexes + 1, 0.1f * length * mSampleRate),
+  //     DelayPoint (modelApexes + 2, 0.1f * height * mSampleRate),
+  //     DelayPoint (modelApexes + 3, 0.1f * sqrt (pow (height, 2) + pow (length, 2)) * mSampleRate)
+  //   },
+  //   {
+  //     DelayPoint (sourceApex, 0.1f * sqrt (pow (-widthABSCoord - xPos, 2) + pow (-heightABSCoord - yPos, 2) + pow (+lengthABSCoord - zPos, 2)) * mSampleRate),
+  //     DelayPoint (modelApexes + 0, 0.1f * length * mSampleRate),
+  //     DelayPoint (modelApexes + 2, 0.1f * sqrt (pow (height, 2) + pow (length, 2)) * mSampleRate),
+  //     DelayPoint (modelApexes + 3, 0.1f * height * mSampleRate)
+  //   },
+  //   {
+  //     DelayPoint (sourceApex, 0.1f * sqrt (pow (-widthABSCoord - xPos, 2) + pow (+heightABSCoord - yPos, 2) + pow (-lengthABSCoord - zPos, 2)) * mSampleRate),
+  //     DelayPoint (modelApexes + 0, 0.1f * height * mSampleRate),
+  //     DelayPoint (modelApexes + 1, 0.1f * sqrt (pow (height, 2) + pow (length, 2)) * mSampleRate),
+  //     DelayPoint (modelApexes + 3, 0.1f * length * mSampleRate)
+  //   },
+  //   {
+  //     DelayPoint (sourceApex, 0.1f * sqrt (pow (-widthABSCoord - xPos, 2) + pow (+heightABSCoord - yPos, 2) + pow (+lengthABSCoord - zPos, 2)) * mSampleRate),
+  //     DelayPoint (modelApexes + 0, 0.1f * sqrt (pow (height, 2) + pow (length, 2)) * mSampleRate),
+  //     DelayPoint (modelApexes + 1, 0.1f * height * mSampleRate),
+  //     DelayPoint (modelApexes + 2, 0.1f * length * mSampleRate)
+  //   }
+  // };
+  //
+  // // Зададим задержки прочим вершинам
+  // for (int32 i = 0; i < mNumberOfModelApexes; i++)
+  //   modelApexes[i].setDelayArray (modelApexesDelay[i], mNumberOfModelApexes);
 }
 
 //------------------------------------------------------------------------
