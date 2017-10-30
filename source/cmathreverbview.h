@@ -5,6 +5,8 @@
 
 #include <stdlib.h>
 
+#include "mathreverbparams/coordinate.h"
+
 namespace VSTGUI {
 
 //------------------------------------------------------------------------

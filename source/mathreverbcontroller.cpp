@@ -10,7 +10,6 @@
 #include "vstgui/uidescription/delegationcontroller.h"
 #include "vstgui/uidescription/uiattributes.h"
 
-#include "mathreverbparams/coordinate.h"
 #include "mathreverbparams/gain.h"
 #include "mathreverbparams/reflection.h"
 
