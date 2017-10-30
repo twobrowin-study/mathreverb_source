@@ -164,6 +164,12 @@ void CMathReverbView::update ()
 	mWidth = mWidthGiver->getNormalized () * 100.f;
 	mHeight = mHeightGiver->getNormalized () * 100.f;
 	mLength = mLengthGiver->getNormalized () * 100.f;
+
+	// Установим размеры куба
+	mXPos = (mXPosGiver->getNormalized () - 0.5f) * 100.f;
+	mYPos = (mYPosGiver->getNormalized () - 0.5f) * 100.f;
+	mZPos = (mZPosGiver->getNormalized () - 0.5f) * 100.f;
+
 	// Перерисуем представление
 	invalid ();
 }
