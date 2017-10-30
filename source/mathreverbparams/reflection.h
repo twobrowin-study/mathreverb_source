@@ -59,6 +59,7 @@ bool ReflectionParameter::fromString (const TChar* string, ParamValue& normValue
   double tmp = 0;
   if (wrapper.scanFloat (tmp))
   {
+    // Ограничение на только положительные значения
     if (tmp < 0.0)
       tmp = -tmp;
 

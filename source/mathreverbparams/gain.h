@@ -49,7 +49,7 @@ GainParameter::GainParameter (int32 flags, int32 id)
 void GainParameter::toString (ParamValue normValue, String128 string) const
 {
   char text [32];
-  if (normValue > 0.001f)
+  if (normValue > 0.001f) // Проверка на слишком малое значение
     sprintf (text, "%.1f", 20 * log10f ( (float) normValue)); // Формула преобразования из долей в дБ
   else
     strcpy (text, "-oo");
@@ -63,6 +63,7 @@ bool GainParameter::fromString (const TChar* string, ParamValue& normValue) cons
   double tmp = 0;
   if (wrapper.scanFloat (tmp))
   {
+    // Ограниечение на отрцительные значения
     if (tmp > 0.0)
       tmp = -tmp;
 

@@ -61,7 +61,7 @@ CoordinateParameter::CoordinateParameter (int32 flags, int32 id, const char* nam
 void CoordinateParameter::toString (ParamValue normValue, String128 string) const
 {
   char text [32];
-  normValue -= 0.5f;
+  normValue -= 0.5f; // Установка значения в соответсвие с моделью
   sprintf (text, "%.2f", (float) normValue * 100);
   UString (string, 128).fromAscii (text);
 }
@@ -69,15 +69,18 @@ void CoordinateParameter::toString (ParamValue normValue, String128 string) cons
 //------------------------------------------------------------------------
 bool CoordinateParameter::fromString (const TChar* string, ParamValue& normValue) const
 {
+  // Создание дополнительных переменных
   String wrapper ((TChar*) string);
   double tmp = 0;
   if (wrapper.scanFloat (tmp))
   {
+    // Ограничение значений
     if (tmp > fLimit)
       tmp = fLimit;
     if (tmp < -fLimit)
       tmp = -fLimit;
 
+    // Установка значения
     normValue = tmp / 100.f + 0.5f;
     return true;
   }
@@ -87,18 +90,23 @@ bool CoordinateParameter::fromString (const TChar* string, ParamValue& normValue
 //------------------------------------------------------------------------
 bool CoordinateParameter::setNormalized (ParamValue v)
 {
-  if ( v * 50.f >= fLimit )
-    return Parameter::setNormalized ((50.f + fLimit) / 100.f);
-  if ( (v - 1.f) * 50.f <= - fLimit )
-    return Parameter::setNormalized ((50.f - fLimit) / 100.f);
-  return Parameter::setNormalized (v);
+  ParamValue toSet = v;
+  // Ограничение значений
+  if ( toSet * 50.f >= fLimit )
+    toSet = (50.f + fLimit) / 100.f;
+  if ( (toSet - 1.f) * 50.f <= - fLimit )
+    toSet = (50.f - fLimit) / 100.f;
+  // Установка значения
+  return Parameter::setNormalized (toSet);
 }
 
 
 //------------------------------------------------------------------------
 void CoordinateParameter::updateLimit ()
 {
+  // Обносление ограничения
   fLimit = mLimitGiver->getNormalized () * 49.f;
+  // Обновление значения
   setNormalized (getNormalized ());
 }
 
