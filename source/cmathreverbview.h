@@ -77,15 +77,15 @@ void CMathReverbView::draw (CDrawContext *pContext)
 
 	// Точки центрального куба
 	int xIntend = mXPos*3-(mXPos/abs (mXPos))*10
-		 ,yIntend = mYPos*3-(mYPos/abs (mYPos))*10;
-	CPoint centralPoints[8] = { CPoint (centerX+xIntend-mZPos/3-10, centerY-yIntend-mZPos/3-10),
-															CPoint (centerX+xIntend-mZPos/3-10, centerY-yIntend-mZPos/3+5),
-															CPoint (centerX+xIntend-mZPos/3+5, centerY-yIntend-mZPos/3+5),
-															CPoint (centerX+xIntend-mZPos/3+5, centerY-yIntend-mZPos/3-10),
-															CPoint (centerX+xIntend-mZPos/3-5, centerY-yIntend-mZPos/3-5),
-															CPoint (centerX+xIntend-mZPos/3-5, centerY-yIntend-mZPos/3+10),
-															CPoint (centerX+xIntend-mZPos/3+10, centerY-yIntend-mZPos/3+10),
-															CPoint (centerX+xIntend-mZPos/3+10, centerY-yIntend-mZPos/3-5)
+		 ,yIntend = mZPos*3-(mZPos/abs (mZPos))*10;
+	CPoint centralPoints[8] = { CPoint (centerX-mYPos/3-10, centerY-mYPos/3-10),
+															CPoint (centerX-mYPos/3-10, centerY-mYPos/3+5),
+															CPoint (centerX-mYPos/3+5, centerY-mYPos/3+5),
+															CPoint (centerX-mYPos/3+5, centerY-mYPos/3-10),
+															CPoint (centerX-mYPos/3-5, centerY-mYPos/3-5),
+															CPoint (centerX-mYPos/3-5, centerY-mYPos/3+10),
+															CPoint (centerX-mYPos/3+10, centerY-mYPos/3+10),
+															CPoint (centerX-mYPos/3+10, centerY-mYPos/3-5)
 														};
 
 	// Сплошная линия
@@ -135,23 +135,23 @@ void CMathReverbView::draw (CDrawContext *pContext)
 	pContext->drawLine (parallPoint[2], parallPoint[6]);
 	pContext->drawLine (parallPoint[2], parallPoint[3]);
 	pContext->drawLine (parallPoint[2], parallPoint[1]);
-	//
-	// // Пунктирные линии центрального куба
-	// CCoord mLengthsDashShort[10] = { CCoord (0.1),
-	// 																 CCoord (0.1),
-	// 																 CCoord (0.1),
-	// 																 CCoord (0.1),
-	// 																 CCoord (0.1),
-	// 																 CCoord (0.1),
-	// 																 CCoord (0.1),
-	// 																 CCoord (0.1),
-	// 																 CCoord (0.1),
-	// 																 CCoord (0.1)
-	// 															};
-	// pContext->setLineStyle (CLineStyle(VSTGUI::CLineStyle::kLineCapButt, VSTGUI::CLineStyle::kLineJoinMiter, 1.0, 10, mLengthsDashShort));
-	// pContext->drawLine (centralPoints[2], centralPoints[6]);
-	// pContext->drawLine (centralPoints[2], centralPoints[3]);
-	// pContext->drawLine (centralPoints[2], centralPoints[1]);
+
+	// Пунктирные линии центрального куба
+	CCoord mLengthsDashShort[10] = { CCoord (0.1),
+																	 CCoord (0.1),
+																	 CCoord (0.1),
+																	 CCoord (0.1),
+																	 CCoord (0.1),
+																	 CCoord (0.1),
+																	 CCoord (0.1),
+																	 CCoord (0.1),
+																	 CCoord (0.1),
+																	 CCoord (0.1)
+																};
+	pContext->setLineStyle (CLineStyle(VSTGUI::CLineStyle::kLineCapButt, VSTGUI::CLineStyle::kLineJoinMiter, 1.0, 10, mLengthsDashShort));
+	pContext->drawLine (centralPoints[2], centralPoints[6]);
+	pContext->drawLine (centralPoints[2], centralPoints[3]);
+	pContext->drawLine (centralPoints[2], centralPoints[1]);
 
 
   setDirty (false);
