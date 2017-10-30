@@ -76,7 +76,7 @@ bool CoordinateParameter::fromString (const TChar* string, ParamValue& normValue
   {
     // Ограничение значений
     if (tmp > fLimit * 100.f)
-      normValue = fLimit + 0.5f;
+      normValue = 0.5f + fLimit;
     else
       if (tmp < -fLimit * 100.f)
         normValue = 0.5f - fLimit;
@@ -93,9 +93,9 @@ bool CoordinateParameter::setNormalized (ParamValue v)
 {
   ParamValue toSet = v;
   // Ограничение значений
-  if ( toSet > fLimit )
-    toSet = fLimit + 0.5f;
-  if ( toSet - 0.5f < - fLimit )
+  if ( toSet > 0.5f + fLimit )
+    toSet = 0.5f + fLimit;
+  if ( toSet < 0.5f - fLimit )
     toSet = 0.5f - fLimit;
   // Установка значения
   return Parameter::setNormalized (toSet);
