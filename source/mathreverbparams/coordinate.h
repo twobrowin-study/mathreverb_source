@@ -40,7 +40,7 @@ private:
 //------------------------------------------------------------------------
 CoordinateParameter::CoordinateParameter (int32 flags, int32 id, const char* name, SizeParameter *limitGiver)
 : mLimitGiver (limitGiver)
-, fLimit (49.f)
+, fLimit (0.49f)
 {
   // Установка информации для хоста
   UString (info.title, USTRINGSIZE (info.title)).assign (USTRING (name));
@@ -75,13 +75,14 @@ bool CoordinateParameter::fromString (const TChar* string, ParamValue& normValue
   if (wrapper.scanFloat (tmp))
   {
     // Ограничение значений
-    if (tmp > fLimit)
-      tmp = fLimit;
-    if (tmp < -fLimit)
-      tmp = -fLimit;
-
-    // Установка значения
-    normValue = tmp / 100.f + 0.5f;
+    if (tmp > fLimit * 100.f)
+      normValue = fLimit + 0.5f;
+    else
+      if (tmp < -fLimit * 100.f)
+        normValue = 0.5f - fLimit;
+      else
+        // Установка значения
+        normValue = tmp / 100.f + 0.5f;
     return true;
   }
   return false;
@@ -92,10 +93,10 @@ bool CoordinateParameter::setNormalized (ParamValue v)
 {
   ParamValue toSet = v;
   // Ограничение значений
-  if ( toSet * 50.f > fLimit )
-    toSet = (48.f + fLimit) / 100.f;
-  if ( (toSet - 1.f) * 50.f < - fLimit )
-    toSet = (48.f - fLimit) / 100.f;
+  if ( toSet > fLimit )
+    toSet = fLimit + 0.5f;
+  if ( toSet - 0.5f < - fLimit )
+    toSet = 0.5f - fLimit;
   // Установка значения
   return Parameter::setNormalized (toSet);
 }
