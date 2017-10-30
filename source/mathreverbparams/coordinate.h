@@ -99,16 +99,7 @@ bool CoordinateParameter::setNormalized (ParamValue v)
 void CoordinateParameter::updateLimit ()
 {
   fLimit = mLimitGiver->getNormalized () * 49.f;
-  if ( getNormalized () * 50.f >= fLimit )
-  {
-    Parameter::setNormalized ((50.f + fLimit) / 100.f);
-    return;
-  }
-  if ( (getNormalized () - 1.f) * 50.f <= - fLimit )
-  {
-    Parameter::setNormalized ((50.f - fLimit) / 100.f);
-    return;
-  }
+  setNormalized (getNormalized ());
 }
 
 //------------------------------------------------------------------------
