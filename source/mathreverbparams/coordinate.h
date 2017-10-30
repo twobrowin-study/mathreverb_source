@@ -93,9 +93,9 @@ bool CoordinateParameter::setNormalized (ParamValue v)
   ParamValue toSet = v;
   // Ограничение значений
   if ( toSet * 50.f > fLimit )
-    toSet = (50.f + fLimit) / 100.f;
+    toSet = (48.f + fLimit) / 100.f;
   if ( (toSet - 1.f) * 50.f < - fLimit )
-    toSet = (50.f - fLimit) / 100.f;
+    toSet = (48.f - fLimit) / 100.f;
   // Установка значения
   return Parameter::setNormalized (toSet);
 }
@@ -105,7 +105,7 @@ bool CoordinateParameter::setNormalized (ParamValue v)
 void CoordinateParameter::updateLimit ()
 {
   // Обносление ограничения
-  fLimit = mLimitGiver->getNormalized () * 49.f;
+  fLimit = mLimitGiver->getNormalized () * 48.f;
   // Обновление значения
   setNormalized (getNormalized ());
 }
