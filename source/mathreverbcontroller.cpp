@@ -171,6 +171,7 @@ tresult PLUGIN_API MathReverbController::setParamNormalized (ParamID tag, ParamV
 	((CoordinateParameter *) getParameterObject (kXPosId)) -> updateLimit ();
 	((CoordinateParameter *) getParameterObject (kYPosId)) -> updateLimit ();
 	((CoordinateParameter *) getParameterObject (kZPosId)) -> updateLimit ();
+	((CMathReverbView *) mathReverbView) -> update ();
 	return result;
 }
 
