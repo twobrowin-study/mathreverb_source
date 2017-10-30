@@ -186,16 +186,15 @@ IPlugView* PLUGIN_API MathReverbController::createView (const char* name)
 //-----------------------------------------------------------------------
 CView* MathReverbController::createCustomView (UTF8StringPtr name, const UIAttributes &attributes, const IUIDescription *description, VST3Editor *editor)
 {
-	// // Получаем атрибуты периметра
-	// CPoint origin, size;
-	// attributes.getPointAttribute ("origin", origin);
-	// attributes.getPointAttribute ("size", size);
-	// // Создаём периметр
-	// const CRect rect(origin, size);
-	// // Возвращаем объект класса графического вывода геометрии помещения, положений источника и приёмника
-	// // Проверки не проводятся в силу единственности переопределённых представлений
-	// return new CMathReverbView(rect);
-	return NULL;
+	// Получаем атрибуты периметра
+	CPoint origin, size;
+	attributes.getPointAttribute ("origin", origin);
+	attributes.getPointAttribute ("size", size);
+	// Создаём периметр
+	const CRect rect(origin, size);
+	// Возвращаем объект класса графического вывода геометрии помещения, положений источника и приёмника
+	// Проверки не проводятся в силу единственности переопределённых представлений
+	return new CMathReverbView(rect);
 }
 
 //------------------------------------------------------------------------
