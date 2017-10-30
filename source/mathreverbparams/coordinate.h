@@ -100,9 +100,9 @@ void CoordinateParameter::updateLimit ()
 {
   fLimit = mLimitGiver->getNormalized () * 49.f;
   if ( getNormalized () * 50.f >= fLimit )
-    return Parameter::setNormalized ((50.f + fLimit) / 100.f);
+    Parameter::setNormalized ((50.f + fLimit) / 100.f);
   if ( (getNormalized () - 1.f) * 50.f <= - fLimit )
-    return Parameter::setNormalized ((50.f - fLimit) / 100.f);
+    Parameter::setNormalized ((50.f - fLimit) / 100.f);
 }
 
 //------------------------------------------------------------------------
