@@ -106,7 +106,7 @@ bool CoordinateParameter::setNormalized (ParamValue v)
 void CoordinateParameter::updateLimit ()
 {
   // Обносление ограничения
-  fLimit = mLimitGiver->getNormalized () * 48.f;
+  fLimit = mLimitGiver->getNormalized () * 0.49f;
   // Обновление значения
   setNormalized (getNormalized ());
 }
