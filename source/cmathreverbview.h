@@ -18,12 +18,12 @@ class CMathReverbView : public CView
 public:
   // Конструктор
 	CMathReverbView ( const CRect& size
-									, SizeParameter *widthGiver
-									, SizeParameter *heightGiver
-									, SizeParameter *lengthGiver
-									, CoordinateParameter *xPosGiver
-									, CoordinateParameter *yPosGiver
-									, CoordinateParameter *zPosGiver
+									, Steinberg::Vst::SizeParameter *widthGiver
+									, Steinberg::Vst::SizeParameter *heightGiver
+									, Steinberg::Vst::SizeParameter *lengthGiver
+									, Steinberg::Vst::CoordinateParameter *xPosGiver
+									, Steinberg::Vst::CoordinateParameter *yPosGiver
+									, Steinberg::Vst::CoordinateParameter *zPosGiver
 								)
 								 : CView (size)
 								 , mWidth (100)
@@ -45,8 +45,8 @@ public:
 private:
 	int mWidth, mHeight, mLength;
 	int mXPos, mYPos, mZPos;
-	SizeParameter *mWidthGiver, *mHeightGiver, *mLengthGiver;
-	CoordinateParameter *mXPosGiver, *mYPosGiver, *mZPosGiver;
+	Steinberg::Vst::SizeParameter *mWidthGiver, *mHeightGiver, *mLengthGiver;
+	Steinberg::Vst::CoordinateParameter *mXPosGiver, *mYPosGiver, *mZPosGiver;
 };
 
 void CMathReverbView::draw (CDrawContext *pContext)

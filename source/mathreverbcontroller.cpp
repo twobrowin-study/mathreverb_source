@@ -97,7 +97,7 @@ tresult PLUGIN_API MathReverbController::initialize (FUnknown* context)
 
 	// Создадим mathReverbView
 	CRect size (CPoint (0, 0), CPoint (593, 370));
-	mathReverbView = new CMathReverbView (size, widthParam, heightParam, lengthParam, xPosParam, yPosParam, zPosParam);
+	mathReverbView = (CView*) new CMathReverbView (size, widthParam, heightParam, lengthParam, xPosParam, yPosParam, zPosParam);
 
 	return result;
 }
