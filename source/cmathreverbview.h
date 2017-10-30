@@ -76,16 +76,16 @@ void CMathReverbView::draw (CDrawContext *pContext)
 													};
 
 	// Точки центрального куба
-	int xIntend = mXPos*3-(mXPos/abs (mXPos))*10
-		 ,yIntend = mZPos*3-(mZPos/abs (mZPos))*10;
-	CPoint centralPoints[8] = { CPoint (centerX-mYPos/3-10, centerY-mYPos/3-10),
-															CPoint (centerX-mYPos/3-10, centerY-mYPos/3+5),
-															CPoint (centerX-mYPos/3+5, centerY-mYPos/3+5),
-															CPoint (centerX-mYPos/3+5, centerY-mYPos/3-10),
-															CPoint (centerX-mYPos/3-5, centerY-mYPos/3-5),
-															CPoint (centerX-mYPos/3-5, centerY-mYPos/3+10),
-															CPoint (centerX-mYPos/3+10, centerY-mYPos/3+10),
-															CPoint (centerX-mYPos/3+10, centerY-mYPos/3-5)
+	int xIntend = mXPos*3-(mXPos/abs (mXPos==0?1:mXPos))*10
+		 ,yIntend = mZPos*3-(mZPos/abs (mZPos==0?1:mZPos))*10;
+	CPoint centralPoints[8] = { CPoint (centerX+xIntend-mYPos/3-10, centerY-yIntend-mYPos/3-10),
+															CPoint (centerX+xIntend-mYPos/3-10, centerY-yIntend-mYPos/3+5),
+															CPoint (centerX+xIntend-mYPos/3+5, centerY-yIntend-mYPos/3+5),
+															CPoint (centerX+xIntend-mYPos/3+5, centerY-yIntend-mYPos/3-10),
+															CPoint (centerX+xIntend-mYPos/3-5, centerY-yIntend-mYPos/3-5),
+															CPoint (centerX+xIntend-mYPos/3-5, centerY-yIntend-mYPos/3+10),
+															CPoint (centerX+xIntend-mYPos/3+10, centerY-yIntend-mYPos/3+10),
+															CPoint (centerX+xIntend-mYPos/3+10, centerY-yIntend-mYPos/3-5)
 														};
 
 	// Сплошная линия
