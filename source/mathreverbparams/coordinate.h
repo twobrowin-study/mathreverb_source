@@ -87,11 +87,9 @@ bool CoordinateParameter::fromString (const TChar* string, ParamValue& normValue
 //------------------------------------------------------------------------
 bool CoordinateParameter::setNormalized (ParamValue v)
 {
-  if ( v * 50.f >= fLimit )
-    return normValue = (50.f + fLimit) / 100.f;
-  if ( (v - 1.f) * 50.f <= - fLimit )
-    return normValue = (50.f - fLimit) / 100.f;
-  return normValue = v;
+  if (( v * 50.f >= fLimit ) || ( (v - 1.f) * 50.f <= - fLimit ))
+    return Parameter::setNormalize ((50.f + fLimit) / 100.f);
+  return Parameter::setNormalized (v);
 }
 
 
@@ -99,6 +97,8 @@ bool CoordinateParameter::setNormalized (ParamValue v)
 void CoordinateParameter::updateLimit ()
 {
   fLimit = mLimitGiver->getNormalized () * 49.f;
+  if (( getNormalized () * 50.f >= fLimit ) || ( (getNormalized () - 1.f) * 50.f <= - fLimit ))
+    setNormalize ((50.f + fLimit) / 100.f);
 }
 
 //------------------------------------------------------------------------
