@@ -8,10 +8,11 @@ namespace Vst {
 //------------------------------------------------------------------------
 
 //------------------------------------------------------------------------
-MathReverbApex::MathReverbApex (SampleRate sampleRate, DelayPoint* delayArray, int32 numberOfApexes, ApexType key)
+MathReverbApex::MathReverbApex (SampleRate sampleRate, DelayPoint* delayArray, int32 numberOfApexes, ApexType key, float defaultReflection)
 : mBufferLen (sampleRate)
 , mBufferPos (0)
 , mDelayArrayLen (numberOfApexes)
+, mDefaultReflection (defaultReflection)
 {
   if (key == kNormalApex)
   {
@@ -33,6 +34,7 @@ MathReverbApex::MathReverbApex (SampleRate sampleRate, ApexType key)
 , mBufferPos (0)
 , mDelayArrayLen (0)
 , mDelayArray (0)
+, mDefaultReflection (0)
 {
   if (key == kNoDelay)
   {
@@ -44,11 +46,12 @@ MathReverbApex::MathReverbApex (SampleRate sampleRate, ApexType key)
 }
 
 //------------------------------------------------------------------------
-MathReverbApex::MathReverbApex (DelayPoint* delayArray, int32 numberOfApexes, ApexType key)
+MathReverbApex::MathReverbApex (DelayPoint* delayArray, int32 numberOfApexes, ApexType key, float defaultReflection)
 : mBuffer (0)
 , mBufferLen (0)
 , mBufferPos (0)
 , mDelayArrayLen (numberOfApexes)
+, mDefaultReflection (defaultReflection)
 {
   if (key == kNoBuffer)
   {
@@ -102,7 +105,7 @@ Sample64 MathReverbApex::setSampleFromApexes (float reflection)
     // Пройдёмся по всем вершинам
     for (int32 i = 0; i < mDelayArrayLen; i++)
       // Добавим приглушенное отражение
-      sampleToPush += 0.15f * reflection * mDelayArray[i].apex -> getSampleWithDelay (mDelayArray[i].delayInSamples);
+      sampleToPush += mDefaultReflection * reflection * mDelayArray[i].apex -> getSampleWithDelay (mDelayArray[i].delayInSamples);
   }
 
   if (mBuffer)

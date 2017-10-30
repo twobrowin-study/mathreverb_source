@@ -32,9 +32,9 @@ class MathReverbApex
 {
 public:
   // Конструктор
-  MathReverbApex (SampleRate sampleRate, DelayPoint* delayArray, int32 numberOfApexes, ApexType key = kNormalApex);
+  MathReverbApex (SampleRate sampleRate, DelayPoint* delayArray, int32 numberOfApexes, ApexType key = kNormalApex, float defaultReflection);
   MathReverbApex (SampleRate sampleRate, ApexType key = kNoDelay);
-  MathReverbApex (DelayPoint* delayArray, int32 numberOfApexes, ApexType key = kNoBuffer);
+  MathReverbApex (DelayPoint* delayArray, int32 numberOfApexes, ApexType key = kNoBuffer, float defaultReflection);
 
   // Деструктор
   ~MathReverbApex ();
@@ -51,6 +51,12 @@ public:
   // Метод устанавливает новые отношения связи
   void setDelayArray (DelayPoint* delayArray, int32 numberOfApexes);
 
+  // Метод установки стандартной отражающей способности
+  void setDefaultReflection (float defaultReflection)
+  {
+    mDefaultReflection = defaultReflection;
+  }
+
 private:
     // Буфер
   	Sample64* mBuffer;
@@ -60,6 +66,9 @@ private:
     // Прочие вершины с задержками
   	DelayPoint* mDelayArray;
     int32 mDelayArrayLen;
+
+    // Стандартная отражающая спопсобность
+    float mDefaultReflection;
 };
 
 //------------------------------------------------------------------------
