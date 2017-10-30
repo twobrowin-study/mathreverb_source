@@ -29,7 +29,7 @@ MathReverbGraph::MathReverbGraph (SampleRate sampleRate)
     DelayPoint (modelApexes + 4, 0.05f * mSampleRate),
     DelayPoint (modelApexes + 5, 0.05f * mSampleRate)
   };
-  sinkApex = new MathReverbApex (sinkApexDelay, mNumberOfModelApexes, 0.7f, kNoBuffer);
+  sinkApex = new MathReverbApex (sinkApexDelay, mNumberOfModelApexes, 0.8f, kNoBuffer);
 
   // Создадим прочие вершины
   DelayPoint modelApexesDelay [6][6] = {
@@ -84,7 +84,7 @@ MathReverbGraph::MathReverbGraph (SampleRate sampleRate)
   };
   for (int32 i = 0; i < mNumberOfModelApexes; i++)
     std::memcpy ( modelApexes + i
-                , new MathReverbApex (mSampleRate, modelApexesDelay[i], mNumberOfModelApexes, 0.15f, kNormalApex)
+                , new MathReverbApex (mSampleRate, modelApexesDelay[i], mNumberOfModelApexes, 0.13f, kNormalApex)
                 , sizeof (MathReverbApex)
                 );
 
