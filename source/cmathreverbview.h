@@ -107,7 +107,7 @@ void CMathReverbView::draw (CDrawContext *pContext)
 
 	pContext->drawLine (parallPoint[1], parallPoint[5]);
 	pContext->drawLine (parallPoint[4], parallPoint[7]);
-	
+
 	// Сплошные линии центрального куба
 	pContext->drawLine (centralPoints[0], centralPoints[1]);
 	pContext->drawLine (centralPoints[3], centralPoints[0]);
@@ -125,33 +125,33 @@ void CMathReverbView::draw (CDrawContext *pContext)
 
 	// Пунктирные линии параллелепипеда
 	CCoord mLengthsDashLong[6] = { CCoord (3.0),
-																CCoord (3.0),
-																CCoord (3.0),
-																CCoord (3.0),
-																CCoord (3.0),
-																CCoord (3.0)
+																 CCoord (3.0),
+																 CCoord (3.0),
+																 CCoord (3.0),
+																 CCoord (3.0),
+																 CCoord (3.0)
 															};
 	pContext->setLineStyle (CLineStyle(VSTGUI::CLineStyle::kLineCapButt, VSTGUI::CLineStyle::kLineJoinMiter, 1.0, 6, mLengthsDashLong));
 	pContext->drawLine (parallPoint[2], parallPoint[6]);
 	pContext->drawLine (parallPoint[2], parallPoint[3]);
 	pContext->drawLine (parallPoint[2], parallPoint[1]);
-
-	// Пунктирные линии центрального куба
-	CCoord mLengthsDashShort[10] = { CCoord (0.1),
-																	CCoord (0.1),
-																	CCoord (0.1),
-																	CCoord (0.1),
-																	CCoord (0.1),
-																	CCoord (0.1),
-																	CCoord (0.1),
-																	CCoord (0.1),
-																	CCoord (0.1),
-																	CCoord (0.1)
-																};
-	pContext->setLineStyle (CLineStyle(VSTGUI::CLineStyle::kLineCapButt, VSTGUI::CLineStyle::kLineJoinMiter, 1.0, 10, mLengthsDashShort));
-	pContext->drawLine (centralPoints[2], centralPoints[6]);
-	pContext->drawLine (centralPoints[2], centralPoints[3]);
-	pContext->drawLine (centralPoints[2], centralPoints[1]);
+	//
+	// // Пунктирные линии центрального куба
+	// CCoord mLengthsDashShort[10] = { CCoord (0.1),
+	// 																 CCoord (0.1),
+	// 																 CCoord (0.1),
+	// 																 CCoord (0.1),
+	// 																 CCoord (0.1),
+	// 																 CCoord (0.1),
+	// 																 CCoord (0.1),
+	// 																 CCoord (0.1),
+	// 																 CCoord (0.1),
+	// 																 CCoord (0.1)
+	// 															};
+	// pContext->setLineStyle (CLineStyle(VSTGUI::CLineStyle::kLineCapButt, VSTGUI::CLineStyle::kLineJoinMiter, 1.0, 10, mLengthsDashShort));
+	// pContext->drawLine (centralPoints[2], centralPoints[6]);
+	// pContext->drawLine (centralPoints[2], centralPoints[3]);
+	// pContext->drawLine (centralPoints[2], centralPoints[1]);
 
 
   setDirty (false);
