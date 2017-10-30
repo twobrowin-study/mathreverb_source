@@ -8,7 +8,7 @@ namespace Vst {
 //------------------------------------------------------------------------
 
 //------------------------------------------------------------------------
-MathReverbApex::MathReverbApex (SampleRate sampleRate, DelayPoint* delayArray, int32 numberOfApexes, ApexType key, float defaultReflection)
+MathReverbApex::MathReverbApex (SampleRate sampleRate, DelayPoint* delayArray, int32 numberOfApexes, float defaultReflection, ApexType key)
 : mBufferLen (sampleRate)
 , mBufferPos (0)
 , mDelayArrayLen (numberOfApexes)
@@ -46,7 +46,7 @@ MathReverbApex::MathReverbApex (SampleRate sampleRate, ApexType key)
 }
 
 //------------------------------------------------------------------------
-MathReverbApex::MathReverbApex (DelayPoint* delayArray, int32 numberOfApexes, ApexType key, float defaultReflection)
+MathReverbApex::MathReverbApex (DelayPoint* delayArray, int32 numberOfApexes, float defaultReflection, ApexType key)
 : mBuffer (0)
 , mBufferLen (0)
 , mBufferPos (0)
