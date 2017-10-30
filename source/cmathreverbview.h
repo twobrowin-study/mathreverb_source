@@ -160,6 +160,11 @@ void CMathReverbView::draw (CDrawContext *pContext)
 //------------------------------------------------------------------------
 void CMathReverbView::update ()
 {
+	// Установим размеры куба
+	mWidth = mWidthGiver->getNormalized () * 100.f;
+	mHeight = mHeightGiver->getNormalized () * 100.f;
+	mLength = mLengthGiver->getNormalized () * 100.f;
+	// Перерисуем представление
 	invalid ();
 }
 
