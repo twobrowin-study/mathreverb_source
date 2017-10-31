@@ -128,7 +128,7 @@ void MathReverbGraph::setDementoinParams (float width, float height, float lengt
       , lengthHalf = 0.5f * length;
   float xCood = xPos
       , yCood = yPos
-      , zCood = zPos
+      , zCood = zPos;
 
   // Проверка на ограничение координат
   if (xCood > widthHalf - 0.01f)
