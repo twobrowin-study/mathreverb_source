@@ -121,34 +121,37 @@ Sample64 MathReverbGraph::process (Sample64 inSample, float reflection)
   return sinkApex->setSampleFromApexes ();
 }
 
-void MathReverbGraph::setDementoinParams (float width, float height, float length, float &xPos, float &yPos, float &zPos)
+void MathReverbGraph::setDementoinParams (float width, float height, float length, float xPos, float yPos, float zPos)
 {
   float widthHalf = 0.5f * width
       , heightHalf = 0.5f * height
       , lengthHalf = 0.5f * length;
+  float xCood = xPos
+      , yCood = yPos
+      , zCood = zPos
 
   // Проверка на ограничение координат
-  if (xPos > widthHalf - 0.01f)
-    xPos = widthHalf - 0.01f;
-  if (yPos > lengthHalf - 0.01f)
-    yPos = lengthHalf - 0.01f;
-  if (zPos > heightHalf - 0.01f)
-    zPos = heightHalf - 0.01f;
-  if (xPos < -widthHalf + 0.01f)
-    xPos = -widthHalf + 0.01f;
-  if (yPos < -lengthHalf + 0.01f)
-    yPos = -lengthHalf + 0.01f;
-  if (zPos < -heightHalf + 0.01f)
-    zPos = -heightHalf + 0.01f;
+  if (xCood > widthHalf - 0.01f)
+    xCood = widthHalf - 0.01f;
+  if (yCood > lengthHalf - 0.01f)
+    yCood = lengthHalf - 0.01f;
+  if (zCood > heightHalf - 0.01f)
+    zCood = heightHalf - 0.01f;
+  if (xCood < -widthHalf + 0.01f)
+    xCood = -widthHalf + 0.01f;
+  if (yCood < -lengthHalf + 0.01f)
+    yCood = -lengthHalf + 0.01f;
+  if (zCood < -heightHalf + 0.01f)
+    zCood = -heightHalf + 0.01f;
 
   // Создадим новые задержки для стока
   DelayPoint sinkApexDelay [6] = {
-    DelayPoint (modelApexes + 0, 0.1f * (widthHalf + xPos) * mSampleRate),
-    DelayPoint (modelApexes + 1, 0.1f * (heightHalf + zPos) * mSampleRate),
-    DelayPoint (modelApexes + 2, 0.1f * (lengthHalf + yPos) * mSampleRate),
-    DelayPoint (modelApexes + 3, 0.1f * (widthHalf - xPos) * mSampleRate),
-    DelayPoint (modelApexes + 4, 0.1f * (heightHalf - zPos) * mSampleRate),
-    DelayPoint (modelApexes + 5, 0.1f * (lengthHalf - yPos) * mSampleRate)
+    DelayPoint (modelApexes + 0, 0.1f * (widthHalf + xCood) * mSampleRate),
+    DelayPoint (modelApexes + 1, 0.1f * (heightHalf + zCood) * mSampleRate),
+    DelayPoint (modelApexes + 2, 0.1f * (lengthHalf + yCood) * mSampleRate),
+    DelayPoint (modelApexes + 3, 0.1f * (widthHalf - xCood) * mSampleRate),
+    DelayPoint (modelApexes + 4, 0.1f * (heightHalf - zCood) * mSampleRate),
+    DelayPoint (modelApexes + 5, 0.1f * (lengthHalf - yCood) * mSampleRate)
   };
 
   // Зададим стоку задержки
@@ -157,7 +160,7 @@ void MathReverbGraph::setDementoinParams (float width, float height, float lengt
   // Создадим новые задержки для прочих вершин
   DelayPoint modelApexesDelay [6][6] = {
     {
-      DelayPoint (sourceApex, 0.1f * (widthHalf + xPos) * mSampleRate),
+      DelayPoint (sourceApex, 0.1f * (widthHalf + xCood) * mSampleRate),
       DelayPoint (modelApexes + 1, 0.1f * sqrt (pow (widthHalf, 2) + pow (heightHalf, 2)) * mSampleRate),
       DelayPoint (modelApexes + 2, 0.1f * sqrt (pow (widthHalf, 2) + pow (lengthHalf, 2)) * mSampleRate),
       DelayPoint (modelApexes + 3, 0.1f * width * mSampleRate),
@@ -165,7 +168,7 @@ void MathReverbGraph::setDementoinParams (float width, float height, float lengt
       DelayPoint (modelApexes + 5, 0.1f * sqrt (pow (widthHalf, 2) + pow (lengthHalf, 2)) * mSampleRate)
     },
     {
-      DelayPoint (sourceApex, 0.1f * (heightHalf + zPos) * mSampleRate),
+      DelayPoint (sourceApex, 0.1f * (heightHalf + zCood) * mSampleRate),
       DelayPoint (modelApexes + 0, 0.1f * sqrt (pow (widthHalf, 2) + pow (heightHalf, 2)) * mSampleRate),
       DelayPoint (modelApexes + 2, 0.1f * sqrt (pow (heightHalf, 2) + pow (lengthHalf, 2)) * mSampleRate),
       DelayPoint (modelApexes + 3, 0.1f * sqrt (pow (widthHalf, 2) + pow (heightHalf, 2)) * mSampleRate),
@@ -173,7 +176,7 @@ void MathReverbGraph::setDementoinParams (float width, float height, float lengt
       DelayPoint (modelApexes + 5, 0.1f * sqrt (pow (heightHalf, 2) + pow (lengthHalf, 2)) * mSampleRate)
     },
     {
-      DelayPoint (sourceApex, 0.1f * (lengthHalf + yPos) * mSampleRate),
+      DelayPoint (sourceApex, 0.1f * (lengthHalf + yCood) * mSampleRate),
       DelayPoint (modelApexes + 0, 0.1f * sqrt (pow (widthHalf, 2) + pow (lengthHalf, 2)) * mSampleRate),
       DelayPoint (modelApexes + 1, 0.1f * sqrt (pow (heightHalf, 2) + pow (lengthHalf, 2)) * mSampleRate),
       DelayPoint (modelApexes + 3, 0.1f * sqrt (pow (widthHalf, 2) + pow (lengthHalf, 2)) * mSampleRate),
@@ -181,7 +184,7 @@ void MathReverbGraph::setDementoinParams (float width, float height, float lengt
       DelayPoint (modelApexes + 5, 0.1f * length * mSampleRate)
     },
     {
-      DelayPoint (sourceApex, 0.1f * (widthHalf - xPos) * mSampleRate),
+      DelayPoint (sourceApex, 0.1f * (widthHalf - xCood) * mSampleRate),
       DelayPoint (modelApexes + 0, 0.1f * width * mSampleRate),
       DelayPoint (modelApexes + 1, 0.1f * sqrt (pow (widthHalf, 2) + pow (heightHalf, 2)) * mSampleRate),
       DelayPoint (modelApexes + 2, 0.1f * sqrt (pow (widthHalf, 2) + pow (lengthHalf, 2)) * mSampleRate),
@@ -189,7 +192,7 @@ void MathReverbGraph::setDementoinParams (float width, float height, float lengt
       DelayPoint (modelApexes + 5, 0.1f * sqrt (pow (widthHalf, 2) + pow (lengthHalf, 2)) * mSampleRate)
     },
     {
-      DelayPoint (sourceApex, 0.1f * (heightHalf - zPos) * mSampleRate),
+      DelayPoint (sourceApex, 0.1f * (heightHalf - zCood) * mSampleRate),
       DelayPoint (modelApexes + 0, 0.1f * sqrt (pow (widthHalf, 2) + pow (heightHalf, 2)) * mSampleRate),
       DelayPoint (modelApexes + 1, 0.1f * height * mSampleRate),
       DelayPoint (modelApexes + 2, 0.1f * sqrt (pow (heightHalf, 2) + pow (lengthHalf, 2)) * mSampleRate),
@@ -197,7 +200,7 @@ void MathReverbGraph::setDementoinParams (float width, float height, float lengt
       DelayPoint (modelApexes + 5, 0.1f * sqrt (pow (heightHalf, 2) + pow (lengthHalf, 2)) * mSampleRate)
     },
     {
-      DelayPoint (sourceApex, 0.1f * (lengthHalf - yPos) * mSampleRate),
+      DelayPoint (sourceApex, 0.1f * (lengthHalf - yCood) * mSampleRate),
       DelayPoint (modelApexes + 0, 0.1f * sqrt (pow (widthHalf, 2) + pow (lengthHalf, 2)) * mSampleRate),
       DelayPoint (modelApexes + 1, 0.1f * sqrt (pow (heightHalf, 2) + pow (lengthHalf, 2)) * mSampleRate),
       DelayPoint (modelApexes + 2, 0.1f * length * mSampleRate),
