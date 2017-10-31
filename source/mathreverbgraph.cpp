@@ -121,13 +121,27 @@ Sample64 MathReverbGraph::process (Sample64 inSample, float reflection)
   return sinkApex->setSampleFromApexes ();
 }
 
-void MathReverbGraph::setDementoinParams (float width, float height, float length, float xPos, float yPos, float zPos)
+void MathReverbGraph::setDementoinParams (float width, float height, float length, float &xPos, float &yPos, float &zPos)
 {
-  // Создадим новые задержки для стока
   float widthHalf = 0.5f * width
       , heightHalf = 0.5f * height
       , lengthHalf = 0.5f * length;
 
+  // Проверка на ограничение координат
+  if (xPos > widthHalf - 0.01f)
+    xPos = widthHalf - 0.01f;
+  if (yPos > lengthHalf - 0.01f)
+    yPos = lengthHalf - 0.01f;
+  if (zPos > heightHalf - 0.01f)
+    zPos = heightHalf - 0.01f;
+  if (xPos < -widthHalf + 0.01f)
+    xPos = -widthHalf + 0.01f;
+  if (yPos < -lengthHalf + 0.01f)
+    yPos = -lengthHalf + 0.01f;
+  if (zPos < -heightHalf + 0.01f)
+    zPos = -heightHalf + 0.01f;
+
+  // Создадим новые задержки для стока
   DelayPoint sinkApexDelay [6] = {
     DelayPoint (modelApexes + 0, 0.1f * (widthHalf + xPos) * mSampleRate),
     DelayPoint (modelApexes + 1, 0.1f * (heightHalf + zPos) * mSampleRate),
