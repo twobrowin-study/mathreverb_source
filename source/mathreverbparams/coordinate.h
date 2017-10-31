@@ -91,14 +91,13 @@ bool CoordinateParameter::fromString (const TChar* string, ParamValue& normValue
 //------------------------------------------------------------------------
 bool CoordinateParameter::setNormalized (ParamValue v)
 {
-  ParamValue toSet = v;
   // Ограничение значений
   if ( toSet > 0.5f + fLimit )
-    toSet = 0.5f + fLimit;
+    return Parameter::setNormalized (0.5f + fLimit);
   if ( toSet < 0.5f - fLimit )
-    toSet = 0.5f - fLimit;
+    return Parameter::setNormalized (0.5f - fLimit);
   // Установка значения
-  return Parameter::setNormalized (toSet);
+  return Parameter::setNormalized (v);
 }
 
 
