@@ -123,35 +123,47 @@ Sample64 MathReverbGraph::process (Sample64 inSample, float reflection)
 
 void MathReverbGraph::setDementoinParams (float width, float height, float length, float xPos, float yPos, float zPos)
 {
-  float widthHalf = 0.5f * width
-      , heightHalf = 0.5f * height
-      , lengthHalf = 0.5f * length;
-  float xCoord = xPos
-      , yCoord = yPos
-      , zCoord = zPos;
+  float widthModel = width
+      , heightModel = height
+      , lengthModel = length
+      , xModel = xPos
+      , yModel = yPos
+      , zModel = zPos;
+
+  // Проверка на ограничение размеров
+  if (widthModel < 0.1f)
+    widthModel = 0.1f;
+  if (heightModel < 0.1f)
+    heightModel = 0.1f;
+  if (lengthModel < 0.1f)
+    lengthModel = 0.1f;
+
+  float widthModelHalf = 0.5f * widthModel
+      , heightModelHalf = 0.5f * heightModel
+      , lengthModelHalf = 0.5f * lengthModel;
 
   // Проверка на ограничение координат
-  if (xCoord > widthHalf - 0.1f)
-    xCoord = widthHalf - 0.1f;
-  if (yCoord > lengthHalf - 0.1f)
-    yCoord = lengthHalf - 0.1f;
-  if (zCoord > heightHalf - 0.1f)
-    zCoord = heightHalf - 0.1f;
-  if (xCoord < -widthHalf + 0.1f)
-    xCoord = -widthHalf + 0.1f;
-  if (yCoord < -lengthHalf + 0.1f)
-    yCoord = -lengthHalf + 0.1f;
-  if (zCoord < -heightHalf + 0.1f)
-    zCoord = -heightHalf + 0.1f;
+  if (xModel > widthModelHalf - 0.02f)
+    xModel = widthModelHalf - 0.02f;
+  if (yModel > lengthModelHalf - 0.02f)
+    yModel = lengthModelHalf - 0.02f;
+  if (zModel > heightModelHalf - 0.02f)
+    zModel = heightModelHalf - 0.02f;
+  if (xModel < -widthModelHalf + 0.02f)
+    xModel = -widthModelHalf + 0.02f;
+  if (yModel < -lengthModelHalf + 0.02f)
+    yModel = -lengthModelHalf + 0.02f;
+  if (zModel < -heightModelHalf + 0.02f)
+    zModel = -heightModelHalf + 0.02f;
 
   // Создадим новые задержки для стока
   DelayPoint sinkApexDelay [6] = {
-    DelayPoint (modelApexes + 0, 0.1f * (widthHalf + xCoord) * mSampleRate),
-    DelayPoint (modelApexes + 1, 0.1f * (heightHalf + zCoord) * mSampleRate),
-    DelayPoint (modelApexes + 2, 0.1f * (lengthHalf + yCoord) * mSampleRate),
-    DelayPoint (modelApexes + 3, 0.1f * (widthHalf - xCoord) * mSampleRate),
-    DelayPoint (modelApexes + 4, 0.1f * (heightHalf - zCoord) * mSampleRate),
-    DelayPoint (modelApexes + 5, 0.1f * (lengthHalf - yCoord) * mSampleRate)
+    DelayPoint (modelApexes + 0, 0.1f * (widthModelHalf + xModel) * mSampleRate),
+    DelayPoint (modelApexes + 1, 0.1f * (heightModelHalf + zModel) * mSampleRate),
+    DelayPoint (modelApexes + 2, 0.1f * (lengthModelHalf + yModel) * mSampleRate),
+    DelayPoint (modelApexes + 3, 0.1f * (widthModelHalf - xModel) * mSampleRate),
+    DelayPoint (modelApexes + 4, 0.1f * (heightModelHalf - zModel) * mSampleRate),
+    DelayPoint (modelApexes + 5, 0.1f * (lengthModelHalf - yModel) * mSampleRate)
   };
 
   // Зададим стоку задержки
@@ -160,52 +172,52 @@ void MathReverbGraph::setDementoinParams (float width, float height, float lengt
   // Создадим новые задержки для прочих вершин
   DelayPoint modelApexesDelay [6][6] = {
     {
-      DelayPoint (sourceApex, 0.1f * (widthHalf + xCoord) * mSampleRate),
-      DelayPoint (modelApexes + 1, 0.1f * sqrt (pow (widthHalf, 2) + pow (heightHalf, 2)) * mSampleRate),
-      DelayPoint (modelApexes + 2, 0.1f * sqrt (pow (widthHalf, 2) + pow (lengthHalf, 2)) * mSampleRate),
-      DelayPoint (modelApexes + 3, 0.1f * width * mSampleRate),
-      DelayPoint (modelApexes + 4, 0.1f * sqrt (pow (widthHalf, 2) + pow (heightHalf, 2)) * mSampleRate),
-      DelayPoint (modelApexes + 5, 0.1f * sqrt (pow (widthHalf, 2) + pow (lengthHalf, 2)) * mSampleRate)
+      DelayPoint (sourceApex, 0.1f * (widthModelHalf + xModel) * mSampleRate),
+      DelayPoint (modelApexes + 1, 0.1f * sqrt (pow (widthModelHalf, 2) + pow (heightModelHalf, 2)) * mSampleRate),
+      DelayPoint (modelApexes + 2, 0.1f * sqrt (pow (widthModelHalf, 2) + pow (lengthModelHalf, 2)) * mSampleRate),
+      DelayPoint (modelApexes + 3, 0.1f * widthModel * mSampleRate),
+      DelayPoint (modelApexes + 4, 0.1f * sqrt (pow (widthModelHalf, 2) + pow (heightModelHalf, 2)) * mSampleRate),
+      DelayPoint (modelApexes + 5, 0.1f * sqrt (pow (widthModelHalf, 2) + pow (lengthModelHalf, 2)) * mSampleRate)
     },
     {
-      DelayPoint (sourceApex, 0.1f * (heightHalf + zCoord) * mSampleRate),
-      DelayPoint (modelApexes + 0, 0.1f * sqrt (pow (widthHalf, 2) + pow (heightHalf, 2)) * mSampleRate),
-      DelayPoint (modelApexes + 2, 0.1f * sqrt (pow (heightHalf, 2) + pow (lengthHalf, 2)) * mSampleRate),
-      DelayPoint (modelApexes + 3, 0.1f * sqrt (pow (widthHalf, 2) + pow (heightHalf, 2)) * mSampleRate),
-      DelayPoint (modelApexes + 4, 0.1f * height * mSampleRate),
-      DelayPoint (modelApexes + 5, 0.1f * sqrt (pow (heightHalf, 2) + pow (lengthHalf, 2)) * mSampleRate)
+      DelayPoint (sourceApex, 0.1f * (heightModelHalf + zModel) * mSampleRate),
+      DelayPoint (modelApexes + 0, 0.1f * sqrt (pow (widthModelHalf, 2) + pow (heightModelHalf, 2)) * mSampleRate),
+      DelayPoint (modelApexes + 2, 0.1f * sqrt (pow (heightModelHalf, 2) + pow (lengthModelHalf, 2)) * mSampleRate),
+      DelayPoint (modelApexes + 3, 0.1f * sqrt (pow (widthModelHalf, 2) + pow (heightModelHalf, 2)) * mSampleRate),
+      DelayPoint (modelApexes + 4, 0.1f * heightModel * mSampleRate),
+      DelayPoint (modelApexes + 5, 0.1f * sqrt (pow (heightModelHalf, 2) + pow (lengthModelHalf, 2)) * mSampleRate)
     },
     {
-      DelayPoint (sourceApex, 0.1f * (lengthHalf + yCoord) * mSampleRate),
-      DelayPoint (modelApexes + 0, 0.1f * sqrt (pow (widthHalf, 2) + pow (lengthHalf, 2)) * mSampleRate),
-      DelayPoint (modelApexes + 1, 0.1f * sqrt (pow (heightHalf, 2) + pow (lengthHalf, 2)) * mSampleRate),
-      DelayPoint (modelApexes + 3, 0.1f * sqrt (pow (widthHalf, 2) + pow (lengthHalf, 2)) * mSampleRate),
-      DelayPoint (modelApexes + 4, 0.1f * sqrt (pow (heightHalf, 2) + pow (lengthHalf, 2)) * mSampleRate),
-      DelayPoint (modelApexes + 5, 0.1f * length * mSampleRate)
+      DelayPoint (sourceApex, 0.1f * (lengthModelHalf + yModel) * mSampleRate),
+      DelayPoint (modelApexes + 0, 0.1f * sqrt (pow (widthModelHalf, 2) + pow (lengthModelHalf, 2)) * mSampleRate),
+      DelayPoint (modelApexes + 1, 0.1f * sqrt (pow (heightModelHalf, 2) + pow (lengthModelHalf, 2)) * mSampleRate),
+      DelayPoint (modelApexes + 3, 0.1f * sqrt (pow (widthModelHalf, 2) + pow (lengthModelHalf, 2)) * mSampleRate),
+      DelayPoint (modelApexes + 4, 0.1f * sqrt (pow (heightModelHalf, 2) + pow (lengthModelHalf, 2)) * mSampleRate),
+      DelayPoint (modelApexes + 5, 0.1f * lengthModel * mSampleRate)
     },
     {
-      DelayPoint (sourceApex, 0.1f * (widthHalf - xCoord) * mSampleRate),
+      DelayPoint (sourceApex, 0.1f * (widthModelHalf - xModel) * mSampleRate),
       DelayPoint (modelApexes + 0, 0.1f * width * mSampleRate),
-      DelayPoint (modelApexes + 1, 0.1f * sqrt (pow (widthHalf, 2) + pow (heightHalf, 2)) * mSampleRate),
-      DelayPoint (modelApexes + 2, 0.1f * sqrt (pow (widthHalf, 2) + pow (lengthHalf, 2)) * mSampleRate),
-      DelayPoint (modelApexes + 4, 0.1f * sqrt (pow (widthHalf, 2) + pow (heightHalf, 2)) * mSampleRate),
-      DelayPoint (modelApexes + 5, 0.1f * sqrt (pow (widthHalf, 2) + pow (lengthHalf, 2)) * mSampleRate)
+      DelayPoint (modelApexes + 1, 0.1f * sqrt (pow (widthModelHalf, 2) + pow (heightModelHalf, 2)) * mSampleRate),
+      DelayPoint (modelApexes + 2, 0.1f * sqrt (pow (widthModelHalf, 2) + pow (lengthModelHalf, 2)) * mSampleRate),
+      DelayPoint (modelApexes + 4, 0.1f * sqrt (pow (widthModelHalf, 2) + pow (heightModelHalf, 2)) * mSampleRate),
+      DelayPoint (modelApexes + 5, 0.1f * sqrt (pow (widthModelHalf, 2) + pow (lengthModelHalf, 2)) * mSampleRate)
     },
     {
-      DelayPoint (sourceApex, 0.1f * (heightHalf - zCoord) * mSampleRate),
-      DelayPoint (modelApexes + 0, 0.1f * sqrt (pow (widthHalf, 2) + pow (heightHalf, 2)) * mSampleRate),
-      DelayPoint (modelApexes + 1, 0.1f * height * mSampleRate),
-      DelayPoint (modelApexes + 2, 0.1f * sqrt (pow (heightHalf, 2) + pow (lengthHalf, 2)) * mSampleRate),
-      DelayPoint (modelApexes + 3, 0.1f * sqrt (pow (widthHalf, 2) + pow (heightHalf, 2)) * mSampleRate),
-      DelayPoint (modelApexes + 5, 0.1f * sqrt (pow (heightHalf, 2) + pow (lengthHalf, 2)) * mSampleRate)
+      DelayPoint (sourceApex, 0.1f * (heightModelHalf - zModel) * mSampleRate),
+      DelayPoint (modelApexes + 0, 0.1f * sqrt (pow (widthModelHalf, 2) + pow (heightModelHalf, 2)) * mSampleRate),
+      DelayPoint (modelApexes + 1, 0.1f * heightModel * mSampleRate),
+      DelayPoint (modelApexes + 2, 0.1f * sqrt (pow (heightModelHalf, 2) + pow (lengthModelHalf, 2)) * mSampleRate),
+      DelayPoint (modelApexes + 3, 0.1f * sqrt (pow (widthModelHalf, 2) + pow (heightModelHalf, 2)) * mSampleRate),
+      DelayPoint (modelApexes + 5, 0.1f * sqrt (pow (heightModelHalf, 2) + pow (lengthModelHalf, 2)) * mSampleRate)
     },
     {
-      DelayPoint (sourceApex, 0.1f * (lengthHalf - yCoord) * mSampleRate),
-      DelayPoint (modelApexes + 0, 0.1f * sqrt (pow (widthHalf, 2) + pow (lengthHalf, 2)) * mSampleRate),
-      DelayPoint (modelApexes + 1, 0.1f * sqrt (pow (heightHalf, 2) + pow (lengthHalf, 2)) * mSampleRate),
-      DelayPoint (modelApexes + 2, 0.1f * length * mSampleRate),
-      DelayPoint (modelApexes + 3, 0.1f * sqrt (pow (widthHalf, 2) + pow (lengthHalf, 2)) * mSampleRate),
-      DelayPoint (modelApexes + 4, 0.1f * sqrt (pow (heightHalf, 2) + pow (lengthHalf, 2)) * mSampleRate)
+      DelayPoint (sourceApex, 0.1f * (lengthModelHalf - yModel) * mSampleRate),
+      DelayPoint (modelApexes + 0, 0.1f * sqrt (pow (widthModelHalf, 2) + pow (lengthModelHalf, 2)) * mSampleRate),
+      DelayPoint (modelApexes + 1, 0.1f * sqrt (pow (heightModelHalf, 2) + pow (lengthModelHalf, 2)) * mSampleRate),
+      DelayPoint (modelApexes + 2, 0.1f * lengthModel * mSampleRate),
+      DelayPoint (modelApexes + 3, 0.1f * sqrt (pow (widthModelHalf, 2) + pow (lengthModelHalf, 2)) * mSampleRate),
+      DelayPoint (modelApexes + 4, 0.1f * sqrt (pow (heightModelHalf, 2) + pow (lengthModelHalf, 2)) * mSampleRate)
     },
   };
 

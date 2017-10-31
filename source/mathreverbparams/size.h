@@ -62,8 +62,8 @@ bool SizeParameter::fromString (const TChar* string, ParamValue& normValue) cons
   if (wrapper.scanFloat (tmp))
   {
     // Ограничение значения
-    if (tmp < 15.f)
-      tmp = 15.f;
+    if (tmp < 10.f)
+      tmp = 10.f;
 
     normValue = tmp / 100.f;
     return true;
@@ -75,8 +75,8 @@ bool SizeParameter::fromString (const TChar* string, ParamValue& normValue) cons
 bool SizeParameter::setNormalized (ParamValue v)
 {
   // Ограничение значения
-  if ( v < 0.15f )
-    return Parameter::setNormalized (0.15f);
+  if ( v < 0.1f )
+    return Parameter::setNormalized (0.1f);
   return Parameter::setNormalized (v);
 }
 
