@@ -109,12 +109,7 @@ Sample64 MathReverbApex::setSampleFromApexes (float reflection)
   }
 
   if (mBuffer)
-  {
-    mBuffer[mBufferPos] = sampleToPush;
-    mBufferPos++;
-    if (mBufferPos == mBufferLen)
-      mBufferPos = 0;
-  }
+    setSourceSample (sampleToPush);
 
   return sampleToPush;
 }
