@@ -3,6 +3,8 @@
 #include "mathreverbparams/paramids.h"
 #include "mathreverbcids.h"	// Идентификаторы классов
 
+#include "public.sdk/source/vst/vstaudioprocessoralgo.h"
+
 #include "pluginterfaces/base/ustring.h"	// Для UString128
 #include "pluginterfaces/base/ibstream.h"
 #include "pluginterfaces/vst/ivstparameterchanges.h"
