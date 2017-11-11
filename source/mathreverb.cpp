@@ -110,9 +110,9 @@ tresult PLUGIN_API MathReverb::process (ProcessData& data)
 		int32 numChannels = SpeakerArr::getChannelCount (arr);
 
 		// Получаем буферы аудио
-		uint32 sampleFramesSize = getSampleFramesSizeInBytes (data.numSamples);
-		void** in = getChannelBuffersPointer (data.inputs[0]);
-		void** out = getChannelBuffersPointer (data.outputs[0]);
+		uint32 sampleFramesSize = getSampleFramesSizeInBytes (processSetup, data.numSamples);
+		void** in = getChannelBuffersPointer (processSetup, data.inputs[0]);
+		void** out = getChannelBuffersPointer (processSetup, data.outputs[0]);
 
 		// Проверка на заглушённые каналы
 		// NOTE: проверять каждый канал
