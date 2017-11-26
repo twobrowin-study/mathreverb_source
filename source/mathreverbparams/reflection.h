@@ -64,8 +64,8 @@ bool ReflectionParameter::fromString (const TChar* string, ParamValue& normValue
       tmp = -tmp;
 
     // Ограничение 100%
-    if (tmp > 1.0)
-      tmp = 1.0;
+    if (tmp > 100.0)
+      tmp = 100.0;
 
     normValue = tmp / 100.f;
     return true;
