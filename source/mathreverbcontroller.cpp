@@ -107,9 +107,6 @@ tresult PLUGIN_API MathReverbController::setComponentState (IBStream* state)
 {
 	if (state)
 	{
-		// Destroy mathReverbView
-		delete mathReverbView;
-
 		float  savedGain
 				 , savedWidth
 				 , savedHeight
@@ -162,10 +159,6 @@ tresult PLUGIN_API MathReverbController::setComponentState (IBStream* state)
 		setParamNormalized (kYPosId, savedYPos);
 		setParamNormalized (kZPosId, savedZPos);
 		setParamNormalized (kBypassId, bypassState);
-
-		// mathReverbView
-		CRect size (CPoint (0, 0), CPoint (593, 370));
-		mathReverbView = (CView*) new CMathReverbView (size, widthParam, heightParam, lengthParam, xPosParam, yPosParam, zPosParam);
 	}
 	return kResultTrue;
 }
