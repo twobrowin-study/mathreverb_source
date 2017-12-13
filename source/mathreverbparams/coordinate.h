@@ -11,23 +11,22 @@ namespace Steinberg {
 namespace Vst {
 
 //------------------------------------------------------------------------
-// CoordinateParameter Деклорация
-// Описание параметров координат, длины, ширины, высоты
+// CoordinateParameter Decloration
 //------------------------------------------------------------------------
 class CoordinateParameter : public Parameter
 {
 public:
-  // Конструктор
+  // Constructor
   CoordinateParameter (int32 flags, int32 id, const char* name, SizeParameter *limitGiver);
 
-  // Преобразование на вывод
+  // Output transform
   virtual void toString (ParamValue normValue, String128 string) const;
-  //  Преобразование после ввода
+  // Input transform
   virtual bool fromString (const TChar* string, ParamValue& normValue) const;
-  // Установка параметра
+  // Param set
   virtual bool setNormalized (ParamValue v);
 
-  // Обновление ограничения на максимальное значение
+  // Limit of normValue
   void updateLimit ();
 
 private:
@@ -36,24 +35,24 @@ private:
 };
 
 //------------------------------------------------------------------------
-// CoordinateParameter Реализация
+// CoordinateParameter Implementation
 //------------------------------------------------------------------------
 CoordinateParameter::CoordinateParameter (int32 flags, int32 id, const char* name, SizeParameter *limitGiver)
 : mLimitGiver (limitGiver)
 , fLimit (0.49f)
 {
-  // Установка информации для хоста
+  // For host info
   UString (info.title, USTRINGSIZE (info.title)).assign (USTRING (name));
   UString (info.units, USTRINGSIZE (info.units)).assign (USTRING ("m"));
 
-  // Установка флагов (описывают принципы взаимодествия для ввода)
+  // Flags
   info.flags = flags;
   info.id = id;
   info.stepCount = 0;
   info.defaultNormalizedValue = 0.5f;
   info.unitId = kRootUnitId;
 
-  // Установка начального значения
+  // Base value
   setNormalized (0.5f);
 }
 
@@ -61,7 +60,7 @@ CoordinateParameter::CoordinateParameter (int32 flags, int32 id, const char* nam
 void CoordinateParameter::toString (ParamValue normValue, String128 string) const
 {
   char text [32];
-  normValue -= 0.5f; // Установка значения в соответсвие с моделью
+  normValue -= 0.5f; // Model config
   sprintf (text, "%.2f", (float) normValue * 100);
   UString (string, 128).fromAscii (text);
 }
@@ -69,19 +68,18 @@ void CoordinateParameter::toString (ParamValue normValue, String128 string) cons
 //------------------------------------------------------------------------
 bool CoordinateParameter::fromString (const TChar* string, ParamValue& normValue) const
 {
-  // Создание дополнительных переменных
   String wrapper ((TChar*) string);
   double tmp = 0;
   if (wrapper.scanFloat (tmp))
   {
-    // Ограничение значений
+    // Value limits
     if (tmp > fLimit * 100.f)
       normValue = 0.5f + fLimit;
     else
       if (tmp < -fLimit * 100.f)
         normValue = 0.5f - fLimit;
       else
-        // Установка значения
+        // Value settin
         normValue = tmp / 100.f + 0.5f;
     return true;
   }
@@ -91,12 +89,12 @@ bool CoordinateParameter::fromString (const TChar* string, ParamValue& normValue
 //------------------------------------------------------------------------
 bool CoordinateParameter::setNormalized (ParamValue v)
 {
-  // Ограничение значений
+  // Limits
   if ( v > 0.5f + fLimit )
     return Parameter::setNormalized (0.5f + fLimit);
   if ( v < 0.5f - fLimit )
     return Parameter::setNormalized (0.5f - fLimit);
-  // Установка значения
+  // Value settin
   return Parameter::setNormalized (v);
 }
 
@@ -104,12 +102,12 @@ bool CoordinateParameter::setNormalized (ParamValue v)
 //------------------------------------------------------------------------
 void CoordinateParameter::updateLimit ()
 {
-  // Обносление ограничения
+  // Updated limit
   fLimit = mLimitGiver->getNormalized () * 0.49f;
-  // Обновление значения
+  // Limit settin
   setNormalized (getNormalized ());
 }
 
 //------------------------------------------------------------------------
-} // Пространство имён Vst
-} // Пространство имён Steinberg
+} // Vst
+} // Steinberg

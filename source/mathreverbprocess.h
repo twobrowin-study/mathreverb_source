@@ -5,37 +5,34 @@
 namespace Steinberg {
 namespace Vst {
 
-// Обработка входного аудио потока - преобразование его в выходной
+// Input to output audio processing
 
 //------------------------------------------------------------------------
 template <typename SampleType>
 SampleType MathReverb::processAudio (SampleType** in, SampleType** out, int32 numChannels, int32 sampleFrames)
 {
-	// Возвращаемое значение
+	// Returning value
 	SampleType vuPPM = 0;
 
-	if (bBypass) // Пропускаем обработку, если включён проброс
+	if (bBypass) // No process if Bypass
 		for (int32 channel = 0; channel < numChannels; channel++)
 			for (int32 sample = 0; sample < sampleFrames; sample++)
 				out[channel][sample] = in[channel][sample];
 	else
 	{
-		// Обработка
+		// Process
 		SampleType processingIn = 0.f;
 		SampleType processingOut = 0.f;
 		for (int32 sample = 0; sample < sampleFrames; sample++)
-		{
-			processingOut = 0.f;
 			for (int32 channel = 0; channel < numChannels; channel++)
+			{
 				processingIn = in[channel][sample];
-			graph->setDementoinParams (fWidth, fHeight, fLength, fXPos, fYPos, fZPos); // Передача параметров модели
-			processingOut = graph->process (processingIn, fReflection) * fGain; // Получение очередного семпла из графа
-			for (int32 channel = 0; channel < numChannels; channel++)
+				processingOut = graph[channel].process (processingIn, fReflection) * fGain; // New sample process
 				out[channel][sample] = processingOut;
-		}
+			}
 	}
 
-	// Обновляем значение выходной громкости
+	// VuMeter
 	for (int32 sample = 0; sample < sampleFrames; sample++)
 		if (out[0][sample] > vuPPM)
 			vuPPM = out[0][sample];
@@ -43,5 +40,5 @@ SampleType MathReverb::processAudio (SampleType** in, SampleType** out, int32 nu
 	return vuPPM;
 }
 
-} // Пространство имён Vst
-} // Пространство имён Steinberg
+} // Vst
+} // Steinberg

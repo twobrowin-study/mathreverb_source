@@ -1,15 +1,15 @@
 #include "mathreverb.h"
 #include "mathreverbprocess.h"
 #include "mathreverbparams/paramids.h"
-#include "mathreverbcids.h"	// Идентификаторы классов
+#include "mathreverbcids.h"	// class Id's
 
 #include "public.sdk/source/vst/vstaudioprocessoralgo.h"
 
-#include "pluginterfaces/base/ustring.h"	// Для UString128
+#include "pluginterfaces/base/ustring.h"	// For UString128
 #include "pluginterfaces/base/ibstream.h"
 #include "pluginterfaces/vst/ivstparameterchanges.h"
 #include "pluginterfaces/vst/ivstevents.h"
-#include "pluginterfaces/vst/vstpresetkeys.h"	// Для использованя IStreamAttributes
+#include "pluginterfaces/vst/vstpresetkeys.h"	// For IStreamAttributes
 
 #include <stdio.h>
 
@@ -17,7 +17,7 @@ namespace Steinberg {
 namespace Vst {
 
 //------------------------------------------------------------------------
-// MathReverb Реализация
+// MathReverb Implementation
 //------------------------------------------------------------------------
 MathReverb::MathReverb ()
 : fVuPPMOld (0.f)
@@ -31,53 +31,56 @@ MathReverb::MathReverb ()
 , fZPos (0.f)
 , bBypass (false)
 {
-	// Регистрация класса контроллера, содержащего интерфейс пользователя (тот же, что указан mathreverbentry.cpp)
 	setControllerClass (MathReverbControllerUID);
 }
 
 //------------------------------------------------------------------------
 tresult PLUGIN_API MathReverb::setActive (TBool isActive)
 {
-	// Проверка наличия устройств
+	// Devices test
 	SpeakerArrangement arr;
 	if (getBusArrangement (kOutput, 0, arr) != kResultTrue)
 		return kResultFalse;
 
-	// Проверка наличия аудио каналов
+	// Channels test
 	int32 numChannels = SpeakerArr::getChannelCount (arr);
 	if (numChannels == 0)
 		return kResultFalse;
 
 	if (isActive)
 	{
-		// Инициализация модели обработчика
-		graph = new MathReverbGraph (processSetup.sampleRate);
+		// Model init
+		graph = (MathReverbGraph*)std::malloc ((size_t) (numChannels * sizeof (MathReverbGraph)));
+		for (int32 i = 0; i < numChannels; i++)
+	    std::memcpy ( graph + i
+	                , new MathReverbGraph (processSetup.sampleRate)
+	                , sizeof (MathReverbGraph)
+	                );
 	}
 	else
 	{
-		// Уничтожение модели обработчика
-		delete graph;
+		// Destroy model
+		std::free (graph);
 		graph = NULL;
 	}
 
-	// Вызов метода родителя
+	// Supermethod
 	return AudioEffect::setActive (isActive);
 }
 
 //------------------------------------------------------------------------
 tresult PLUGIN_API MathReverb::initialize (FUnknown* context)
 {
-	// Инициализация родителя
+	// Parant init
 	tresult result = AudioEffect::initialize (context);
 
-	// Продолжаем, если родитель инициализирован
+	// If parent initialized
 	if (result != kResultOk)
 	{
 		return result;
 	}
 
-	// Создание аудио шин
-	// Стерео вход и выход
+	// Stereo input and output
 	addAudioInput  (STR16 ("Stereo In"),  SpeakerArr::kStereo);
 	addAudioOutput (STR16 ("Stereo Out"), SpeakerArr::kStereo);
 
@@ -87,63 +90,62 @@ tresult PLUGIN_API MathReverb::initialize (FUnknown* context)
 //------------------------------------------------------------------------
 tresult PLUGIN_API MathReverb::process (ProcessData& data)
 {
-	// Метод обработки аудио
-	// Здесь 3 шага обработки
-	// 1) Чтение изменения параметров, приходящих от хоста
-	// 2) Непосредственно обработка
-	// 3) Вывод параметра выходной громкости VuPPM обратно в плагин
+	// Audio processing
+	// There is 3 steps here
+	// 1) Getting input parm changes
+	// 2) Process itself
+	// 3) Send output params changes
 
-	// 1) Чтение изменения параметров
+	// 1) Getting input parm changes
 	getInputParamChanges (data.inputParameterChanges);
 
-	// 2) Непосредственно обработка
+	// 2) Process itself
 	float fVuPPM = 0.f;
 	if (data.numSamples > 0)
 	{
 		if (data.numInputs == 0 || data.numOutputs == 0)
-			// Если нет входных/выходных каналов - заканчиваем
+			// If no channels - leaving
 			return kResultOk;
 
-		// Получаем устройства вывода
+		// Getting device
 		SpeakerArrangement arr;
 		getBusArrangement (kOutput, 0, arr);
 		int32 numChannels = SpeakerArr::getChannelCount (arr);
 
-		// Получаем буферы аудио
+		// Getting buffers
 		uint32 sampleFramesSize = getSampleFramesSizeInBytes (processSetup, data.numSamples);
 		void** in = getChannelBuffersPointer (processSetup, data.inputs[0]);
 		void** out = getChannelBuffersPointer (processSetup, data.outputs[0]);
 
-		// Проверка на заглушённые каналы
-		// NOTE: проверять каждый канал
+		// Silence test
 		if ((data.inputs[0].silenceFlags != 0) || (!bBypass && (fGain < 0.0001f)))
 		{
-			// Если входные каналы заглушены - заглушим выходные
+			// If silence
 			data.outputs[0].silenceFlags = data.inputs[0].silenceFlags;
 
-			// Если каналы заглушены - очистим выходные аудио потоки
+			// Clear outputs
 			for (int32 i = 0; i < numChannels; i++)
 			{
-				// В данном случае входные каналы должны быть очищены хостом
+				// Inputs must be cleared by host
 				if (in[i] != out[i])
 					memset (out[i], 0, sampleFramesSize);
 			}
 
-			// Заканчиваем метод
+			// Leave
 			return kResultOk;
 		}
 
-		// Если входные каналы не заглушены - отметим незаглушенными выходные
+		// If inputs are not silence - so outputs
 		data.outputs[0].silenceFlags = 0;
 
-		// Обработка аудио при помощи метода-шаблона
+		// Process with help of template
 		if (data.symbolicSampleSize == kSample32)
 			fVuPPM = processAudio<Sample32> ((Sample32**)in, (Sample32**)out, numChannels, data.numSamples);
 		else
 			fVuPPM = processAudio<Sample64> ((Sample64**)in, (Sample64**)out, numChannels, data.numSamples);
 	}
 
-	// 3) Вывод параметра выходной громкости VuMeter обратно в плагин
+	// 3) Send output params changes
 	setOutputParamChanges (data.outputParameterChanges, fVuPPM);
 
 	return kResultOk;
@@ -203,7 +205,7 @@ tresult PLUGIN_API MathReverb::setState (IBStream* state)
 				 , savedZPos;
 		int32 bypassState;
 
-		// Получение параметров в том же порядке, что и определены
+		// Getting params
 		if (state->read (&savedGain, sizeof (float)) != kResultTrue)
 			return kResultFalse;
 		if (state->read (&savedWidth, sizeof (float)) != kResultTrue)
@@ -235,7 +237,7 @@ tresult PLUGIN_API MathReverb::setState (IBStream* state)
 			SWAP_32 (bypassState)
 		#endif
 
-		// Установка значений параметров
+		// Setting params
 		return kResultTrue;
 		fGain = savedGain;
 		fWidth = savedWidth;
@@ -256,75 +258,80 @@ void MathReverb::getInputParamChanges (IParameterChanges* paramChanges)
 {
 	if (paramChanges)
 	{
-		for (int32 i = 0; i < paramChanges->getParameterCount (); i++) // Проходим по всем изменённым параметрам
+		for (int32 i = 0; i < paramChanges->getParameterCount (); i++) // All changed params
 		{
-			IParamValueQueue* paramQueue = paramChanges->getParameterData (i); // Очередной изменённый параметр
+			IParamValueQueue* paramQueue = paramChanges->getParameterData (i); // Changed param
 			if (paramQueue)
 			{
-				// Определяем необходимые переменные для получения изменений параметров
+				// Requested params
 				ParamValue value;
 				int32 sampleOffset;
 				int32 numPoints = paramQueue->getPointCount ();
 				switch (paramQueue->getParameterId ())
 				{
-					case kGainId: // Если параметр Gain - записываем его
+					case kGainId: // Gain
 						if (paramQueue->getPoint (numPoints - 1, sampleOffset, value) == kResultTrue)
 							fGain = (float)value;
 						break;
 
-					case kWidthId: // Если параметр Width - записываем его
+					case kWidthId: // Width
 						if (paramQueue->getPoint (numPoints - 1, sampleOffset, value) == kResultTrue)
 							fWidth = (float)value;
 						break;
 
-					case kHeightId: // Если параметр Height - записываем его
+					case kHeightId: // Height
 						if (paramQueue->getPoint (numPoints - 1, sampleOffset, value) == kResultTrue)
 							fHeight = (float)value;
 						break;
 
-					case kLengthId: // Если параметр Length - записываем его
+					case kLengthId: // Length
 						if (paramQueue->getPoint (numPoints - 1, sampleOffset, value) == kResultTrue)
 							fLength = (float)value;
 						break;
 
-					case kReflectionId: // Если параметр Reflection - записываем его
+					case kReflectionId: // Reflection
 						if (paramQueue->getPoint (numPoints - 1, sampleOffset, value) == kResultTrue)
 							fReflection = (float)value;
 						break;
 
-					case kXPosId: // Если параметр XPos - записываем его
+					case kXPosId: // XPos
 						if (paramQueue->getPoint (numPoints - 1, sampleOffset, value) == kResultTrue)
 							fXPos = (float)value - 0.5f;
 						break;
 
-					case kYPosId: // Если параметр YPos - записываем его
+					case kYPosId: // YPos
 						if (paramQueue->getPoint (numPoints - 1, sampleOffset, value) == kResultTrue)
 							fYPos = (float)value - 0.5f;
 						break;
 
-					case kZPosId: // Если параметр ZPos - записываем его
+					case kZPosId: // ZPos
 						if (paramQueue->getPoint (numPoints - 1, sampleOffset, value) == kResultTrue)
 							fZPos = (float)value - 0.5f;
 						break;
 
-					case kBypassId: // Если параметр Bypass - записываем его
+					case kBypassId: // Bypass
 						if (paramQueue->getPoint (numPoints - 1, sampleOffset, value) == kResultTrue)
 							bBypass = (value > 0.5f);
 						break;
 				}
 			}
 		}
+		// Updating model
+		SpeakerArrangement arr;
+		getBusArrangement (kOutput, 0, arr);
+		int32 numChannels = SpeakerArr::getChannelCount (arr);
+		for (int32 channel = 0; channel < numChannels; channel++)
+			graph[channel].setDementoinParams (fWidth, fHeight, fLength, fXPos, fYPos, fZPos); // New params
 	}
 }
 
 //------------------------------------------------------------------------
 void MathReverb::setOutputParamChanges (IParameterChanges* paramChanges, float fVuPPM)
 {
-	// Новое значение VuPPM будет отправлено в хост для синхронизации,
-	// после чего он передаст его контроллеру плагина
+	// New vuPPM will be send to host
 	if (paramChanges && fVuPPMOld != fVuPPM)
 	{
-		// Запишем новое значение, если оно изменено
+		// if changed - write
 		int32 index = 0;
 		IParamValueQueue* paramQueue = paramChanges->addParameterData (kVuPPMId, index);
 		if (paramQueue)
@@ -338,5 +345,5 @@ void MathReverb::setOutputParamChanges (IParameterChanges* paramChanges, float f
 
 
 //------------------------------------------------------------------------
-} // Пространство имён Vst
-} // Пространство имён Steinberg
+} // Vst
+} // Steinberg

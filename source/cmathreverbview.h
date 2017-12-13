@@ -10,14 +10,12 @@
 namespace VSTGUI {
 
 //------------------------------------------------------------------------
-// CMathReverbView: Декларация
-// Предназначен для графического вывода геометрии помещения,
-// положений источника и приёмника
+// CMathReverbView: Decloration
 //------------------------------------------------------------------------
 class CMathReverbView : public CView
 {
 public:
-  // Конструктор
+  // Constructor
 	CMathReverbView ( const CRect& size
 									, Steinberg::Vst::SizeParameter *widthGiver
 									, Steinberg::Vst::SizeParameter *heightGiver
@@ -39,12 +37,14 @@ public:
 								 , mXPosGiver (xPosGiver)
 								 , mYPosGiver (yPosGiver)
 								 , mZPosGiver (zPosGiver)
-								 {}
+								 {
+									 update ();
+								 }
 
-  // Метод рисования - вывода в заданое поле графической информации
+  // Draw method
   virtual void draw (CDrawContext *pContext);
 
-	// Метод обновления параметров и перерисовки
+	// Update and redraw method
 	void update ();
 private:
 	int mWidth, mHeight, mLength;
@@ -54,17 +54,17 @@ private:
 };
 
 //------------------------------------------------------------------------
-// CMathReverbView: Реализация
+// CMathReverbView: Implementation
 //------------------------------------------------------------------------
 
 //------------------------------------------------------------------------
 void CMathReverbView::draw (CDrawContext *pContext)
 {
-	// Центр графика
+	// Center
 	int centerX = (int) getWidth () / 2,
 			centerY = (int) getHeight () / 2;
 
-	// Точки параллелепипеда
+	// Big cube dots
 	CPoint parallPoint[8] = { CPoint (centerX-(int) (mWidth*1.5+mLength/4.7), centerY-(int) (mHeight*1.5+mLength/4.7)),
 														CPoint (centerX-(int) (mWidth*1.5+mLength/4.7), centerY+(int) (mHeight*1.5-mLength/4.7)),
 														CPoint (centerX+(int) (mWidth*1.5-mLength/4.7), centerY+(int) (mHeight*1.5-mLength/4.7)),
@@ -75,7 +75,7 @@ void CMathReverbView::draw (CDrawContext *pContext)
 														CPoint (centerX+(int) (mWidth*1.5+mLength/4.7), centerY-(int) (mHeight*1.5-mLength/4.7))
 													};
 
-	// Точки центрального куба
+	// Central cube dots
 	int xIntend = mXPos*3-(mXPos/abs (mXPos==0?1:mXPos))*10
 		 ,yIntend = mZPos*3-(mZPos/abs (mZPos==0?1:mZPos))*10;
 	CPoint centralPoints[8] = { CPoint (centerX+xIntend-mYPos/3-10, centerY-yIntend-mYPos/3-10),
@@ -88,12 +88,12 @@ void CMathReverbView::draw (CDrawContext *pContext)
 															CPoint (centerX+xIntend-mYPos/3+10, centerY-yIntend-mYPos/3-5)
 														};
 
-	// Сплошная линия
+	// Solid line
 	pContext->setLineStyle (CLineStyle ());
   pContext->setLineWidth (2);
   pContext->setFrameColor (CColor (0, 255, 0, 255)); // зелёный
 
-	// Сплошные линии параллелепипеда
+	// Big cube
 	pContext->drawLine (parallPoint[0], parallPoint[1]);
 	pContext->drawLine (parallPoint[3], parallPoint[0]);
 
@@ -108,7 +108,7 @@ void CMathReverbView::draw (CDrawContext *pContext)
 	pContext->drawLine (parallPoint[1], parallPoint[5]);
 	pContext->drawLine (parallPoint[4], parallPoint[7]);
 
-	// Сплошные линии центрального куба
+	// Central cube
 	pContext->drawLine (centralPoints[0], centralPoints[1]);
 	pContext->drawLine (centralPoints[3], centralPoints[0]);
 
@@ -123,7 +123,7 @@ void CMathReverbView::draw (CDrawContext *pContext)
 	pContext->drawLine (centralPoints[1], centralPoints[5]);
 	pContext->drawLine (centralPoints[4], centralPoints[7]);
 
-	// Пунктирные линии параллелепипеда
+	// Big cube dash
 	CCoord mLengthsDashLong[6] = { CCoord (3.0),
 																 CCoord (3.0),
 																 CCoord (3.0),
@@ -136,7 +136,7 @@ void CMathReverbView::draw (CDrawContext *pContext)
 	pContext->drawLine (parallPoint[2], parallPoint[3]);
 	pContext->drawLine (parallPoint[2], parallPoint[1]);
 
-	// Пунктирные линии центрального куба
+	// Central cube dash
 	CCoord mLengthsDashShort[10] = { CCoord (0.1),
 																	 CCoord (0.1),
 																	 CCoord (0.1),
@@ -160,19 +160,19 @@ void CMathReverbView::draw (CDrawContext *pContext)
 //------------------------------------------------------------------------
 void CMathReverbView::update ()
 {
-	// Установим размеры куба
+	// Cube demention params
 	mWidth = mWidthGiver->getNormalized () * 100.f;
 	mHeight = mHeightGiver->getNormalized () * 100.f;
 	mLength = mLengthGiver->getNormalized () * 100.f;
 
-	// Установим размеры куба
+	// Position
 	mXPos = (mXPosGiver->getNormalized () - 0.5f) * 100.f;
 	mYPos = (mYPosGiver->getNormalized () - 0.5f) * 100.f;
 	mZPos = (mZPosGiver->getNormalized () - 0.5f) * 100.f;
 
-	// Перерисуем представление
+	// Redraw
 	invalid ();
 }
 
 //------------------------------------------------------------------------
-} // Пространство имён VSTGUI
+} // VSTGUI

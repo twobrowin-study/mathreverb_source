@@ -7,47 +7,46 @@ namespace Steinberg {
 namespace Vst {
 
 //------------------------------------------------------------------------
-// MathReverb: Декларация
-// Описывает обработчик плагина - преобразование аудио потока
+// MathReverb: Decloration
 //------------------------------------------------------------------------
 class MathReverb : public AudioEffect
 {
 public:
 	MathReverb ();
 
-	// Статический метод создания экземпляра класса, будет вызван при включении плагина
+	// New object
 	static FUnknown* createInstance (void* /*context*/) { return (IAudioProcessor*)new MathReverb; }
 
-	// Вызывается сразу после конструктора
+	// Calls after constructor
 	tresult PLUGIN_API initialize (FUnknown* context) SMTG_OVERRIDE;
 
-	// Включение и выключение плагина
+	// Activation and deactivation
 	tresult PLUGIN_API setActive (TBool state) SMTG_OVERRIDE;
 
-	// Метод обработки и применения изменений плагина
+	// Process itself
 	tresult PLUGIN_API process (ProcessData& data) SMTG_OVERRIDE;
 
-	// Методы сохранения параметров
+	// Prams Saving
 	tresult PLUGIN_API getState (IBStream* state) SMTG_OVERRIDE;
 	tresult PLUGIN_API setState (IBStream* state) SMTG_OVERRIDE;
 
 protected:
-	// Метод непосредственно обработки аудио потока
+	// Process
 	template <typename SampleType>
 	SampleType processAudio (SampleType** input, SampleType** output, int32 numChannels, int32 sampleFrames);
 
-	// Метод получения входных изменений параметров
+	// From host
 	void getInputParamChanges (IParameterChanges* paramChanges);
-	// Метод вывода параметров в хост
+	// To host
 	void setOutputParamChanges (IParameterChanges* paramChanges, float fVuPPM);
 
-	// Параметры модели
+	// Model params
 	float fVuPPMOld;
 
 	float fGain
 			, fWidth
 			, fHeight
-			, fLength	
+			, fLength
 			, fReflection
 			, fXPos
 			, fYPos
@@ -58,5 +57,5 @@ protected:
 };
 
 //------------------------------------------------------------------------
-} // Пространство имён Vst
-} // Пространство имён Steinberg
+} // Vst
+} // Steinberg

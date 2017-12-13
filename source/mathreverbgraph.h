@@ -6,26 +6,26 @@ namespace Steinberg {
 namespace Vst {
 
 //------------------------------------------------------------------------
-// MathReverbGraph: Декларация
-// Математическая модель плагина
-// Помещение внутри которого происходит преобразование звука
+// MathReverbGraph: Decloration
+// Plugin math model
+// Reverberation hall
 //------------------------------------------------------------------------
 class MathReverbGraph
 {
 public:
-  // Конструктор
+  // Constructor
   MathReverbGraph (SampleRate sampleRate);
-  // Деструктор
+  // Destructor
   ~MathReverbGraph ();
 
-  // Метод обрабоки очередного семпла
+  // Another sample process
   Sample64 process (Sample64 inSample, float reflection);
 
-  // Метод обработки изменения пространственных параметров
+  // Settion model params
   void setDementoinParams (float length, float width, float height, float xPos, float yPos, float zPos);
 
 private:
-    // Вершины графа
+    // Graph apexes
     MathReverbApex *sourceApex;
     MathReverbApex *modelApexes;
     MathReverbApex *sinkApex;
@@ -35,5 +35,5 @@ private:
 };
 
 //------------------------------------------------------------------------
-} // Пространство имён Vst
-} // Пространство имён Steinberg
+} // Vst
+} // Steinberg

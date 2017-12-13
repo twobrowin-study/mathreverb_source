@@ -10,38 +10,37 @@ namespace Steinberg {
 namespace Vst {
 
 //------------------------------------------------------------------------
-// GainParameter Деклорация
-// Описывает параметр громкости звука в дБ
+// GainParameter Decloration
 //------------------------------------------------------------------------
 class GainParameter : public Parameter
 {
 public:
-  // Конструктор
+  // Constructor
   GainParameter (int32 flags, int32 id);
 
-  // Преобразование на вывод
+  // Output transform
   virtual void toString (ParamValue normValue, String128 string) const;
-  //  Преобразование после ввода
+  // Input transform
   virtual bool fromString (const TChar* string, ParamValue& normValue) const;
 };
 
 //------------------------------------------------------------------------
-// GainParameter Реализация
+// GainParameter Implementation
 //------------------------------------------------------------------------
 GainParameter::GainParameter (int32 flags, int32 id)
 {
-  // Установка информации для хоста
+  // For host info
   UString (info.title, USTRINGSIZE (info.title)).assign (USTRING ("Gain"));
   UString (info.units, USTRINGSIZE (info.units)).assign (USTRING ("dB"));
 
-  // Установка флагов (описывают принципы взаимодествия для ввода)
+  // Flags
   info.flags = flags;
   info.id = id;
   info.stepCount = 0;
   info.defaultNormalizedValue = 1.f;
   info.unitId = kRootUnitId;
 
-  // Установка начального значения
+  // Base value
   setNormalized (1.0);
 }
 
@@ -49,8 +48,8 @@ GainParameter::GainParameter (int32 flags, int32 id)
 void GainParameter::toString (ParamValue normValue, String128 string) const
 {
   char text [32];
-  if (normValue > 0.001f) // Проверка на слишком малое значение
-    sprintf (text, "%.1f", 20 * log10f ( (float) normValue)); // Формула преобразования из долей в дБ
+  if (normValue > 0.001f) // Min limit
+    sprintf (text, "%.1f", 20 * log10f ( (float) normValue)); // From normValue to dB formula
   else
     strcpy (text, "-oo");
   UString (string, 128).fromAscii (text);
@@ -63,16 +62,16 @@ bool GainParameter::fromString (const TChar* string, ParamValue& normValue) cons
   double tmp = 0;
   if (wrapper.scanFloat (tmp))
   {
-    // Ограниечение на отрцительные значения
+    // No minus values
     if (tmp > 0.0)
       tmp = -tmp;
 
-    normValue = expf (logf (10.f) * (float) tmp / 20.f); // Формула преобразования из дБ в доли
+    normValue = expf (logf (10.f) * (float) tmp / 20.f); // From dB to normValue
     return true;
   }
   return false;
 }
 
 //------------------------------------------------------------------------
-} // Пространство имён Vst
-} // Пространство имён Steinberg
+} // Vst
+} // Steinberg

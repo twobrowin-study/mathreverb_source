@@ -9,38 +9,37 @@ namespace Steinberg {
 namespace Vst {
 
 //------------------------------------------------------------------------
-// ReflectionParameter Деклорация
-// Описание параметров координат, длины, ширины, высоты
+// ReflectionParameter Decloration
 //------------------------------------------------------------------------
 class ReflectionParameter : public Parameter
 {
 public:
-  // Конструктор
+  // Constructor
   ReflectionParameter (int32 flags, int32 id);
 
-  // Преобразование на вывод
+  // Output transform
   virtual void toString (ParamValue normValue, String128 string) const;
-  //  Преобразование после ввода
+  // Input transform
   virtual bool fromString (const TChar* string, ParamValue& normValue) const;
 };
 
 //------------------------------------------------------------------------
-// ReflectionParameter Реализация
+// ReflectionParameter Implementation
 //------------------------------------------------------------------------
 ReflectionParameter::ReflectionParameter (int32 flags, int32 id)
 {
-  // Установка информации для хоста
+  // For host info
   UString (info.title, USTRINGSIZE (info.title)).assign (USTRING ("Reflection"));
   UString (info.units, USTRINGSIZE (info.units)).assign (USTRING ("%"));
 
-  // Установка флагов (описывают принципы взаимодествия для ввода)
+  // Flags
   info.flags = flags;
   info.id = id;
   info.stepCount = 0;
   info.defaultNormalizedValue = 1.f;
   info.unitId = kRootUnitId;
 
-  // Установка начального значения
+  // Base value
   setNormalized (1.f);
 }
 
@@ -59,11 +58,11 @@ bool ReflectionParameter::fromString (const TChar* string, ParamValue& normValue
   double tmp = 0;
   if (wrapper.scanFloat (tmp))
   {
-    // Ограничение на только положительные значения
+    // Onlu pos value
     if (tmp < 0.0)
       tmp = -tmp;
 
-    // Ограничение 100%
+    // 100% limit
     if (tmp > 100.0)
       tmp = 100.0;
 
@@ -74,5 +73,5 @@ bool ReflectionParameter::fromString (const TChar* string, ParamValue& normValue
 }
 
 //------------------------------------------------------------------------
-} // Пространство имён Vst
-} // Пространство имён Steinberg
+} // Vst
+} // Steinberg

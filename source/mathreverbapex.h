@@ -5,7 +5,7 @@ namespace Steinberg {
 namespace Vst {
 
 //------------------------------------------------------------------------
-// Стурктура передачи указателей на объеты класса
+// Helper structure
 // -----------------------------------------------------------------------
 class MathReverbApex;
 struct DelayPoint
@@ -16,61 +16,74 @@ struct DelayPoint
   int32 delayInSamples;
 };
 
-enum ApexType // Вспомогательные определения
+enum ApexType // Added numbers
 {
-    kNoDelay // У вершины нет линий задержек - исток
-  , kNoBuffer // У вершины нет буфера - сток
-  , kNormalApex // Обычная вершина
+    kNoDelay // Source
+  , kNoBuffer // Sink
+  , kNormalApex // Another Apex
 };
 
 //------------------------------------------------------------------------
-// MathReverbApex: Декларация
-// Математическая модель плагина
-// Вершина графа
+// MathReverbApex: Decloration
 //------------------------------------------------------------------------
 class MathReverbApex
 {
 public:
-  // Конструктор
+  // Constructors
   MathReverbApex (SampleRate sampleRate, DelayPoint* delayArray, int32 numberOfApexes, float defaultReflection, ApexType key = kNormalApex);
   MathReverbApex (SampleRate sampleRate, ApexType key = kNoDelay);
   MathReverbApex (DelayPoint* delayArray, int32 numberOfApexes, float defaultReflection, ApexType key = kNoBuffer);
 
-  // Деструктор
+  // Destructor
   ~MathReverbApex ();
 
-  // Метод возвращает очередной семпл из буфера
+  // Get sample
   Sample64 getSampleWithDelay (int32 delayInSamples);
 
-  // Метод устанавливает очередной семпл в
+  // New sample process
   Sample64 setSampleFromApexes (float reflection = 1.f);
 
-  // Метод устанавливает семпл в буфер источника
+  // Set sample into buffer
   Sample64 setSourceSample (Sample64 sourceSample);
 
-  // Метод устанавливает новые отношения связи
+  // Adding new connections
   void setDelayArray (DelayPoint* delayArray, int32 numberOfApexes);
 
-  // Метод установки стандартной отражающей способности
+  // Settin default reflection
   void setDefaultReflection (float defaultReflection)
   {
     mDefaultReflection = defaultReflection;
   }
 
 private:
-    // Буфер
-  	Sample64* mBuffer;
-    int32 mBufferPos;
-    int32 mBufferLen;
+  // Init methods
+  void bufferInit (int sampleRate)
+  {
+    size_t bufferSize = (size_t) (sampleRate * sizeof (Sample64) + 0.5);
+    mBuffer = (Sample64*)std::malloc (bufferSize); // 1 sec max
+    memset (mBuffer, 0, bufferSize);
+  }
 
-    // Прочие вершины с задержками
-  	DelayPoint* mDelayArray;
-    int32 mDelayArrayLen;
+  void delaysInit (DelayPoint* delayArray, int32 numberOfApexes)
+  {
+    mDelayArray = (DelayPoint*)std::malloc ((size_t) (numberOfApexes * sizeof (DelayPoint)));
+    for (int32 i = 0; i < numberOfApexes; i++)
+      mDelayArray[i] = delayArray[i];
+  }
 
-    // Стандартная отражающая спопсобность
-    float mDefaultReflection;
+  // Buffer
+	Sample64* mBuffer;
+  int32 mBufferPos;
+  int32 mBufferLen;
+
+  // Another apexes
+	DelayPoint* mDelayArray;
+  int32 mDelayArrayLen;
+
+  // Default reflection
+  float mDefaultReflection;
 };
 
 //------------------------------------------------------------------------
-} // Пространство имён Vst
-} // Пространство имён Steinberg
+} // Vst
+} // Steinberg

@@ -9,40 +9,39 @@ namespace Steinberg {
 namespace Vst {
 
 //------------------------------------------------------------------------
-// SizeParameter Деклорация
-// Описание параметров координат, длины, ширины, высоты
+// SizeParameter Decloration
 //------------------------------------------------------------------------
 class SizeParameter : public Parameter
 {
 public:
-  // Конструктор
+  // Constructor
   SizeParameter (int32 flags, int32 id, const char* name);
 
-  // Преобразование на вывод
+  // Output transform
   virtual void toString (ParamValue normValue, String128 string) const;
-  //  Преобразование после ввода
+  // Input transform
   virtual bool fromString (const TChar* string, ParamValue& normValue) const;
-  // Установка параметра
+  // Param settin
   virtual bool setNormalized (ParamValue v);
 };
 
 //------------------------------------------------------------------------
-// SizeParameter Реализация
+// SizeParameter Implementation
 //------------------------------------------------------------------------
 SizeParameter::SizeParameter (int32 flags, int32 id, const char* name)
 {
-  // Установка информации для хоста
+  // For host info
   UString (info.title, USTRINGSIZE (info.title)).assign (USTRING (name));
   UString (info.units, USTRINGSIZE (info.units)).assign (USTRING ("m"));
 
-  // Установка флагов (описывают принципы взаимодествия для ввода)
+  // Flags
   info.flags = flags;
   info.id = id;
   info.stepCount = 0;
   info.defaultNormalizedValue = 1.f;
   info.unitId = kRootUnitId;
 
-  // Установка начального значения
+  // Base value
   setNormalized (0.f);
 }
 
@@ -61,7 +60,7 @@ bool SizeParameter::fromString (const TChar* string, ParamValue& normValue) cons
   double tmp = 0;
   if (wrapper.scanFloat (tmp))
   {
-    // Ограничение значения
+    // Value limit
     if (tmp < 10.f)
       tmp = 10.f;
 
@@ -74,12 +73,12 @@ bool SizeParameter::fromString (const TChar* string, ParamValue& normValue) cons
 //------------------------------------------------------------------------
 bool SizeParameter::setNormalized (ParamValue v)
 {
-  // Ограничение значения
+  // Value limit
   if ( v < 0.1f )
     return Parameter::setNormalized (0.1f);
   return Parameter::setNormalized (v);
 }
 
 //------------------------------------------------------------------------
-} // Пространство имён Vst
-} // Пространство имён Steinberg
+} // Vst
+} // Steinberg

@@ -2,36 +2,36 @@
 
 #include "pluginterfaces/base/fplatform.h"
 
-// Описание версии плагина
+// Plugin version
 
-// Основная версия
+// Major version
 #define MAJOR_VERSION_STR "1"
 #define MAJOR_VERSION_INT 1
 
-// Дополнительная версия
-#define SUB_VERSION_STR "0"
-#define SUB_VERSION_INT 0
+// Sub version
+#define SUB_VERSION_STR "5"
+#define SUB_VERSION_INT 5
 
-// Номер выпуска
-#define RELEASE_NUMBER_STR "10"
-#define RELEASE_NUMBER_INT 10
+// Release number
+#define RELEASE_NUMBER_STR "1"
+#define RELEASE_NUMBER_INT 1
 
-// Номер сборки
-#define BUILD_NUMBER_STR "2563"
-#define BUILD_NUMBER_INT 2563
+// Build number
+#define BUILD_NUMBER_STR "1"
+#define BUILD_NUMBER_INT 1
 
-// Весия с номером сборки (например "1.0.3.342")
+// Ver with build number (example "1.0.3.342")
 #define FULL_VERSION_STR MAJOR_VERSION_STR "." SUB_VERSION_STR "." RELEASE_NUMBER_STR "." BUILD_NUMBER_STR
 
-// Версия без номера сборки (например "1.0.3")
+// Ver without build number (example "1.0.3")
 #define VERSION_STR MAJOR_VERSION_STR "." SUB_VERSION_STR "." RELEASE_NUMBER_STR
 
-#define stringOriginalFilename	"mathreverb.vst3" // Название выходного файла
+#define stringOriginalFilename	"mathreverb.vst3" // Output filename
 #if PLATFORM_64
-#define stringFileDescription	"MathReverb VST3 (64Bit)" // Название при 64Bit архитектуре
+#define stringFileDescription	"MathReverb VST3 (64Bit)" // 64Bit name
 #else
-#define stringFileDescription	"MathReverb VST3" // Название при 32Bit архитектуре
+#define stringFileDescription	"MathReverb VST3" // 32Bit name
 #endif
-#define stringCompanyName		"BMSTU\0" // Название учереждения
-#define stringLegalCopyright	"2017 Dubrovin Egor dubrovin.en@gmail.com" // Информация о разработчике
-#define stringLegalTrademarks	"VST is a trademark of Steinberg Media Technologies GmbH" // Информация о правах собственности
+#define stringCompanyName		"BMSTU\0" // Company
+#define stringLegalCopyright	"2017 Dubrovin Egor dubrovin.en@gmail.com" // Developer info
+#define stringLegalTrademarks	"VST is a trademark of Steinberg Media Technologies GmbH" // Legal

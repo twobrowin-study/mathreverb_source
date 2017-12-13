@@ -4,7 +4,7 @@ namespace Steinberg {
 namespace Vst {
 
 //------------------------------------------------------------------------
-// MathReverbApex: Реализация
+// MathReverbApex: Implementation
 //------------------------------------------------------------------------
 
 //------------------------------------------------------------------------
@@ -16,15 +16,11 @@ MathReverbApex::MathReverbApex (SampleRate sampleRate, DelayPoint* delayArray, i
 {
   if (key == kNormalApex)
   {
-    // Инициализация буфера
-    size_t bufferSize = (size_t) (sampleRate * sizeof (Sample64) + 0.5);
-    mBuffer = (Sample64*)std::malloc (bufferSize); // максимум задержки - 1 секунда
-    memset (mBuffer, 0, bufferSize);
+    // Buffer Init
+    bufferInit (sampleRate);
 
-    // Передача параметров задержки
-    mDelayArray = (DelayPoint*)std::malloc ((size_t) (numberOfApexes * sizeof (DelayPoint)));
-    for (int32 i = 0; i < numberOfApexes; i++)
-      mDelayArray[i] = delayArray[i];
+    // Adding delays
+    delaysInit (delayArray, numberOfApexes);
   }
 }
 
@@ -37,12 +33,8 @@ MathReverbApex::MathReverbApex (SampleRate sampleRate, ApexType key)
 , mDefaultReflection (0)
 {
   if (key == kNoDelay)
-  {
-    // Инициализация буфера
-    size_t bufferSize = (size_t) (sampleRate * sizeof (Sample64) + 0.5);
-    mBuffer = (Sample64*)std::malloc (bufferSize); // максимум задержки - 1 секунда
-    memset (mBuffer, 0, bufferSize);
-  }
+    // Buffer Init
+    bufferInit (sampleRate);
 }
 
 //------------------------------------------------------------------------
@@ -54,25 +46,21 @@ MathReverbApex::MathReverbApex (DelayPoint* delayArray, int32 numberOfApexes, fl
 , mDefaultReflection (defaultReflection)
 {
   if (key == kNoBuffer)
-  {
-    // Передача параметров задержки
-    mDelayArray = (DelayPoint*)std::malloc ((size_t) (numberOfApexes * sizeof (DelayPoint)));
-    for (int32 i = 0; i < numberOfApexes; i++)
-      mDelayArray[i] = delayArray[i];
-  }
+    // Adding delays
+    delaysInit (delayArray, numberOfApexes);
 }
 
 //------------------------------------------------------------------------
 MathReverbApex::~MathReverbApex ()
 {
-  // Очистка буфера
+  // Buffer clear
   if (mBuffer)
   {
     std::free (mBuffer);
     mBuffer = 0;
   }
 
-  // Очистка задержки
+  // Delays clear
   if (mDelayArray)
   {
     std::free (mDelayArray);
@@ -102,9 +90,9 @@ Sample64 MathReverbApex::setSampleFromApexes (float reflection)
   Sample64 sampleToPush = 0.f;
   if (mDelayArray)
   {
-    // Пройдёмся по всем вершинам
+    // For all ather apexes
     for (int32 i = 0; i < mDelayArrayLen; i++)
-      // Добавим приглушенное отражение
+      // Add delayed sample
       sampleToPush += mDefaultReflection * reflection * mDelayArray[i].apex -> getSampleWithDelay (mDelayArray[i].delayInSamples);
   }
 
@@ -131,11 +119,11 @@ Sample64 MathReverbApex::setSourceSample (Sample64 sourceSample)
 //------------------------------------------------------------------------
 void MathReverbApex::setDelayArray (DelayPoint* delayArray, int32 numberOfApexes)
 {
-  // Передача параметров задержки
+  // Change of delays
   for (int32 i = 0; i < numberOfApexes; i++)
     mDelayArray[i] = delayArray[i];
 }
 
 //------------------------------------------------------------------------
-} // Пространство имён Vst
-} // Пространство имён Steinberg
+} // Vst
+} // Steinberg

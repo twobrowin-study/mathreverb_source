@@ -22,7 +22,7 @@ namespace Steinberg {
 namespace Vst {
 
 //------------------------------------------------------------------------
-// MathReverbController Реализация
+// MathReverbController Implementation
 //------------------------------------------------------------------------
 tresult PLUGIN_API MathReverbController::initialize (FUnknown* context)
 {
@@ -30,7 +30,7 @@ tresult PLUGIN_API MathReverbController::initialize (FUnknown* context)
 	if (result != kResultOk)
 		return result;
 
-	// Создадим блок для параметров
+	// Params unit creation
 	UnitInfo unitInfo;
 	Unit* unit;
 
@@ -41,61 +41,61 @@ tresult PLUGIN_API MathReverbController::initialize (FUnknown* context)
 	unit = new Unit (unitInfo);
 	addUnit (unit);
 
-	// Параметр Gain
+	// Gain
 	GainParameter* gainParam = new GainParameter (ParameterInfo::kCanAutomate, kGainId);
 	parameters.addParameter (gainParam);
 	gainParam->setUnitID (unitInfo.id);
 
-	// Параметр Width
+	// Width
 	SizeParameter* widthParam = new SizeParameter (ParameterInfo::kCanAutomate, kWidthId, "Width");
 	parameters.addParameter (widthParam);
 	widthParam->setUnitID (unitInfo.id);
 
-	// Параметр Height
+	// Height
 	SizeParameter* heightParam = new SizeParameter (ParameterInfo::kCanAutomate, kHeightId, "Height");
 	parameters.addParameter (heightParam);
 	heightParam->setUnitID (unitInfo.id);
 
-	// Параметр Length
+	// Length
 	SizeParameter* lengthParam = new SizeParameter (ParameterInfo::kCanAutomate, kLengthId, "Length");
 	parameters.addParameter (lengthParam);
 	lengthParam->setUnitID (unitInfo.id);
 
-	// Параметр Reflection
+	// Reflection
 	ReflectionParameter* reflectionParam = new ReflectionParameter (ParameterInfo::kCanAutomate, kReflectionId);
 	parameters.addParameter (reflectionParam);
 	reflectionParam->setUnitID (unitInfo.id);
 
-	// Параметр X Pos
+	// X Pos
 	CoordinateParameter* xPosParam = new CoordinateParameter (ParameterInfo::kCanAutomate, kXPosId, "X Pos", widthParam);
 	parameters.addParameter (xPosParam);
 	xPosParam->setUnitID (unitInfo.id);
 
-	// Параметр Y Pos
+	// Y Pos
 	CoordinateParameter* yPosParam = new CoordinateParameter (ParameterInfo::kCanAutomate, kYPosId, "Y Pos", lengthParam);
 	parameters.addParameter (yPosParam);
 	yPosParam->setUnitID (unitInfo.id);
 
-	// Параметр Z Pos
+	// Z Pos
 	CoordinateParameter* zPosParam = new CoordinateParameter (ParameterInfo::kCanAutomate, kZPosId, "Z Pos", heightParam);
 	parameters.addParameter (zPosParam);
 	zPosParam->setUnitID (unitInfo.id);
 
-	// Параметр VuMeter
+	// VuMeter
 	int32 stepCount = 0;
 	ParamValue defaultVal = 0;
 	int32 flags = ParameterInfo::kIsReadOnly;
 	int32 tag = kVuPPMId;
 	parameters.addParameter (STR16 ("VuPPM"), 0, stepCount, defaultVal, flags, tag);
 
-	// Параметр Bypass
+	// Bypass
 	stepCount = 1;
 	defaultVal = 0;
 	flags = ParameterInfo::kCanAutomate | ParameterInfo::kIsBypass;
 	tag = kBypassId;
 	parameters.addParameter (STR16 ("Bypass"), 0, stepCount, defaultVal, flags, tag);
 
-	// Создадим mathReverbView
+	// mathReverbView
 	CRect size (CPoint (0, 0), CPoint (593, 370));
 	mathReverbView = (CView*) new CMathReverbView (size, widthParam, heightParam, lengthParam, xPosParam, yPosParam, zPosParam);
 
@@ -107,6 +107,9 @@ tresult PLUGIN_API MathReverbController::setComponentState (IBStream* state)
 {
 	if (state)
 	{
+		// Destroy mathReverbView
+		delete mathReverbView;
+
 		float  savedGain
 				 , savedWidth
 				 , savedHeight
@@ -117,7 +120,7 @@ tresult PLUGIN_API MathReverbController::setComponentState (IBStream* state)
 				 , savedZPos;
 		int32 bypassState;
 
-		// Получение параметров в том же порядке, что и определены
+		// Takking parms
 		if (state->read (&savedGain, sizeof (float)) != kResultTrue)
 			return kResultFalse;
 		if (state->read (&savedWidth, sizeof (float)) != kResultTrue)
@@ -149,7 +152,7 @@ tresult PLUGIN_API MathReverbController::setComponentState (IBStream* state)
 			SWAP_32 (bypassState)
 		#endif
 
-		// Установка значений параметров
+		// Setting params
 		setParamNormalized (kGainId, savedGain);
 		setParamNormalized (kWidthId, savedWidth);
 		setParamNormalized (kHeightId, savedHeight);
@@ -159,6 +162,10 @@ tresult PLUGIN_API MathReverbController::setComponentState (IBStream* state)
 		setParamNormalized (kYPosId, savedYPos);
 		setParamNormalized (kZPosId, savedZPos);
 		setParamNormalized (kBypassId, bypassState);
+
+		// mathReverbView
+		CRect size (CPoint (0, 0), CPoint (593, 370));
+		mathReverbView = (CView*) new CMathReverbView (size, widthParam, heightParam, lengthParam, xPosParam, yPosParam, zPosParam);
 	}
 	return kResultTrue;
 }
@@ -167,7 +174,7 @@ tresult PLUGIN_API MathReverbController::setComponentState (IBStream* state)
 tresult PLUGIN_API MathReverbController::setParamNormalized (ParamID tag, ParamValue value)
 {
 	tresult result = EditControllerEx1::setParamNormalized (tag, value);
-	// Обновление ограничений для параметров координат
+	// Updating objects
 	((CoordinateParameter *) getParameterObject (kXPosId)) -> updateLimit ();
 	((CoordinateParameter *) getParameterObject (kYPosId)) -> updateLimit ();
 	((CoordinateParameter *) getParameterObject (kZPosId)) -> updateLimit ();
@@ -178,7 +185,7 @@ tresult PLUGIN_API MathReverbController::setParamNormalized (ParamID tag, ParamV
 //------------------------------------------------------------------------
 IPlugView* PLUGIN_API MathReverbController::createView (const char* name)
 {
-	// Получен запрос интерфейса пользователя
+	// We need user interface
 	if (name && strcmp (name, "editor") == 0)
 	{
 		VST3Editor* view = new VST3Editor (this, "view", "mathreverb.uidesc");
@@ -190,10 +197,10 @@ IPlugView* PLUGIN_API MathReverbController::createView (const char* name)
 //-----------------------------------------------------------------------
 CView* MathReverbController::createCustomView (UTF8StringPtr name, const UIAttributes &attributes, const IUIDescription *description, VST3Editor *editor)
 {
-	// В силу единственности возвращаем указатель на объект переопределённого представления
+	// There is no other options
 	return mathReverbView;
 }
 
 //------------------------------------------------------------------------
-} // пространство имён Vst
-} // пространство имён Steinberg
+} // Vst
+} // Steinberg

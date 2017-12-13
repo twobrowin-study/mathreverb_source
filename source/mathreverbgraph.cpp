@@ -6,7 +6,7 @@ namespace Steinberg {
 namespace Vst {
 
 //------------------------------------------------------------------------
-// MathReverbGraph: Реализация
+// MathReverbGraph: Implementation
 //------------------------------------------------------------------------
 
 //------------------------------------------------------------------------
@@ -14,13 +14,13 @@ MathReverbGraph::MathReverbGraph (SampleRate sampleRate)
 : mNumberOfModelApexes (6)
 , mSampleRate (sampleRate)
 {
-  // Создадим исток - источник
+  // Creation of source
   sourceApex = new MathReverbApex (mSampleRate, kNoDelay);
 
-  // Разметим прочие вершины
+  // Other apexes
   modelApexes = (MathReverbApex*)std::malloc ((size_t) (mNumberOfModelApexes * sizeof (MathReverbApex)));
 
-  // Создадим сток - приёмник
+  // Creation of sink - reciever
   DelayPoint sinkApexDelay [6] = {
     DelayPoint (modelApexes + 0, 0.05f * mSampleRate),
     DelayPoint (modelApexes + 1, 0.05f * mSampleRate),
@@ -31,7 +31,7 @@ MathReverbGraph::MathReverbGraph (SampleRate sampleRate)
   };
   sinkApex = new MathReverbApex (sinkApexDelay, mNumberOfModelApexes, 0.8f, kNoBuffer);
 
-  // Создадим прочие вершины
+  // Creation of other apexes
   DelayPoint modelApexesDelay [6][6] = {
     {
       DelayPoint (sourceApex, 0.05f * mSampleRate),
@@ -130,7 +130,7 @@ void MathReverbGraph::setDementoinParams (float width, float height, float lengt
       , yModel = yPos
       , zModel = zPos;
 
-  // Проверка на ограничение размеров
+  // Demention params limits
   if (widthModel < 0.1f)
     widthModel = 0.1f;
   if (heightModel < 0.1f)
@@ -142,7 +142,7 @@ void MathReverbGraph::setDementoinParams (float width, float height, float lengt
       , heightModelHalf = 0.5f * heightModel
       , lengthModelHalf = 0.5f * lengthModel;
 
-  // Проверка на ограничение координат
+  // Coordinate limits
   if (xModel > widthModelHalf - 0.02f)
     xModel = widthModelHalf - 0.02f;
   if (yModel > lengthModelHalf - 0.02f)
@@ -156,7 +156,7 @@ void MathReverbGraph::setDementoinParams (float width, float height, float lengt
   if (zModel < -heightModelHalf + 0.02f)
     zModel = -heightModelHalf + 0.02f;
 
-  // Создадим новые задержки для стока
+  // Creation of new sink delays
   DelayPoint sinkApexDelay [6] = {
     DelayPoint (modelApexes + 0, 0.1f * (widthModelHalf + xModel) * mSampleRate),
     DelayPoint (modelApexes + 1, 0.1f * (heightModelHalf + zModel) * mSampleRate),
@@ -166,10 +166,10 @@ void MathReverbGraph::setDementoinParams (float width, float height, float lengt
     DelayPoint (modelApexes + 5, 0.1f * (lengthModelHalf - yModel) * mSampleRate)
   };
 
-  // Зададим стоку задержки
+  // Set delays to sink
   sinkApex->setDelayArray (sinkApexDelay, mNumberOfModelApexes);
 
-  // Создадим новые задержки для прочих вершин
+  // Creation of new other apexes delays
   DelayPoint modelApexesDelay [6][6] = {
     {
       DelayPoint (sourceApex, 0.1f * (widthModelHalf + xModel) * mSampleRate),
@@ -221,11 +221,11 @@ void MathReverbGraph::setDementoinParams (float width, float height, float lengt
     },
   };
 
-  // Зададим задержки прочим вершинам
+  // Other apexes delays settin
   for (int32 i = 0; i < mNumberOfModelApexes; i++)
     modelApexes[i].setDelayArray (modelApexesDelay[i], mNumberOfModelApexes);
 }
 
 //------------------------------------------------------------------------
-} // Пространство имён Vst
-} // Пространство имён Steinberg
+} // Vst
+} // Steinberg
