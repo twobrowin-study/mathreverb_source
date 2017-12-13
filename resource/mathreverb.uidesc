@@ -40,7 +40,7 @@
 
 		<!-- Source and receiver pos -->
 		<view class="CViewContanier" transparent="true" size="232, 168" origin="268, 422">
-			<!-- Block name --> <view class="CTextLabel" title="Координаты источника/приёмника" transparent="true" size="232, 18" origin="0, 0" font="~ NormalFontBig"/>
+			<!-- Block name --> <view class="CTextLabel" title="Source/Reciever coordinates" transparent="true" size="232, 18" origin="0, 0" font="~ NormalFontBig"/>
 
 			<!-- X pos -->
 			<view class="CViewContanier" transparent="true" size="232, 50" origin="0, 18">
