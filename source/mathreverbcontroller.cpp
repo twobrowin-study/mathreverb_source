@@ -160,7 +160,8 @@ tresult PLUGIN_API MathReverbController::setComponentState (IBStream* state)
 		setParamNormalized (kZPosId, savedZPos);
 		setParamNormalized (kBypassId, bypassState);
 
-		mathReverbView = NULL;
+		// mathReverb reconf
+		mathReverbView = (CView*) new CMathReverbView (CRect (CPoint (0, 0), CPoint (593, 370)), (SizeParameter *) getParameterObject (kWidthId), (SizeParameter *) getParameterObject (kHeightId), (SizeParameter *) getParameterObject (kLengthId), (CoordinateParameter *) getParameterObject (kXPosId), (CoordinateParameter *) getParameterObject (kYPosId), (CoordinateParameter *) getParameterObject (kZPosId));
 	}
 	return kResultTrue;
 }
