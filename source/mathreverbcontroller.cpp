@@ -197,9 +197,9 @@ CView* MathReverbController::createCustomView (UTF8StringPtr name, const UIAttri
 	const CRect rect(origin, size);
 
 	mathReverbView = (CView*) new CMathReverbView ( rect
-																								, (CoordinateParameter *) getParameterObject (kWidthId)
-																								, (CoordinateParameter *) getParameterObject (kHeightId)
-																								, (CoordinateParameter *) getParameterObject (kLengthId)
+																								, (SizeParameter *) getParameterObject (kWidthId)
+																								, (SizeParameter *) getParameterObject (kHeightId)
+																								, (SizeParameter *) getParameterObject (kLengthId)
 																								, (CoordinateParameter *) getParameterObject (kXPosId)
 																								, (CoordinateParameter *) getParameterObject (kYPosId)
 																								, (CoordinateParameter *) getParameterObject (kZPosId)
