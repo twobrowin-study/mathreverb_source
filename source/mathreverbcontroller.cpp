@@ -150,29 +150,28 @@ tresult PLUGIN_API MathReverbController::setComponentState (IBStream* state)
 		#endif
 
 		// Setting params
-		setParamNormalized (kGainId, savedGain, kNoCMathReverb);
-		setParamNormalized (kWidthId, savedWidth, kNoCMathReverb);
-		setParamNormalized (kHeightId, savedHeight, kNoCMathReverb);
-		setParamNormalized (kLengthId, savedLength, kNoCMathReverb);
-		setParamNormalized (kReflectionId, savedReflection, kNoCMathReverb);
-		setParamNormalized (kXPosId, savedXPos, kNoCMathReverb);
-		setParamNormalized (kYPosId, savedYPos, kNoCMathReverb);
-		setParamNormalized (kZPosId, savedZPos, kNoCMathReverb);
-		setParamNormalized (kBypassId, bypassState, kNoCMathReverb);
+		setParamNormalized (kGainId, savedGain);
+		setParamNormalized (kWidthId, savedWidth);
+		setParamNormalized (kHeightId, savedHeight);
+		setParamNormalized (kLengthId, savedLength);
+		setParamNormalized (kReflectionId, savedReflection);
+		setParamNormalized (kXPosId, savedXPos);
+		setParamNormalized (kYPosId, savedYPos);
+		setParamNormalized (kZPosId, savedZPos);
+		setParamNormalized (kBypassId, bypassState);
 	}
 	return kResultTrue;
 }
 
 //------------------------------------------------------------------------
-tresult PLUGIN_API MathReverbController::setParamNormalized (ParamID tag, ParamValue value, int32 key)
+tresult PLUGIN_API MathReverbController::setParamNormalized (ParamID tag, ParamValue value)
 {
 	tresult result = EditControllerEx1::setParamNormalized (tag, value);
 	// Updating objects
 	((CoordinateParameter *) getParameterObject (kXPosId)) -> updateLimit ();
 	((CoordinateParameter *) getParameterObject (kYPosId)) -> updateLimit ();
 	((CoordinateParameter *) getParameterObject (kZPosId)) -> updateLimit ();
-	if (key == kWithCMathReverb)
-		((CMathReverbView *) mathReverbView) -> update ();
+	((CMathReverbView *) mathReverbView) -> update ();
 	return result;
 }
 
