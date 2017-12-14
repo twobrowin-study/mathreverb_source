@@ -95,6 +95,10 @@ tresult PLUGIN_API MathReverbController::initialize (FUnknown* context)
 	tag = kBypassId;
 	parameters.addParameter (STR16 ("Bypass"), 0, stepCount, defaultVal, flags, tag);
 
+	// CMathReverbView
+	CRect size (CPoint (0, 0), CPoint (593, 370));
+	mathReverbView = new CMathReverbView (size, widthParam, heightParam, lengthParam, xPosParam, yPosParam, zPosParam);
+
 	return result;
 }
 
@@ -186,16 +190,25 @@ IPlugView* PLUGIN_API MathReverbController::createView (const char* name)
 //-----------------------------------------------------------------------
 CView* MathReverbController::createCustomView (UTF8StringPtr name, const UIAttributes &attributes, const IUIDescription *description, VST3Editor *editor)
 {
+	// Getting attributes
+	CPoint origin, size;
+	attributes.getPointAttribute ("origin", origin);
+	attributes.getPointAttribute ("size", size);
+	const CRect rect(origin, size);
+
+	mathReverbView = (CView*) new CMathReverbView ( rect
+																								, (CoordinateParameter *) getParameterObject (kWidthId)
+																								, (CoordinateParameter *) getParameterObject (kHeightId)
+																								, (CoordinateParameter *) getParameterObject (kLengthId)
+																								, (CoordinateParameter *) getParameterObject (kXPosId)
+																								, (CoordinateParameter *) getParameterObject (kYPosId)
+																								, (CoordinateParameter *) getParameterObject (kZPosId)
+																								);
+
+  ((CMathReverbView *) mathReverbView) -> update ();
+
 	// There is no other options - returning CMathReverbView
-	CRect size (CPoint (0, 0), CPoint (593, 370));
-	return (CView*) new CMathReverbView ( size
-																			, (CoordinateParameter *) getParameterObject (kWidthId)
-																			, (CoordinateParameter *) getParameterObject (kHeightId)
-																			, (CoordinateParameter *) getParameterObject (kLengthId)
-																			, (CoordinateParameter *) getParameterObject (kXPosId)
-																			, (CoordinateParameter *) getParameterObject (kYPosId)
-																			, (CoordinateParameter *) getParameterObject (kZPosId)
-																			);
+	return mathReverbView;
 }
 
 //------------------------------------------------------------------------
