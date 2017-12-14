@@ -159,6 +159,8 @@ tresult PLUGIN_API MathReverbController::setComponentState (IBStream* state)
 		setParamNormalized (kYPosId, savedYPos);
 		setParamNormalized (kZPosId, savedZPos);
 		setParamNormalized (kBypassId, bypassState);
+
+		mathReverbView = NULL;
 	}
 	return kResultTrue;
 }
