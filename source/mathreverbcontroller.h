@@ -37,6 +37,10 @@ public:
 
 	// Set some param
 	tresult PLUGIN_API setParamNormalized (ParamID tag, ParamValue value, int32 key = kWithCMathReverb);
+	tresult PLUGIN_API setParamNormalized (ParamID tag, ParamValue value) SMTG_OVERRIDE
+	{
+		return setParamNormalized (tag, value, kWithCMathReverb);
+	}
 
 	//---From VST3EditorDelegate---
 	// Create our view
