@@ -36,7 +36,7 @@ public:
 	tresult PLUGIN_API setComponentState (IBStream* state) SMTG_OVERRIDE;
 
 	// Set some param
-	tresult PLUGIN_API setParamNormalized (ParamID tag, ParamValue value, int32 key = kWithCMathReverb) SMTG_OVERRIDE;
+	tresult setParamNormalized (ParamID tag, ParamValue value, int32 key = kWithCMathReverb);
 
 	//---From VST3EditorDelegate---
 	// Create our view
