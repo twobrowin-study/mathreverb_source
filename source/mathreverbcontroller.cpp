@@ -150,31 +150,29 @@ tresult PLUGIN_API MathReverbController::setComponentState (IBStream* state)
 		#endif
 
 		// Setting params
-		setParamNormalized (kGainId, savedGain);
-		setParamNormalized (kWidthId, savedWidth);
-		setParamNormalized (kHeightId, savedHeight);
-		setParamNormalized (kLengthId, savedLength);
-		setParamNormalized (kReflectionId, savedReflection);
-		setParamNormalized (kXPosId, savedXPos);
-		setParamNormalized (kYPosId, savedYPos);
-		setParamNormalized (kZPosId, savedZPos);
-		setParamNormalized (kBypassId, bypassState);
-
-		// mathReverb reconf
-		mathReverbView = (CView*) new CMathReverbView (CRect (CPoint (0, 0), CPoint (593, 370)), (SizeParameter *) getParameterObject (kWidthId), (SizeParameter *) getParameterObject (kHeightId), (SizeParameter *) getParameterObject (kLengthId), (CoordinateParameter *) getParameterObject (kXPosId), (CoordinateParameter *) getParameterObject (kYPosId), (CoordinateParameter *) getParameterObject (kZPosId));
+		setParamNormalized (kGainId, savedGain, kNoCMathReverb);
+		setParamNormalized (kWidthId, savedWidth, kNoCMathReverb);
+		setParamNormalized (kHeightId, savedHeight, kNoCMathReverb);
+		setParamNormalized (kLengthId, savedLength, kNoCMathReverb);
+		setParamNormalized (kReflectionId, savedReflection, kNoCMathReverb);
+		setParamNormalized (kXPosId, savedXPos, kNoCMathReverb);
+		setParamNormalized (kYPosId, savedYPos, kNoCMathReverb);
+		setParamNormalized (kZPosId, savedZPos, kNoCMathReverb);
+		setParamNormalized (kBypassId, bypassState, kNoCMathReverb);
 	}
 	return kResultTrue;
 }
 
 //------------------------------------------------------------------------
-tresult PLUGIN_API MathReverbController::setParamNormalized (ParamID tag, ParamValue value)
+tresult PLUGIN_API MathReverbController::setParamNormalized (ParamID tag, ParamValue value, int32 key)
 {
 	tresult result = EditControllerEx1::setParamNormalized (tag, value);
 	// Updating objects
 	((CoordinateParameter *) getParameterObject (kXPosId)) -> updateLimit ();
 	((CoordinateParameter *) getParameterObject (kYPosId)) -> updateLimit ();
 	((CoordinateParameter *) getParameterObject (kZPosId)) -> updateLimit ();
-	((CMathReverbView *) mathReverbView) -> update ();
+	if (key == kWithCMathReverb)
+		((CMathReverbView *) mathReverbView) -> update ();
 	return result;
 }
 

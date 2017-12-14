@@ -8,6 +8,13 @@
 namespace Steinberg {
 namespace Vst {
 
+// Addictive key structure
+enum ParamSets
+{
+		kWithCMathReverb
+	, kNoCMathReverb
+};
+
 //------------------------------------------------------------------------
 // MathReverbController: Decloration
 //------------------------------------------------------------------------
@@ -29,7 +36,7 @@ public:
 	tresult PLUGIN_API setComponentState (IBStream* state) SMTG_OVERRIDE;
 
 	// Set some param
-	tresult PLUGIN_API setParamNormalized (ParamID tag, ParamValue value) SMTG_OVERRIDE;
+	tresult PLUGIN_API setParamNormalized (ParamID tag, ParamValue value, int32 key = kWithCMathReverb) SMTG_OVERRIDE;
 
 	//---From VST3EditorDelegate---
 	// Create our view
