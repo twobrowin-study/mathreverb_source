@@ -164,9 +164,9 @@ tresult PLUGIN_API MathReverbController::setComponentState (IBStream* state)
 }
 
 //------------------------------------------------------------------------
-tresult MathReverbController::setParamNormalized (ParamID tag, ParamValue value, int32 key)
+tresult PLUGIN_API MathReverbController::setParamNormalized (ParamID tag, ParamValue value, int32 key)
 {
-	tresult result = setParamNormalized (tag, value);
+	tresult result = EditControllerEx1::setParamNormalized (tag, value);
 	// Updating objects
 	((CoordinateParameter *) getParameterObject (kXPosId)) -> updateLimit ();
 	((CoordinateParameter *) getParameterObject (kYPosId)) -> updateLimit ();
