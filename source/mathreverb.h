@@ -30,6 +30,9 @@ public:
 	tresult PLUGIN_API getState (IBStream* state) SMTG_OVERRIDE;
 	tresult PLUGIN_API setState (IBStream* state) SMTG_OVERRIDE;
 
+	/** Asks if a given sample size is supported see \ref SymbolicSampleSizes. */
+	tresult PLUGIN_API canProcessSampleSize (int32 symbolicSampleSize) SMTG_OVERRIDE;
+
 protected:
 	// Process
 	template <typename SampleType>

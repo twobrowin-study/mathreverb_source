@@ -254,6 +254,19 @@ tresult PLUGIN_API MathReverb::setState (IBStream* state)
 }
 
 //------------------------------------------------------------------------
+tresult PLUGIN_API MathReverb::canProcessSampleSize (int32 symbolicSampleSize)
+{
+	if (symbolicSampleSize == kSample32)
+		return kResultTrue;
+
+	// we support double processing
+	if (symbolicSampleSize == kSample64)
+		return kResultTrue;
+
+	return kResultFalse;
+}
+
+//------------------------------------------------------------------------
 void MathReverb::getInputParamChanges (IParameterChanges* paramChanges)
 {
 	if (paramChanges)
@@ -342,7 +355,6 @@ void MathReverb::setOutputParamChanges (IParameterChanges* paramChanges, float f
 	}
 	fVuPPMOld = fVuPPM;
 }
-
 
 //------------------------------------------------------------------------
 } // Vst
