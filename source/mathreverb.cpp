@@ -139,7 +139,7 @@ tresult PLUGIN_API MathReverb::process (ProcessData& data)
 		data.outputs[0].silenceFlags = 0;
 
 		// Process with help of template
-		if (data.symbolicSampleSize == kSample32)
+		if (data.symbolicSampleSize == kSample64)
 			fVuPPM = processAudio<Sample32> ((Sample32**)in, (Sample32**)out, numChannels, data.numSamples);
 		// else
 		// 	fVuPPM = processAudio<Sample64> ((Sample64**)in, (Sample64**)out, numChannels, data.numSamples);
