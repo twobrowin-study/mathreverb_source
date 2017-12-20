@@ -28,9 +28,9 @@
 
 #define stringOriginalFilename	"mathreverb.vst3" // Output filename
 #if PLATFORM_64
-#define stringFileDescription	"MathReverb VST3 (64Bit)" // 64Bit name
+#define stringFileDescription	"MathReverb (64Bit)" // 64Bit name
 #else
-#define stringFileDescription	"MathReverb VST3" // 32Bit name
+#define stringFileDescription	"MathReverb" // 32Bit name
 #endif
 #define stringCompanyName		"BMSTU\0" // Company
 #define stringLegalCopyright	"2017 Dubrovin Egor dubrovin.en@gmail.com" // Developer info
