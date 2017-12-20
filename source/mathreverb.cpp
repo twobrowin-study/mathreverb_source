@@ -259,7 +259,7 @@ tresult PLUGIN_API MathReverb::canProcessSampleSize (int32 symbolicSampleSize)
 	if (symbolicSampleSize == kSample32)
 		return kResultTrue;
 
-	// we support double processing
+	// We support double processing
 	if (symbolicSampleSize == kSample64)
 		return kResultTrue;
 
