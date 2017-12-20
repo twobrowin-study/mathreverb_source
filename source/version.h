@@ -5,16 +5,16 @@
 // Plugin version
 
 // Major version
-#define MAJOR_VERSION_STR "1"
-#define MAJOR_VERSION_INT 1
+#define MAJOR_VERSION_STR "2"
+#define MAJOR_VERSION_INT 2
 
 // Sub version
-#define SUB_VERSION_STR "5"
-#define SUB_VERSION_INT 5
+#define SUB_VERSION_STR "0"
+#define SUB_VERSION_INT 0
 
 // Release number
-#define RELEASE_NUMBER_STR "1"
-#define RELEASE_NUMBER_INT 1
+#define RELEASE_NUMBER_STR "0"
+#define RELEASE_NUMBER_INT 0
 
 // Build number
 #define BUILD_NUMBER_STR "1"
