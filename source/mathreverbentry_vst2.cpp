@@ -4,5 +4,5 @@
 //------------------------------------------------------------------------
 ::AudioEffect* createEffectInstance (audioMasterCallback audioMaster)
 {
-	return Steinberg::Vst::Vst2Wrapper::create (GetPluginFactory (), Steinberg::Vst::AMathReverbProcessorUID, 'MRbV2', audioMaster);
+	return Steinberg::Vst::Vst2Wrapper::create (GetPluginFactory (), Steinberg::Vst::MathReverbProcessorUID, 'MRbV2', audioMaster);
 }
